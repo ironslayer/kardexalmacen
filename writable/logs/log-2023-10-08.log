@@ -1,0 +1,40 @@
+CRITICAL - 2023-10-08 09:19:19 --> Invalid file: "unidades/unidades.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('unidades/unidades.php')
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('unidades/unidades', [], true)
+ 3 APPPATH\Controllers\Unidades.php(24): view('unidades/unidades', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Unidades->index()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Unidades))
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-08 09:19:25 --> Invalid file: "unidades/unidades.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('unidades/unidades.php')
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('unidades/unidades', [], true)
+ 3 APPPATH\Controllers\Unidades.php(24): view('unidades/unidades', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Unidades->index()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Unidades))
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-08 10:06:57 --> Undefined variable: data
+in APPPATH\Views\unidades\unidades.php on line 26.
+ 1 APPPATH\Views\unidades\unidades.php(26): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: data', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\unidades\\unidades.php', 26, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\unidades\\unidades.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('unidades/unidades', [], true)
+ 5 APPPATH\Controllers\Unidades.php(24): view('unidades/unidades', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Unidades->index()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Unidades))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-08 10:09:05 --> Undefined variable: data
+in APPPATH\Views\unidades\unidades.php on line 26.
+ 1 APPPATH\Views\unidades\unidades.php(26): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: data', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\unidades\\unidades.php', 26, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\unidades\\unidades.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('unidades/unidades', [], true)
+ 5 APPPATH\Controllers\Unidades.php(24): view('unidades/unidades', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Unidades->index()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Unidades))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
