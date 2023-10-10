@@ -32,7 +32,7 @@
 
                                 <td> <a href="<?php echo base_url().'unidades/editar/'.$dato['id_unidadmedida']; ?>" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a></td>
 
-                                <td> <a href="<?php echo base_url().'unidades/eliminar/'.$dato['id_unidadmedida']; ?>" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
+                                <td> <a href="#" data-href="<?php echo base_url().'unidades/eliminar/'.$dato['id_unidadmedida']; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirma" title="Eliminar registro" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
 
 
 
@@ -46,3 +46,24 @@
             </div>
         </div>
     </main>
+
+    <!-- modal -->
+    <div class="modal fade" id="modalConfirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar registro</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea eliminar este registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary btn-ok">Si</a>
+            </div>
+            </div>
+        </div>
+    </div>

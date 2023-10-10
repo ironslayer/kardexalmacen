@@ -8,8 +8,9 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Kardex de Almacen</title>
+    <link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>css/style.min.css" rel="stylesheet" />
-    <link href=" <?php echo base_url(); ?>css/styles.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>css/styles.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>js/all.js"></script>
 </head>
 
