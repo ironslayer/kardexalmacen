@@ -1,0 +1,11 @@
+CRITICAL - 2023-10-10 06:50:36 --> Undefined index: id_unidadmedida
+in APPPATH\Views\producto\producto.php on line 33.
+ 1 APPPATH\Views\producto\producto.php(33): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: id_unidadmedida', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\producto\\producto.php', 33, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\producto\\producto.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('producto/producto', [], true)
+ 5 APPPATH\Controllers\Producto.php(24): view('producto/producto', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Producto->index()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Producto))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
