@@ -3,7 +3,11 @@
         <div class="container-fluid px-4">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
-            <form action="<?php echo base_url(); ?>unidades/insertar" method="Post" autocomplete="off">
+            <?php \Config\Services::validation()->listErrors(); ?>
+
+            <form action="<?php echo base_url(); ?>unidades/insertar" method="post" autocomplete="off">
+
+            <?php csrf_field(); ?>
 
                 <div class="form-control-plaintext">
                     <div class="row">

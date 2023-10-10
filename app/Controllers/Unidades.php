@@ -36,8 +36,17 @@ class Unidades extends BaseController
 
     public function insertar()
     {
-        $this->unidades->save(['nombre_unidad'=>$this->request->getPost('nombre')] );
-        return redirect()->to(base_url().'unidades');
+        if($this->request->is('post') && $this->validate(['nombre'=>'required'])){
+            $this->unidades->save(['nombre_unidad'=>$this->request->getPost('nombre')] );
+            return redirect()->to(base_url().'unidades');
+        }else{
+            $data = ['titulo' => 'Agregar Unidad de Medida', 'validation'=>$this->validator];
+
+            echo view('header');
+            echo view('unidades/nuevo',$data);
+            echo view('footer');
+        }
+        
     }
 
     public function editar($id_unidadmedida)

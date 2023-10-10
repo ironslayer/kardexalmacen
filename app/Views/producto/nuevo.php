@@ -3,7 +3,7 @@
         <div class="container-fluid px-4">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
-            <form action="<?php echo base_url(); ?>producto/insertar" method="Post" autocomplete="off">
+            <form action="<?php echo base_url(); ?>producto/insertar" method="post" autocomplete="off">
 
                 <div class="form-control-plaintext">
                     <div class="row">
