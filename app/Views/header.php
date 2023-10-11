@@ -56,7 +56,7 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Items</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>item">Items</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>producto">Productos/Categorias</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>unidades">Unidad de Medida</a>
                             </nav>

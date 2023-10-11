@@ -1,0 +1,22 @@
+CRITICAL - 2023-10-11 06:31:49 --> Undefined variable: unidad
+in APPPATH\Views\item\nuevo.php on line 26.
+ 1 APPPATH\Views\item\nuevo.php(26): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: unidad', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\item\\nuevo.php', 26, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\item\\nuevo.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('item/nuevo', [], true)
+ 5 APPPATH\Controllers\Item.php(43): view('item/nuevo', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Item->nuevo()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Item))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-11 07:28:27 --> Undefined index: unidad_medida
+in APPPATH\Views\item\item.php on line 36.
+ 1 APPPATH\Views\item\item.php(36): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: unidad_medida', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\item\\item.php', 36, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\item\\item.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('item/item', [], true)
+ 5 APPPATH\Controllers\Item.php(32): view('item/item', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Item->index()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Item))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
