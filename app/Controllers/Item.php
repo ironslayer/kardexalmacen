@@ -26,7 +26,7 @@ class Item extends BaseController
     public function index($activo=1)
     {
         $info1 = $this->item->where('activo', $activo)->findAll();
-        $info2 = $this->unidades->where('activo', $activo)->findAll();
+        $info2 = $this->unidades->findAll();
 
         $data = ['titulo' => 'Items', 'datos' => $info1, 'datos2'=>$info2];
 
@@ -64,8 +64,8 @@ class Item extends BaseController
 
     public function editar($id_item)
     {
-        $info1 = $this->unidades->where('activo', 1)->findAll();
-        $info2 = $this->producto->where('activo', 1)->findAll();
+        $info1 = $this->unidades->findAll();
+        $info2 = $this->producto->findAll();
         $items = $this->item->where('id_item', $id_item)->first();
         $data = ['titulo' => 'Editar item', 'unidades'=>$info1, 'productos'=>$info2, 'item'=>$items];
 
