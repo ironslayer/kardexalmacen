@@ -1,4 +1,4 @@
-    <footer class="py-4 bg-light mt-auto">
+        <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted">Copyright &copy; Kardex de Almacén <?php  echo date('Y'); ?></div>
@@ -12,7 +12,7 @@
         </footer>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>js/bootstrap.min.js"></script>
+
 <script src="<?php echo base_url(); ?>js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo base_url(); ?>js/scripts.js"></script>
 <script src="<?php echo base_url(); ?>js/simple-datatables.min.js"></script>
