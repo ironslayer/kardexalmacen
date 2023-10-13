@@ -13,6 +13,7 @@ class Item extends BaseController
     protected $item;
     protected $unidades;
     protected $producto;
+    protected $reglas;
 
 
     public function __construct()
@@ -20,6 +21,16 @@ class Item extends BaseController
         $this->item = new ItemModel();
         $this->unidades = new UnidadesModel();
         $this->producto = new ProductoModel();
+        helper(['form']);
+
+        $this->reglas = [
+            'descripcion' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'El campo {field} es obligatorio.'
+                ]
+            ]
+        ];
 
     }
 
@@ -48,12 +59,14 @@ class Item extends BaseController
 
     public function insertar()
     {
-        if($this->request->is('post')){
+        if($this->request->is('post') && $this->validate($this->reglas)){
             $this->item->save([
                 'descripcion'=>$this->request->getPost('descripcion'),'id_producto'=>$this->request->getPost('id_producto'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
             return redirect()->to(base_url().'item');
         }else{
-            $data = ['titulo' => 'Agregar Items', 'validation'=>$this->validator];
+            $info1 = $this->unidades->where('activo', 1)->findAll();
+            $info2 = $this->producto->where('activo', 1)->findAll();
+            $data = ['titulo' => 'Agregar Items', 'unidades'=>$info1, 'productos'=>$info2, 'validation'=>$this->validator];
 
             echo view('header');
             echo view('item/nuevo',$data);
@@ -62,13 +75,18 @@ class Item extends BaseController
         
     }
 
-    public function editar($id_item)
+    public function editar($id_item, $valid=null)
     {
+
         $info1 = $this->unidades->findAll();
         $info2 = $this->producto->findAll();
         $items = $this->item->where('id_item', $id_item)->first();
-        $data = ['titulo' => 'Editar item', 'unidades'=>$info1, 'productos'=>$info2, 'item'=>$items];
-
+        
+        if($valid != null){
+            $data = ['titulo' => 'Editar item', 'unidades'=>$info1, 'productos'=>$info2, 'item'=>$items, 'validation' =>$valid];
+        }else{
+            $data = ['titulo' => 'Editar item', 'unidades'=>$info1, 'productos'=>$info2, 'item'=>$items];
+        }
 
         echo view('header');
         echo view('item/editar',$data);
@@ -78,10 +96,18 @@ class Item extends BaseController
     public function actualizar()
     {
 
-        $this->item->update($this->request->getPost('id_item'),[
-            'descripcion'=>$this->request->getPost('descripcion'),'id_producto'=>$this->request->getPost('id_producto'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
+        // $this->item->update($this->request->getPost('id_item'),[
+        //     'descripcion'=>$this->request->getPost('descripcion'),'id_producto'=>$this->request->getPost('id_producto'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
 
-        return redirect()->to(base_url().'item');
+        // return redirect()->to(base_url().'item');
+
+        if ($this->request->is('post') && $this->validate($this->reglas)) {
+            $this->item->update($this->request->getPost('id_item'),[
+                'descripcion'=>$this->request->getPost('descripcion'),'id_producto'=>$this->request->getPost('id_producto'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
+            return redirect()->to(base_url() . 'item');
+        }else{
+            return $this->editar($this->request->getPost('id_item'), $this->validator);
+        }
     }
 
     public function eliminar($id)

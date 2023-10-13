@@ -3,18 +3,22 @@
         <div class="container-fluid px-4">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
-            <?php \Config\Services::validation()->listErrors(); ?>
+            <?php if(isset($validation)){ ?>
+            <div class="alert alert-danger">
+            <?php echo $validation->listErrors(); ?>
+            </div> 
+            <?php } ?>
 
             <form action="<?php echo base_url(); ?>item/insertar" method="post" autocomplete="off">
 
-                <?php csrf_field(); ?>
+ 
                 <!-- primera fila -->
                 <div class="form-control-plaintext">
                     <div class="row">
                         <div class="col-12 col-sm-6">
 
                             <label for="">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" name="descripcion" autofocus required />
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" value="<?php echo set_value('descripcion'); ?>" autofocus required />
 
                         </div>
 
