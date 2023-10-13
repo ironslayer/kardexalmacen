@@ -1,0 +1,20 @@
+CRITICAL - 2023-10-12 07:43:23 --> Function name must be a string
+in APPPATH\Views\unidades\nuevo.php on line 8.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('unidades/nuevo', [], true)
+ 4 APPPATH\Controllers\Unidades.php(50): view('unidades/nuevo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Unidades->insertar()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Unidades))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-12 07:52:58 --> Function name must be a string
+in APPPATH\Views\unidades\nuevo.php on line 8.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('unidades/nuevo', [], true)
+ 4 APPPATH\Controllers\Unidades.php(57): view('unidades/nuevo', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Unidades->insertar()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Unidades))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

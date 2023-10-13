@@ -1,0 +1,31 @@
+CRITICAL - 2023-10-13 08:44:22 --> Undefined index: id_producto
+in APPPATH\Views\proveedor\editar.php on line 14.
+ 1 APPPATH\Views\proveedor\editar.php(14): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: id_producto', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\proveedor\\editar.php', 14, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\proveedor\\editar.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('proveedor/editar', [], true)
+ 5 APPPATH\Controllers\Proveedor.php(103): view('proveedor/editar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Proveedor->editar('1')
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Proveedor))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-13 08:44:59 --> Function name must be a string
+in APPPATH\Views\proveedor\editar.php on line 30.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('proveedor/editar', [], true)
+ 4 APPPATH\Controllers\Proveedor.php(103): view('proveedor/editar', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Proveedor->editar('1')
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Proveedor))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-13 08:51:49 --> Function name must be a string
+in APPPATH\Views\proveedor\editar.php on line 30.
+ 1 SYSTEMPATH\View\View.php(226): include()
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('proveedor/editar', [], true)
+ 4 APPPATH\Controllers\Proveedor.php(103): view('proveedor/editar', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Proveedor->editar('1')
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Proveedor))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

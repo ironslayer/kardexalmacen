@@ -122,7 +122,7 @@ class Item extends BaseController
         $info1 = $this->item->where('activo', $activo)->findAll();
         $info2 = $this->unidades->findAll();
 
-        $data = ['titulo' => 'Items eliminados', 'datos' => $info1, 'datos2'=>$info2];
+        $data = ['titulo' => 'Items Eliminados', 'datos' => $info1, 'datos2'=>$info2];
 
         echo view('header');
         echo view('item/eliminados',$data);

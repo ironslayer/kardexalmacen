@@ -95,7 +95,7 @@ class Unidades extends BaseController
     public function eliminados($activo = 0)
     {
         $info = $this->unidades->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Unidades Elmininadas', 'datos' => $info];
+        $data = ['titulo' => 'Unidades Eliminadas', 'datos' => $info];
 
         echo view('header');
         echo view('unidades/eliminados', $data);

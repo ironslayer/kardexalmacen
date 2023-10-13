@@ -90,8 +90,8 @@
                         </a>
                         <div class="collapse" id="subAdministracion" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url(); ?>producto">Personal</a>
-                                <a class="nav-link" href="<?php echo base_url(); ?>unidades">Proveedor</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>usuario">Personal</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>proveedor">Proveedor</a>
                             </nav>
                         </div>
 
@@ -114,6 +114,8 @@
                         <a class="nav-link" href="<?php echo base_url(); ?>graficos">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-line"></i></div>Gráficos
                         </a>
+
+                        <!-- ------ -->
 
                     </div>
 

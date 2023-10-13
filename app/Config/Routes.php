@@ -6,6 +6,15 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+
+
+// RUTAS PARA EL PRIMER SUB MENÚ
+
+
+
+
+// RUTAS PARA EL SEGUNDO SUB MENÚ
+
 //  rutas para unidad
 $routes->get('/', 'Home::index');
 $routes->get('unidades', 'Unidades::index');
@@ -39,9 +48,24 @@ $routes->get('item/eliminar/(:alphanum)', 'Item::eliminar/$1');
 $routes->get('item/eliminados', 'Item::eliminados');
 $routes->get('item/reingresar/(:alphanum)', 'Item::reingresar/$1');
 
+// RUTAS PARA EL TERCER SUB MENÚ
+
+//  rutas para proveedor
+$routes->get('/', 'Home::index');
+$routes->get('proveedor', 'Proveedor::index');
+$routes->get('proveedor/nuevo', 'Proveedor::nuevo');
+$routes->post('proveedor/insertar', 'Proveedor::insertar');
+$routes->get('proveedor/editar/(:alphanum)', 'Proveedor::editar/$1');
+$routes->post('proveedor/actualizar', 'Proveedor::actualizar');
+$routes->get('proveedor/eliminar/(:alphanum)', 'Proveedor::eliminar/$1');
+$routes->get('proveedor/eliminados', 'Proveedor::eliminados');
+$routes->get('proveedor/reingresar/(:alphanum)', 'Proveedor::reingresar/$1');
+
+// RUTAS PARA EL CUARTO SUB MENÚ
 
 
 
+// RUTAS PARA EL QUINTO SUB MENÚ
 
 
 

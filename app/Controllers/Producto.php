@@ -94,7 +94,7 @@ class Producto extends BaseController
     public function eliminados($activo=0)
     {
         $info = $this->producto->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Productos Elmininados', 'datos' => $info];
+        $data = ['titulo' => 'Productos Eliminados', 'datos' => $info];
 
         echo view('header');
         echo view('producto/eliminados',$data);
