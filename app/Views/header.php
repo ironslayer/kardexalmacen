@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -27,8 +27,20 @@
                 <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             </div>
         </form> -->
-        <!-- Navbar-->
-
+        <!-- Rol de usuario-->
+        <ul class="navbar-nav ms-auto me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -36,13 +48,31 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
 
+                        <!-- primer subnav -->
 
-                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#subMovimiento" aria-expanded="false" aria-controls="subMovimiento">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-shopping-basket"></i></div>
+                            Movimientos
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="subMovimiento" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo base_url(); ?>entrada">Entrada al Almacén</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>salida">Salida del Almacén</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>tipoentrada">Tipo de Ingreso</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>tiposalida">Tipo de Egreso</a>
+                            </nav>
+                        </div>
+
+                        <!-- segundo subnav -->
+
+
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#subItem" aria-expanded="false" aria-controls="subItem">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
                             Items
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <div class="collapse" id="subItem" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?php echo base_url(); ?>item">Items</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>producto">Productos/Categorias</a>
@@ -51,8 +81,43 @@
                         </div>
 
 
+                        <!-- tercer subnav -->
+
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#subAdministracion" aria-expanded="false" aria-controls="subAdministracion">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                            Administración
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="subAdministracion" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo base_url(); ?>producto">Personal</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>unidades">Proveedor</a>
+                            </nav>
+                        </div>
+
+                        <!-- cuarto subnav -->
+
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#subReportes" aria-expanded="false" aria-controls="subReportes">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i></div>
+                            Reportes
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="subReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?php echo base_url(); ?>producto">Reporte1</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>unidades">Reporte2</a>
+                            </nav>
+                        </div>
+
+                        <!-- quinto subnav -->
+
+                        <a class="nav-link" href="<?php echo base_url(); ?>graficos">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-line"></i></div>Gráficos
+                        </a>
 
                     </div>
+
+
                 </div>
 
             </nav>
