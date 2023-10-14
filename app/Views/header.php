@@ -59,8 +59,8 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?php echo base_url(); ?>entrada">Entrada al Almacén</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>salida">Salida del Almacén</a>
-                                <a class="nav-link" href="<?php echo base_url(); ?>tipoentrada">Tipo de Ingreso</a>
-                                <a class="nav-link" href="<?php echo base_url(); ?>tiposalida">Tipo de Egreso</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>tentrada">Tipo de Ingreso</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>tsalida">Tipo de Egreso</a>
                             </nav>
                         </div>
 

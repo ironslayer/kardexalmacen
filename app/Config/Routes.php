@@ -6,17 +6,35 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+ $routes->get('/', 'Home::index');
 
 
 // RUTAS PARA EL PRIMER SUB MENÚ
 
+//  rutas para tipo entrada
+$routes->get('tentrada', 'Tentrada::index');
+$routes->get('tentrada/nuevo', 'Tentrada::nuevo');
+$routes->post('tentrada/insertar', 'Tentrada::insertar');
+$routes->get('tentrada/editar/(:alphanum)', 'Tentrada::editar/$1');
+$routes->post('tentrada/actualizar', 'Tentrada::actualizar');
+$routes->get('tentrada/eliminar/(:alphanum)', 'Tentrada::eliminar/$1');
+$routes->get('tentrada/eliminados', 'Tentrada::eliminados');
+$routes->get('tentrada/reingresar/(:alphanum)', 'Tentrada::reingresar/$1');
 
+//  rutas para tipo salida
+$routes->get('tsalida', 'Tsalida::index');
+$routes->get('tsalida/nuevo', 'Tsalida::nuevo');
+$routes->post('tsalida/insertar', 'Tsalida::insertar');
+$routes->get('tsalida/editar/(:alphanum)', 'Tsalida::editar/$1');
+$routes->post('tsalida/actualizar', 'Tsalida::actualizar');
+$routes->get('tsalida/eliminar/(:alphanum)', 'Tsalida::eliminar/$1');
+$routes->get('tsalida/eliminados', 'Tsalida::eliminados');
+$routes->get('tsalida/reingresar/(:alphanum)', 'Tsalida::reingresar/$1');
 
 
 // RUTAS PARA EL SEGUNDO SUB MENÚ
 
 //  rutas para unidad
-$routes->get('/', 'Home::index');
 $routes->get('unidades', 'Unidades::index');
 $routes->get('unidades/nuevo', 'Unidades::nuevo');
 $routes->post('unidades/insertar', 'Unidades::insertar');
@@ -27,7 +45,6 @@ $routes->get('unidades/eliminados', 'Unidades::eliminados');
 $routes->get('unidades/reingresar/(:alphanum)', 'Unidades::reingresar/$1');
 
 //  rutas para producto
-$routes->get('/', 'Home::index');
 $routes->get('producto', 'Producto::index');
 $routes->get('producto/nuevo', 'Producto::nuevo');
 $routes->post('producto/insertar', 'Producto::insertar');
@@ -38,7 +55,6 @@ $routes->get('producto/eliminados', 'Producto::eliminados');
 $routes->get('producto/reingresar/(:alphanum)', 'Producto::reingresar/$1');
 
 //  rutas para item
-$routes->get('/', 'Home::index');
 $routes->get('item', 'Item::index');
 $routes->get('item/nuevo', 'Item::nuevo');
 $routes->post('item/insertar', 'Item::insertar');
@@ -51,7 +67,6 @@ $routes->get('item/reingresar/(:alphanum)', 'Item::reingresar/$1');
 // RUTAS PARA EL TERCER SUB MENÚ
 
 //  rutas para proveedor
-$routes->get('/', 'Home::index');
 $routes->get('proveedor', 'Proveedor::index');
 $routes->get('proveedor/nuevo', 'Proveedor::nuevo');
 $routes->post('proveedor/insertar', 'Proveedor::insertar');
