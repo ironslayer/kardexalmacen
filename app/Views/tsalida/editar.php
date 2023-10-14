@@ -19,7 +19,7 @@
                         <div class="col-12 col-sm-6">
 
                             <label for="">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos['nombre_salida']; ?>" autofocus  />
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $datos['nombre_salida']; ?>" autofocus required />
 
                         </div>
                     </div>
