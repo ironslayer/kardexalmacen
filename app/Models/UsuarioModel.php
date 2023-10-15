@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProveedorModel extends Model
+class UsuarioModel extends Model
 {
-    protected $table      = 'proveedor';
-    protected $primaryKey = 'id_proveedor';
+    protected $table      = 'usuario';
+    protected $primaryKey = 'id_usuario';
 
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['nombre_proveedor', 'contacto',  'direccion',  'ciudad', 'telefono', 'activo'];
+    protected $allowedFields = ['nombre_usuario', 'ci',  'cargo',  'activo', 'usuario', 'password'];
 
     // Dates
     protected $useTimestamps = true;

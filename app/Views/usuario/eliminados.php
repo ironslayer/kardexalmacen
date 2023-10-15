@@ -6,7 +6,7 @@
             <div>
                 <p>
      
-                    <a href="<?php echo base_url() ?>proveedor" class="btn btn-warning">Proveedores</a>
+                    <a href="<?php echo base_url() ?>usuario" class="btn btn-warning">Usuarios</a>
 
                 </p>
             </div>
@@ -16,10 +16,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Contacto</th>
-                            <th>Direccion</th>
-                            <th>Ciudad</th>
-                            <th>Teléfono</th>
+                            <th>Carnet</th>
+                            <th>Cargo</th>
+                            <th>Usuario</th>
                             <th width="5%"></th>
 
 
@@ -31,15 +30,14 @@
                         <?php foreach($datos as $dato){ ?>
                             
                             <tr>
-                                <td> <?php echo $dato['id_proveedor']; ?> </td>
-                                <td> <?php echo $dato['nombre_proveedor']; ?> </td>
-                                <td> <?php echo $dato['contacto']; ?> </td>
-                                <td> <?php echo $dato['direccion']; ?> </td>
-                                <td> <?php echo $dato['ciudad']; ?> </td>
-                                <td> <?php echo $dato['telefono']; ?> </td>
+                                <td> <?php echo $dato['id_usuario']; ?> </td>
+                                <td> <?php echo $dato['nombre_usuario']; ?> </td>
+                                <td> <?php echo $dato['ci']; ?> </td>
+                                <td> <?php echo $dato['cargo']; ?> </td>
+                                <td> <?php echo $dato['usuario']; ?> </td>
 
 
-                                <td> <a href="#" data-href="<?php echo base_url().'proveedor/reingresar/'.$dato['id_proveedor']; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirma" title="Reingresar registro" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-up"></i></a></td>
+                                <td> <a href="#" data-href="<?php echo base_url().'usuario/reingresar/'.$dato['id_usuario']; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirma" title="Reingresar registro" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-up"></i></a></td>
 
 
 

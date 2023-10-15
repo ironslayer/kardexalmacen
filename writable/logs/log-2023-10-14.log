@@ -1,0 +1,22 @@
+CRITICAL - 2023-10-14 17:31:51 --> Undefined index: id_proveedor
+in APPPATH\Views\usuario\usuario.php on line 40.
+ 1 APPPATH\Views\usuario\usuario.php(40): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: id_proveedor', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\usuario\\usuario.php', 40, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\usuario\\usuario.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('usuario/usuario', [], true)
+ 5 APPPATH\Controllers\Usuario.php(68): view('usuario/usuario', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Usuario->index()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuario))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-14 19:09:45 --> Undefined index: id_proveedor
+in APPPATH\Views\usuario\eliminados.php on line 34.
+ 1 APPPATH\Views\usuario\eliminados.php(34): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: id_proveedor', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\usuario\\eliminados.php', 34, [...])
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\kardexalmacen\\app\\Views\\usuario\\eliminados.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('usuario/eliminados', [], true)
+ 5 APPPATH\Controllers\Usuario.php(164): view('usuario/eliminados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\Usuario->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuario))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

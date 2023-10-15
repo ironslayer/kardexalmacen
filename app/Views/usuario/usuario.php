@@ -5,8 +5,8 @@
 
             <div>
                 <p>
-                    <a href="<?php echo base_url() ?>proveedor/nuevo" class="btn btn-info">Agregar</a>
-                    <a href="<?php echo base_url() ?>proveedor/eliminados" class="btn btn-warning">Eliminados</a>
+                    <a href="<?php echo base_url() ?>usuario/nuevo" class="btn btn-info">Agregar</a>
+                    <a href="<?php echo base_url() ?>usuario/eliminados" class="btn btn-warning">Eliminados</a>
 
                 </p>
             </div>
@@ -16,10 +16,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Contacto</th>
-                            <th>Dirección</th>
-                            <th>Ciudad</th>
-                            <th>Teléfono</th>
+                            <th>Carnet</th>
+                            <th>Cargo</th>
+                            <th>Usuario</th>
                             <th width="5%"></th>
                             <th width="5%"></th>
 
@@ -31,17 +30,16 @@
                         <?php foreach($datos as $dato){ ?>
                             
                             <tr>
-                                <td> <?php echo $dato['id_proveedor']; ?> </td>
-                                <td> <?php echo $dato['nombre_proveedor']; ?> </td>
-                                <td> <?php echo $dato['contacto']; ?> </td>
-                                <td> <?php echo $dato['direccion']; ?> </td>
-                                <td> <?php echo $dato['ciudad']; ?> </td>
-                                <td> <?php echo $dato['telefono']; ?> </td>
+                                <td> <?php echo $dato['id_usuario']; ?> </td>
+                                <td> <?php echo $dato['nombre_usuario']; ?> </td>
+                                <td> <?php echo $dato['ci']; ?> </td>
+                                <td> <?php echo $dato['cargo']; ?> </td>
+                                <td> <?php echo $dato['usuario']; ?> </td>
 
 
-                                <td> <a href="<?php echo base_url().'proveedor/editar/'.$dato['id_proveedor']; ?>" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a></td>
+                                <td> <a href="<?php echo base_url().'usuario/editar/'.$dato['id_usuario']; ?>" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a></td>
 
-                                <td> <a href="#" data-href="<?php echo base_url().'proveedor/eliminar/'.$dato['id_proveedor']; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirma" title="Eliminar registro" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
+                                <td> <a href="#" data-href="<?php echo base_url().'usuario/eliminar/'.$dato['id_usuario']; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirma" title="Eliminar registro" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a></td>
 
 
                             </tr>

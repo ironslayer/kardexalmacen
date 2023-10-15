@@ -3,17 +3,18 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\ProveedorModel;
+use App\Models\UsuarioModel;
 
-class Proveedor extends BaseController
+class Usuario extends BaseController
 
 {
-    protected $proveedor;
-    protected $reglas;
+
+    protected $usuario;
+    protected $reglas, $reglaslogin;
 
     public function __construct()
     {
-        $this->proveedor = new ProveedorModel();
+        $this->usuario = new UsuarioModel();
         helper(['form']);
 
         $this->reglas = [
@@ -23,25 +24,48 @@ class Proveedor extends BaseController
                     'required' => 'El campo {field} es obligatorio.'
                 ]
             ],
-            'contacto' => [
+            'ci' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'El campo {field} es obligatorio.'
                 ]
             ],
-            'direccion' => [
+            'cargo' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'El campo {field} es obligatorio.'
                 ]
             ],
-            'ciudad' => [
+            'usuario' => [
+                'rules' => 'required|is_unique[usuario.usuario]',
+                'errors' => [
+                    'required' => 'El campo {field} es obligatorio.',
+                    'is_unique' => 'El campo {field} debe ser unico.'
+                ]
+            ],
+            'password' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'El campo {field} es obligatorio.'
                 ]
             ],
-            'telefono' => [
+            'repassword' => [
+                'rules' => 'required|matches[password]',
+                'errors' => [
+                    'required' => 'El campo {field} es obligatorio.',
+                    'matches' => 'Las contraseñas no coinciden.'
+                ]
+            ]
+        ];
+
+        $this->reglaslogin = [
+            'usuario' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'El campo {field} es obligatorio.'
+                ]
+            ],
+            'password' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'El campo {field} es obligatorio.'
@@ -52,20 +76,20 @@ class Proveedor extends BaseController
 
     public function index($activo=1)
     {
-        $info = $this->proveedor->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Proveedores', 'datos' => $info];
+        $info = $this->usuario->where('activo', $activo)->findAll();
+        $data = ['titulo' => 'Usuarios', 'datos' => $info];
 
         echo view('header');
-        echo view('proveedor/proveedor',$data);
+        echo view('usuario/usuario',$data);
         echo view('footer');
     }
 
     public function nuevo()
     {
-        $data = ['titulo' => 'Agregar Proveedor'];
+        $data = ['titulo' => 'Agregar Usuario'];
 
         echo view('header');
-        echo view('proveedor/nuevo',$data);
+        echo view('usuario/nuevo',$data);
         echo view('footer');
     }
 
@@ -73,34 +97,47 @@ class Proveedor extends BaseController
     {
 
         if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->proveedor->save([
-                'nombre_proveedor' => $this->request->getPost('nombre'),
-                'contacto' => $this->request->getPost('contacto'),
-                'direccion' => $this->request->getPost('direccion'),
-                'ciudad' => $this->request->getPost('ciudad'),
-                'telefono' => $this->request->getPost('telefono')
+
+            // $password = $_POST['password'];
+            $password = $this->request->getPost('password');
+
+            // echo $this->request->getPost('password');
+
+            // $password = var_export($this->request->getPost('password'));
+
+
+            $hash = password_hash($password.'', PASSWORD_DEFAULT);
+            
+
+            $this->usuario->save([
+                'nombre_usuario' => $this->request->getPost('nombre'),
+                'ci' => $this->request->getPost('ci'),
+                'cargo' => $this->request->getPost('cargo'),
+                'usuario' => $this->request->getPost('usuario'),
+                'password' => $hash
             ]);
-            return redirect()->to(base_url() . 'proveedor');
+            return redirect()->to(base_url() . 'usuario');
+
         } else {
-            $data = ['titulo' => 'Agregar Proveedor', 'validation' => $this->validator];
+            $data = ['titulo' => 'Agregar Usuario', 'validation' => $this->validator];
 
             echo view('header');
-            echo view('proveedor/nuevo', $data);
+            echo view('usuario/nuevo', $data);
             echo view('footer');
         }
     }
 
-    public function editar($id_proveedor, $valid=null)
+    public function editar($id_usuario, $valid=null)
     {
-        $informacion = $this->proveedor->where('id_proveedor', $id_proveedor)->first();
+        $informacion = $this->usuario->where('id_usuario', $id_usuario)->first();
         if($valid != null){
-            $data = ['titulo' => 'Editar Proveedor', 'datos' => $informacion, 'validation' =>$valid];
+            $data = ['titulo' => 'Editar Usuario', 'datos' => $informacion, 'validation' =>$valid];
         }else{
-            $data = ['titulo' => 'Editar Proveedor', 'datos' => $informacion];
+            $data = ['titulo' => 'Editar Usuario', 'datos' => $informacion];
         }
 
         echo view('header');
-        echo view('proveedor/editar',$data);
+        echo view('usuario/editar',$data);
         echo view('footer');
     }
 
@@ -108,15 +145,20 @@ class Proveedor extends BaseController
     {
 
         if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->proveedor->update($this->request->getPost('id'), [
-                'nombre_proveedor' => $this->request->getPost('nombre'),
-                'contacto' => $this->request->getPost('contacto'),
-                'direccion' => $this->request->getPost('direccion'),
-                'ciudad' => $this->request->getPost('ciudad'),
-                'telefono' => $this->request->getPost('telefono')
+
+            $password = $this->request->getPost('password');
+
+            $hash = password_hash($password.'', PASSWORD_DEFAULT);
+
+            $this->usuario->update($this->request->getPost('id'), [
+                'nombre_usuario' => $this->request->getPost('nombre'),
+                'ci' => $this->request->getPost('ci'),
+                'cargo' => $this->request->getPost('cargo'),
+                'usuario' => $this->request->getPost('usuario'),
+                'password' => $hash
            
             ]);
-            return redirect()->to(base_url() . 'proveedor');
+            return redirect()->to(base_url() . 'usuario');
         }else{
             return $this->editar($this->request->getPost('id'), $this->validator);
         }
@@ -124,23 +166,72 @@ class Proveedor extends BaseController
 
     public function eliminar($id)
     {
-        $this->proveedor->update($id,['activo'=>0]);
-        return redirect()->to(base_url().'proveedor');
+        $this->usuario->update($id,['activo'=>0]);
+        return redirect()->to(base_url().'usuario');
     }
 
     public function eliminados($activo=0)
     {
-        $info = $this->proveedor->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Proveedores Eliminados', 'datos' => $info];
+        $info = $this->usuario->where('activo', $activo)->findAll();
+        $data = ['titulo' => 'Usuarios Eliminados', 'datos' => $info];
 
         echo view('header');
-        echo view('proveedor/eliminados',$data);
+        echo view('usuario/eliminados',$data);
         echo view('footer');
     }
 
     public function reingresar($id)
     {
-        $this->proveedor->update($id,['activo'=>1]);
-        return redirect()->to(base_url().'proveedor');
+        $this->usuario->update($id,['activo'=>1]);
+        return redirect()->to(base_url().'usuario');
     }
+
+    public function login()
+    {
+        echo view('login');
+    }
+
+    public function valida()
+    {
+        if ($this->request->is('post') && $this->validate($this->reglaslogin)) {
+            $usuario = $this->request->getPost('usuario');
+            $password = $this->request->getPost('password');
+            $datosUsuario = $this->usuario->where('usuario', $usuario)->first();
+            
+            if($datosUsuario != null){
+                if(password_verify($password.'', $datosUsuario['password'])){
+                    $datosSesion = [
+                        'id_usuario' => $datosUsuario['id_usuario'],
+                        'nombre_usuario' => $datosUsuario['nombre_usuario'],
+                        'ci' => $datosUsuario['ci'],
+                        'cargo' => $datosUsuario['cargo'],
+                        'usuario' => $datosUsuario['usuario']
+
+                    ];
+                    $session = session();
+                    $session->set($datosSesion);
+                    return redirect()->to(base_url().'contenido');
+                }else{
+                    $data['error'] = "Las contraseñas no coinciden.";
+                    echo view('login', $data);
+                }
+            }else{
+                $data['error'] = "El usuario no existe.";
+                echo view('login', $data);
+
+            }
+
+        }else{
+            $data = ['validation' => $this->validator];
+            echo view('login', $data);
+        }
+    }
+
+    public function logout(){
+
+        $session = session();
+        $session->destroy(); //session_destroy
+        return redirect()->to(base_url());
+    }
+
 }

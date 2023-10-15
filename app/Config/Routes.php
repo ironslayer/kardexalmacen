@@ -6,7 +6,27 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
- $routes->get('/', 'Home::index');
+
+ // RUTAS POR DEFECTO
+
+ $routes->setDefaultController('Usuario');
+ $routes->setDefaultMethod('index');
+// $routes->get('/', 'Home::index');
+
+
+// RUTA DE INICIO DE SESION
+
+ $routes->get('/', 'Usuario::login');
+
+ $routes->post('usuario/valida', 'Usuario::valida');
+
+ $routes->get('contenido', 'Home::index');
+
+ $routes->get('usuario/logout', 'Usuario::logout');
+
+
+
+
 
 
 // RUTAS PARA EL PRIMER SUB MENÚ
@@ -65,6 +85,16 @@ $routes->get('item/eliminados', 'Item::eliminados');
 $routes->get('item/reingresar/(:alphanum)', 'Item::reingresar/$1');
 
 // RUTAS PARA EL TERCER SUB MENÚ
+
+//  rutas para usuario
+$routes->get('usuario', 'Usuario::index');
+$routes->get('usuario/nuevo', 'Usuario::nuevo');
+$routes->post('usuario/insertar', 'Usuario::insertar');
+$routes->get('usuario/editar/(:alphanum)', 'Usuario::editar/$1');
+$routes->post('usuario/actualizar', 'Usuario::actualizar');
+$routes->get('usuario/eliminar/(:alphanum)', 'Usuario::eliminar/$1');
+$routes->get('usuario/eliminados', 'Usuario::eliminados');
+$routes->get('usuario/reingresar/(:alphanum)', 'Usuario::reingresar/$1');
 
 //  rutas para proveedor
 $routes->get('proveedor', 'Proveedor::index');
