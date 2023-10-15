@@ -22,9 +22,15 @@ use CodeIgniter\Router\RouteCollection;
 
  $routes->get('contenido', 'Home::index');
 
+
+ // RUTAS DEL MENÚ PARTE SUPERIOR DERECHA
+
  $routes->get('usuario/logout', 'Usuario::logout');
+ $routes->get('usuario/cambia_password', 'Usuario::cambia_password');
+ $routes->post('usuario/actualizar_password', 'Usuario::actualizar_password');
 
 
+ 
 
 
 
