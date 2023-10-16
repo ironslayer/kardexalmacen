@@ -30,12 +30,31 @@ use CodeIgniter\Router\RouteCollection;
  $routes->post('usuario/actualizar_password', 'Usuario::actualizar_password');
 
 
- 
-
-
-
-
 // RUTAS PARA EL PRIMER SUB MENÚ
+
+//  rutas para entrada
+$routes->get('entrada', 'Entrada::index');
+$routes->get('entrada/nuevo', 'Entrada::nuevo');
+$routes->post('entrada/insertar', 'Entrada::insertar');
+$routes->get('entrada/editar/(:alphanum)', 'Entrada::editar/$1');
+$routes->post('entrada/actualizar', 'Entrada::actualizar');
+$routes->get('entrada/eliminar/(:alphanum)', 'Entrada::eliminar/$1');
+$routes->get('entrada/eliminados', 'Entrada::eliminados');
+$routes->get('entrada/reingresar/(:alphanum)', 'Entrada::reingresar/$1');
+
+$routes->post('entrada/guardar', 'Entrada::guardar');
+
+
+
+//  rutas para salida
+$routes->get('salida', 'Salida::index');
+$routes->get('salida/nuevo', 'Salida::nuevo');
+$routes->post('salida/insertar', 'Salida::insertar');
+$routes->get('salida/editar/(:alphanum)', 'Salida::editar/$1');
+$routes->post('salida/actualizar', 'Salida::actualizar');
+$routes->get('salida/eliminar/(:alphanum)', 'Salida::eliminar/$1');
+$routes->get('salida/eliminados', 'Salida::eliminados');
+$routes->get('salida/reingresar/(:alphanum)', 'Salida::reingresar/$1');
 
 //  rutas para tipo entrada
 $routes->get('tentrada', 'Tentrada::index');

@@ -66,8 +66,8 @@
                         </a>
                         <div class="collapse" id="subMovimiento" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url(); ?>entrada">Entrada al Almacén</a>
-                                <a class="nav-link" href="<?php echo base_url(); ?>salida">Salida del Almacén</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>entrada/nuevo">Entrada al Almacén</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>salida/nuevo">Salida del Almacén</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>tentrada">Tipo de Ingreso</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>tsalida">Tipo de Egreso</a>
                             </nav>
