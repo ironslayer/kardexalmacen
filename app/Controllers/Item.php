@@ -134,4 +134,22 @@ class Item extends BaseController
         $this->item->update($id,['activo'=>1]);
         return redirect()->to(base_url().'item');
     }
+
+    public function buscaCantidadItem($id){
+
+        $this->item->select('*');
+        $this->item->where('id_item',$id);
+        $this->item->where('activo',1);
+        $datos = $this->item->get()->getRow();
+
+        $res['datos']=$datos;
+
+        echo json_encode($res);
+
+  
+    }
+
+
+    
+
 }

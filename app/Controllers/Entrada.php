@@ -6,6 +6,11 @@ use App\Controllers\BaseController;
 use App\Models\EntradaModel;
 use App\Models\TentradaModel;
 use App\Models\ProveedorModel;
+use App\Models\UsuarioModel;
+use App\Models\ItemModel;
+
+
+
 
 class Entrada extends BaseController
 
@@ -13,6 +18,10 @@ class Entrada extends BaseController
     protected $entrada;
     protected $tentrada;
     protected $proveedor;
+    protected $usuario;
+    protected $item_entrada;
+    protected $item;
+
     protected $reglas;
 
 
@@ -21,6 +30,9 @@ class Entrada extends BaseController
         $this->entrada = new EntradaModel();
         $this->tentrada = new TentradaModel();
         $this->proveedor = new ProveedorModel();
+        $this->usuario = new UsuarioModel();
+        $this->item = new ItemModel();
+
         helper(['form']);
 
         // $this->reglas = [
@@ -34,104 +46,39 @@ class Entrada extends BaseController
 
     }
 
-    public function index($activo=1)
-    {
-        $info1 = $this->entrada->where('activo', $activo)->findAll();
-        $info2 = $this->tentrada->findAll();
+    // public function index($activo=1)
+    // {
+    //     $info1 = $this->entrada->where('activo', $activo)->findAll();
+    //     $info2 = $this->tentrada->findAll();
+    //     $info2 = $this->tentrada->findAll();
 
-        $data = ['titulo' => 'Entrada', 'datos' => $info1, 'datos2'=>$info2];
 
-        echo view('header');
-        echo view('entrada/entrada',$data);
-        echo view('footer');
-    }
+    //     $data = ['titulo' => 'Entrada', 'datos' => $info1, 'datos2'=>$info2];
+
+    //     echo view('header');
+    //     echo view('entrada/entrada',$data);
+    //     echo view('footer');
+    // }
 
     public function nuevo()
     {
-        // $info1 = $this->tentrada->where('activo', 1)->findAll();
-        // $info2 = $this->proveedor->where('activo', 1)->findAll();
-        // $data = ['titulo' => 'Agregar Items', 'tentrada'=>$info1, 'proveedors'=>$info2];
+        $info1 = $this->tentrada->where('activo', 1)->findAll();
+        $info2 = $this->proveedor->where('activo', 1)->findAll();
+        $info3 = $this->usuario->where('activo', 1)->findAll();
+        $info4 = $this->item->where('activo', 1)->findAll();
 
+
+        $data = ['titulo' => 'Entradas', 'tipo_entradas'=>$info1, 'proveedores'=>$info2, 'usuarios'=>$info3, 'items'=>$info4];
         echo view('header');
-        echo view('entrada/nuevo');
+        echo view('entrada/nuevo',$data);
         echo view('footer');
     }
 
-    public function insertar()
-    {
-        if($this->request->is('post') && $this->validate($this->reglas)){
-            $this->entrada->save([
-                'descripcion'=>$this->request->getPost('descripcion'),'id_proveedor'=>$this->request->getPost('id_proveedor'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
-            return redirect()->to(base_url().'entrada');
-        }else{
-            $info1 = $this->tentrada->where('activo', 1)->findAll();
-            $info2 = $this->proveedor->where('activo', 1)->findAll();
-            $data = ['titulo' => 'Agregar Items', 'tentrada'=>$info1, 'proveedors'=>$info2, 'validation'=>$this->validator];
-
-            echo view('header');
-            echo view('entrada/nuevo',$data);
-            echo view('footer');
-        }
-        
-    }
-
-    public function editar($id_entrada, $valid=null)
+    public function guardar()
     {
 
-        $info1 = $this->tentrada->findAll();
-        $info2 = $this->proveedor->findAll();
-        $entradas = $this->entrada->where('id_entrada', $id_entrada)->first();
-        
-        if($valid != null){
-            $data = ['titulo' => 'Editar entrada', 'tentrada'=>$info1, 'proveedors'=>$info2, 'entrada'=>$entradas, 'validation' =>$valid];
-        }else{
-            $data = ['titulo' => 'Editar entrada', 'tentrada'=>$info1, 'proveedors'=>$info2, 'entrada'=>$entradas];
-        }
-
-        echo view('header');
-        echo view('entrada/editar',$data);
-        echo view('footer');
     }
 
-    public function actualizar()
-    {
 
-        // $this->entrada->update($this->request->getPost('id_entrada'),[
-        //     'descripcion'=>$this->request->getPost('descripcion'),'id_proveedor'=>$this->request->getPost('id_proveedor'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
 
-        // return redirect()->to(base_url().'entrada');
-
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->entrada->update($this->request->getPost('id_entrada'),[
-                'descripcion'=>$this->request->getPost('descripcion'),'id_proveedor'=>$this->request->getPost('id_proveedor'),'id_unidadmedida'=>$this->request->getPost('id_unidadmedida')] );
-            return redirect()->to(base_url() . 'entrada');
-        }else{
-            return $this->editar($this->request->getPost('id_entrada'), $this->validator);
-        }
-    }
-
-    public function eliminar($id)
-    {
-        $this->entrada->update($id,['activo'=>0]);
-        return redirect()->to(base_url().'entrada');
-    }
-
-    public function eliminados($activo=0)
-    {
-
-        $info1 = $this->entrada->where('activo', $activo)->findAll();
-        $info2 = $this->tentrada->findAll();
-
-        $data = ['titulo' => 'Items Eliminados', 'datos' => $info1, 'datos2'=>$info2];
-
-        echo view('header');
-        echo view('entrada/eliminados',$data);
-        echo view('footer');
-    }
-
-    public function reingresar($id)
-    {
-        $this->entrada->update($id,['activo'=>1]);
-        return redirect()->to(base_url().'entrada');
-    }
 }

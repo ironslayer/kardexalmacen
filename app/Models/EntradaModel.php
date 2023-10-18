@@ -14,14 +14,14 @@ class EntradaModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['c_iva', 'nota_recepcion', 'fecha', 'fuente', 'concepto', 'cantidad', 'total_precio', 'precio_unitario', 'costo_unitario', 'importe', 'id_tipoentrada', 'id_proveedor', 'id_usuario1', 'id_usuario2', 'activo'];
+    protected $allowedFields = ['c_iva', 'nota_recepcion', 'fecha', 'fuente', 'concepto', 'cantidad', 'total_precio', 'precio_unitario', 'costo_unitario', 'importe', 'id_tipoentrada', 'id_proveedor', 'id_usuario1', 'id_usuario2', 'activo', 'id_item'];
 
     // Dates
-    // protected $useTimestamps = true;
+    protected $useTimestamps = true;
     // protected $dateFormat    = 'timestamp';
-    // protected $createdField  = 'fecha_alta';
-    // protected $updatedField  = 'fecha_edit';
-    // protected $deletedField  = 'deleted_at';
+    protected $createdField  = 'fecha_alta';
+    protected $updatedField  = 'fecha_edit';
+    protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];
@@ -39,6 +39,7 @@ class EntradaModel extends Model
     // protected $afterFind      = [];
     // protected $beforeDelete   = [];
     // protected $afterDelete    = [];
+    
 }
 
 ?>

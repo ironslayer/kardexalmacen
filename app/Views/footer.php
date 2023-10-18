@@ -17,6 +17,7 @@
 <script src="<?php echo base_url(); ?>js/scripts.js"></script>
 <script src="<?php echo base_url(); ?>js/simple-datatables.min.js"></script>
 <script src="<?php echo base_url(); ?>js/datatables-simple-demo.js"></script>
+
 <script>
     // Obtén una referencia al elemento modal
     var modalConfirma = document.getElementById('modalConfirma');

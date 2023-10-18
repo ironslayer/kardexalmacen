@@ -46,6 +46,10 @@ $routes->post('entrada/guardar', 'Entrada::guardar');
 
 
 
+
+
+
+
 //  rutas para salida
 $routes->get('salida', 'Salida::index');
 $routes->get('salida/nuevo', 'Salida::nuevo');
@@ -108,6 +112,11 @@ $routes->post('item/actualizar', 'Item::actualizar');
 $routes->get('item/eliminar/(:alphanum)', 'Item::eliminar/$1');
 $routes->get('item/eliminados', 'Item::eliminados');
 $routes->get('item/reingresar/(:alphanum)', 'Item::reingresar/$1');
+
+$routes->get('item/buscaCantidadItem/(:alphanum)', 'Item::buscaCantidadItem/$1');
+
+
+
 
 // RUTAS PARA EL TERCER SUB MENÚ
 

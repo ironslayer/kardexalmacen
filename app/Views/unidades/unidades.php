@@ -11,13 +11,13 @@
                 </p>
             </div>
             <div class="table-responsive">
-                <table id="datatablesSimple" class="table table-bordered">
+                <table id="datatablesSimple" class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th width="5%"></th>
-                            <th width="5%"></th>
+                            <th></th>
+                            <th></th>
 
                         </tr>
                     </thead>    
