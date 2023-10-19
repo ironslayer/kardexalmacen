@@ -14,16 +14,8 @@ class Unidades extends BaseController
     public function __construct()
     {
         $this->unidades = new UnidadesModel();
-        helper(['form']);
 
-        $this->reglas = [
-            'nombre' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ]
-        ];
+
     }
 
     public function index($activo = 1)
@@ -36,75 +28,94 @@ class Unidades extends BaseController
         echo view('footer');
     }
 
-    public function nuevo()
-    {
-        $data = ['titulo' => 'Agregar Unidad de Medida'];
-
-        echo view('header');
-        echo view('unidades/nuevo', $data);
-        echo view('footer');
-    }
 
     public function insertar()
     {
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->unidades->save(['nombre_unidad' => $this->request->getPost('nombre')]);
-            return redirect()->to(base_url() . 'unidades');
-        } else {
-            $data = ['titulo' => 'Agregar Unidad de Medida', 'validation' => $this->validator];
 
-            echo view('header');
-            echo view('unidades/nuevo', $data);
-            echo view('footer');
+        helper(['form','url']);
+        $unidades = new UnidadesModel();
+        $data = [
+            'nombre_unidad' => $this->request->getVar('nombre'),
+        ];
+  
+        $save = $unidades->insert_data($data);
+
+        if($save != false){
+            $data = $unidades->where('id_unidadmedida', $save)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function editar($id_unidadmedida, $valid=null)
+    public function editar($id_unidadmedida=null)
     {
-        $informacion = $this->unidades->where('id_unidadmedida', $id_unidadmedida)->first();
-        
-        if($valid != null){
-            $data = ['titulo' => 'Editar Unidad', 'datos' => $informacion, 'validation' =>$valid];
-        }else{
-            $data = ['titulo' => 'Editar Unidad', 'datos' => $informacion];
+        $unidades = new UnidadesModel();
+        $data = $unidades->where('id_unidadmedida', $id_unidadmedida)->first();
+
+        if($data){
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{  
+            echo json_encode(array("status" => false));
         }
 
-
-
-        echo view('header');
-        echo view('unidades/editar', $data);
-        echo view('footer');
     }
 
     public function actualizar()
     {
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->unidades->update($this->request->getPost('id'), ['nombre_unidad' => $this->request->getPost('nombre')]);
-            return redirect()->to(base_url() . 'unidades');
+        helper(['form', 'url']);
+        $unidades = new UnidadesModel();
+
+        $id = $this->request->getVar('txt_id');
+
+        $data = [
+            'nombre_unidad' => $this->request->getVar('txt_nombre'),
+        ];
+
+        $update = $unidades->update($id, $data);
+        if($update != false){
+            $data = $unidades->where('id_unidadmedida', $id)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
         }else{
-            return $this->editar($this->request->getPost('id'), $this->validator);
+            echo json_encode(array("status" => false, 'data' => $data));
+        }
+
+    }
+
+    public function eliminar($id=null)
+    {
+        $unidades = new UnidadesModel();
+        // $delete = $unidades->where('id_unidadmedida', $id)->delete($id);
+        // $this->producto->update($id,['activo'=>0]);
+        $delete = $unidades->where('id_unidadmedida', $id)->first();
+        $delete = $unidades->update($id, ['activo' => 0]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
         }
     }
 
-    public function eliminar($id)
-    {
-        $this->unidades->update($id, ['activo' => 0]);
-        return redirect()->to(base_url() . 'unidades');
-    }
+    // public function eliminados($activo = 0)
+    // {
+    //     $info = $this->unidades->where('activo', $activo)->findAll();
+    //     $data = ['titulo' => 'Unidades Eliminadas', 'datos' => $info];
 
-    public function eliminados($activo = 0)
-    {
-        $info = $this->unidades->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Unidades Eliminadas', 'datos' => $info];
+    //     echo view('header');
+    //     echo view('unidades/eliminados', $data);
+    //     echo view('footer');
+    // }
 
-        echo view('header');
-        echo view('unidades/eliminados', $data);
-        echo view('footer');
-    }
+    // public function reingresar($id)
+    // {
+    //     $this->unidades->update($id, ['activo' => 1]);
+    //     return redirect()->to(base_url() . 'unidades');
+    // }
 
-    public function reingresar($id)
-    {
-        $this->unidades->update($id, ['activo' => 1]);
-        return redirect()->to(base_url() . 'unidades');
-    }
+    // public function obtener_registros()
+    // {
+    //     if ($this->request->is('post')) {
+            
+    //     }
+    // }
 }

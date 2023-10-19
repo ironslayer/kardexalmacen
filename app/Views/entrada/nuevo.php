@@ -220,7 +220,8 @@
             }else{
                 $('#cantidad_almacen').val("");
             }
-            
-            
+
+          
+             
     }
     </script>

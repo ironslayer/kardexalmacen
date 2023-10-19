@@ -85,13 +85,19 @@ $routes->get('tsalida/reingresar/(:alphanum)', 'Tsalida::reingresar/$1');
 
 //  rutas para unidad
 $routes->get('unidades', 'Unidades::index');
-$routes->get('unidades/nuevo', 'Unidades::nuevo');
+// $routes->get('unidades/nuevo', 'Unidades::nuevo');
 $routes->post('unidades/insertar', 'Unidades::insertar');
 $routes->get('unidades/editar/(:alphanum)', 'Unidades::editar/$1');
 $routes->post('unidades/actualizar', 'Unidades::actualizar');
 $routes->get('unidades/eliminar/(:alphanum)', 'Unidades::eliminar/$1');
-$routes->get('unidades/eliminados', 'Unidades::eliminados');
-$routes->get('unidades/reingresar/(:alphanum)', 'Unidades::reingresar/$1');
+// $routes->get('unidades/eliminados', 'Unidades::eliminados');
+// $routes->get('unidades/reingresar/(:alphanum)', 'Unidades::reingresar/$1');
+//---Opcion2 de Unidades
+
+
+
+
+
 
 //  rutas para producto
 $routes->get('producto', 'Producto::index');

@@ -11,7 +11,7 @@
                 </p>
             </div>
             <div class="table-responsive">
-                <table id="datatablesSimple" class="table table-bordered">
+                <table id="tabla_db" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>

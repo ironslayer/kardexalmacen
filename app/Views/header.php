@@ -16,10 +16,16 @@
     <meta name="author" content="" />
     <title>Kardex de Almacen</title>
     <link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet" />
+    <script src="<?php echo base_url(); ?>js/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>js/jquery.dataTables.min.js"></script>
+    <link href="<?php echo base_url(); ?>css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="<?php echo base_url(); ?>js/jquery.validate.js"></script>
+
+
+
     <link href="<?php echo base_url(); ?>css/style.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>css/styles.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>js/all.js"></script>
-    <script src="<?php echo base_url(); ?>js/jquery.min.js"></script>
 
     
 

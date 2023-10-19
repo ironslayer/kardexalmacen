@@ -146,7 +146,6 @@ class Item extends BaseController
 
         echo json_encode($res);
 
-  
     }
 
 

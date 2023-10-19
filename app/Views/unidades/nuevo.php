@@ -11,7 +11,6 @@
 
             <form action="<?php echo base_url(); ?>unidades/insertar" method="post" autocomplete="off">
 
-            <?php csrf_field(); ?>
 
                 <div class="form-control-plaintext">
                     <div class="row">

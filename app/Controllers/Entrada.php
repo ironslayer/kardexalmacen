@@ -46,20 +46,6 @@ class Entrada extends BaseController
 
     }
 
-    // public function index($activo=1)
-    // {
-    //     $info1 = $this->entrada->where('activo', $activo)->findAll();
-    //     $info2 = $this->tentrada->findAll();
-    //     $info2 = $this->tentrada->findAll();
-
-
-    //     $data = ['titulo' => 'Entrada', 'datos' => $info1, 'datos2'=>$info2];
-
-    //     echo view('header');
-    //     echo view('entrada/entrada',$data);
-    //     echo view('footer');
-    // }
-
     public function nuevo()
     {
         $info1 = $this->tentrada->where('activo', 1)->findAll();
@@ -74,7 +60,7 @@ class Entrada extends BaseController
         echo view('footer');
     }
 
-    public function guardar()
+    public function insertar()
     {
 
     }
