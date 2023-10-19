@@ -96,26 +96,27 @@ class Unidades extends BaseController
         }
     }
 
-    // public function eliminados($activo = 0)
-    // {
-    //     $info = $this->unidades->where('activo', $activo)->findAll();
-    //     $data = ['titulo' => 'Unidades Eliminadas', 'datos' => $info];
+    public function eliminados($activo = 0)
+    {
+        $info = $this->unidades->where('activo', $activo)->findAll();
+        $data = ['titulo' => 'Unidades Eliminadas', 'datos' => $info];
 
-    //     echo view('header');
-    //     echo view('unidades/eliminados', $data);
-    //     echo view('footer');
-    // }
+        echo view('header');
+        echo view('unidades/eliminados', $data);
+        echo view('footer');
+    }
 
-    // public function reingresar($id)
-    // {
-    //     $this->unidades->update($id, ['activo' => 1]);
-    //     return redirect()->to(base_url() . 'unidades');
-    // }
+    public function reingresar($id=null)
+    {
+        $unidades = new UnidadesModel();
+        $delete = $unidades->where('id_unidadmedida', $id)->first();
+        $delete = $unidades->update($id, ['activo' => 1]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
+        }
+    }
 
-    // public function obtener_registros()
-    // {
-    //     if ($this->request->is('post')) {
-            
-    //     }
-    // }
+
 }

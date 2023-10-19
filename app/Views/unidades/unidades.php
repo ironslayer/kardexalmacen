@@ -3,21 +3,16 @@
         <div class="container-fluid px-4">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
-            <div>
-                <p>
-                    <a href="<?php echo base_url() ?>unidades/nuevo" class="btn btn-info">Agregar</a>
-                    <a href="<?php echo base_url() ?>unidades/eliminados" class="btn btn-warning">Eliminados</a>
-
-                </p>
-            </div>
-
             <div class="row">
-                <div class="col-2">
-                    <div class="text-center">
+                <div class="col-4">
+                    <div class="text-center d-flex">
                         <!-- Button add modal -->
-                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal_agregar" id="botonAgregar">
+                        <button type="button" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#modal_agregar" id="botonAgregar">
                             <i class="fa-solid fa-circle-plus"></i> Agregar
                         </button>
+                        
+                        <a href="<?php echo base_url() ?>unidades/eliminados" class="btn btn-warning"><i class="fa-solid fa-delete-left"></i> Eliminados</a>
+
                     </div>
                 </div>
             </div>
@@ -171,6 +166,8 @@
                     }
                 });
 
+            // EDIT
+
             $('body').on('click', '.btnEdit', function() {
                 var unidad_id = $(this).attr('data-id');
                 $.ajax({
@@ -186,6 +183,7 @@
                     }
                 });
             });
+
 
             $("#miFormulario_edit").validate({
                 rules:  {
@@ -225,6 +223,7 @@
                 }
             });
 
+            // DELETE
 
             $('body').on('click', '.btnDelete', function(){
                 var unidad_id = $(this).attr('data-id');
