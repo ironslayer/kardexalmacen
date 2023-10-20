@@ -100,14 +100,14 @@ $routes->get('unidades/reingresar/(:alphanum)', 'Unidades::reingresar/$1');
 
 
 //  rutas para producto
-// $routes->get('producto', 'Producto::index');
+$routes->get('producto', 'Producto::index');
 // $routes->get('producto/nuevo', 'Producto::nuevo');
-// $routes->post('producto/insertar', 'Producto::insertar');
-// $routes->get('producto/editar/(:alphanum)', 'Producto::editar/$1');
-// $routes->post('producto/actualizar', 'Producto::actualizar');
-// $routes->get('producto/eliminar/(:alphanum)', 'Producto::eliminar/$1');
-// $routes->get('producto/eliminados', 'Producto::eliminados');
-// $routes->get('producto/reingresar/(:alphanum)', 'Producto::reingresar/$1');
+$routes->post('producto/insertar', 'Producto::insertar');
+$routes->get('producto/editar/(:alphanum)', 'Producto::editar/$1');
+$routes->post('producto/actualizar', 'Producto::actualizar');
+$routes->get('producto/eliminar/(:alphanum)', 'Producto::eliminar/$1');
+$routes->get('producto/eliminados', 'Producto::eliminados');
+$routes->get('producto/reingresar/(:alphanum)', 'Producto::reingresar/$1');
 
 //  rutas para item
 // $routes->get('item', 'Item::index');
