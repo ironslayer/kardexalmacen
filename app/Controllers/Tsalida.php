@@ -14,16 +14,7 @@ class Tsalida extends BaseController
     public function __construct()
     {
         $this->tsalida = new TsalidaModel();
-        helper(['form']);
-
-        $this->reglas = [
-            'nombre' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ]
-        ];
+        
     }
 
     public function index($activo=1)
@@ -36,79 +27,92 @@ class Tsalida extends BaseController
         echo view('footer');
     }
 
-    public function nuevo()
-    {
-        $data = ['titulo' => 'Agregar Tipo de salida'];
-
-        echo view('header');
-        echo view('tsalida/nuevo',$data);
-        echo view('footer');
-    }
-
     public function insertar()
     {
 
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->tsalida->save([
-                'nombre_salida' => $this->request->getPost('nombre')
-            ]);
-            return redirect()->to(base_url() . 'tsalida');
-        } else {
-            $data = ['titulo' => 'Agregar Tipo de Salida', 'validation' => $this->validator];
+        helper(['form','url']);
+        $tsalida = new TsalidaModel();
+        $data = [
+            'nombre_salida' => $this->request->getVar('nombre'),
+        ];
+  
+        $save = $tsalida->insert_data($data);
 
-            echo view('header');
-            echo view('tsalida/nuevo', $data);
-            echo view('footer');
+        if($save != false){
+            $data = $tsalida->where('id_tiposalida', $save)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function editar($id_tsalida, $valid=null)
+    public function editar($id=null)
     {
-        $informacion = $this->tsalida->where('id_tiposalida', $id_tsalida)->first();
-        if($valid != null){
-            $data = ['titulo' => 'Editar Tipo de Salida', 'datos' => $informacion, 'validation' =>$valid];
-        }else{
-            $data = ['titulo' => 'Editar Tipo de Salida', 'datos' => $informacion];
+        $tsalida = new TsalidaModel();
+        $data = $tsalida->where('id_tiposalida', $id)->first();
+
+        if($data){
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{  
+            echo json_encode(array("status" => false));
         }
 
-        echo view('header');
-        echo view('tsalida/editar',$data);
-        echo view('footer');
     }
 
     public function actualizar()
     {
+        helper(['form', 'url']);
+        $tsalida = new TsalidaModel();
 
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->tsalida->update($this->request->getPost('id'), [
-                'nombre_salida' => $this->request->getPost('nombre')
-           
-            ]);
-            return redirect()->to(base_url() . 'tsalida');
+        $id = $this->request->getVar('txt_id');
+
+        $data = [
+            'nombre_salida' => $this->request->getVar('txt_nombre'),
+        ];
+
+        $update = $tsalida->update($id, $data);
+        if($update != false){
+            $data = $tsalida->where('id_tiposalida', $id)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
         }else{
-            return $this->editar($this->request->getPost('id'), $this->validator);
+            echo json_encode(array("status" => false, 'data' => $data));
+        }
+
+    }
+
+    public function eliminar($id=null)
+    {
+        $tsalida = new TsalidaModel();
+        // $delete = $tsalida->where('id_salidamedida', $id)->delete($id);
+        // $this->producto->update($id,['activo'=>0]);
+        $delete = $tsalida->where('id_tiposalida', $id)->first();
+        $delete = $tsalida->update($id, ['activo' => 0]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
         }
     }
 
-    public function eliminar($id)
-    {
-        $this->tsalida->update($id,['activo'=>0]);
-        return redirect()->to(base_url().'tsalida');
-    }
-
-    public function eliminados($activo=0)
+    public function eliminados($activo = 0)
     {
         $info = $this->tsalida->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Tipos de Salidas Eliminadas', 'datos' => $info];
+        $data = ['titulo' => 'Tipos de Salida Eliminados', 'datos' => $info];
 
         echo view('header');
-        echo view('tsalida/eliminados',$data);
+        echo view('tsalida/eliminados', $data);
         echo view('footer');
     }
 
-    public function reingresar($id)
+    public function reingresar($id=null)
     {
-        $this->tsalida->update($id,['activo'=>1]);
-        return redirect()->to(base_url().'tsalida');
+        $tsalida = new TsalidaModel();
+        $delete = $tsalida->where('id_tiposalida', $id)->first();
+        $delete = $tsalida->update($id, ['activo' => 1]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
+        }
     }
 }

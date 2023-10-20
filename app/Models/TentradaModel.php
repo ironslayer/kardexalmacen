@@ -23,22 +23,21 @@ class TentradaModel extends Model
     protected $updatedField  = 'fecha_edit';
     protected $deletedField  = 'deleted_at';
 
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+    public function __construct()
+    {
+        parent::__construct();
+        // $this->load->database();
+        $db = \Config\Database::connect();
+        $builder = $db->table('tipo_entrada');
+    }
 
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    public function insert_data($data){
+        if($this->db->table($this->table)->insert($data)){
+            return $this->db->insertID();
+        }else{
+            return false;
+        }
+    }
 }
 
 ?>

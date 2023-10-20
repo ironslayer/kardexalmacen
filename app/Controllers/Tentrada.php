@@ -14,16 +14,7 @@ class Tentrada extends BaseController
     public function __construct()
     {
         $this->tentrada = new TentradaModel();
-        helper(['form']);
-
-        $this->reglas = [
-            'nombre' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ]
-        ];
+        
     }
 
     public function index($activo=1)
@@ -36,79 +27,92 @@ class Tentrada extends BaseController
         echo view('footer');
     }
 
-    public function nuevo()
-    {
-        $data = ['titulo' => 'Agregar Tipo de Entrada'];
-
-        echo view('header');
-        echo view('tentrada/nuevo',$data);
-        echo view('footer');
-    }
-
     public function insertar()
     {
 
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->tentrada->save([
-                'nombre_entrada' => $this->request->getPost('nombre')
-            ]);
-            return redirect()->to(base_url() . 'tentrada');
-        } else {
-            $data = ['titulo' => 'Agregar Tipo de Entrada', 'validation' => $this->validator];
+        helper(['form','url']);
+        $tentrada = new TentradaModel();
+        $data = [
+            'nombre_entrada' => $this->request->getVar('nombre'),
+        ];
+  
+        $save = $tentrada->insert_data($data);
 
-            echo view('header');
-            echo view('tentrada/nuevo', $data);
-            echo view('footer');
+        if($save != false){
+            $data = $tentrada->where('id_tipoentrada', $save)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function editar($id_tentrada, $valid=null)
+    public function editar($id=null)
     {
-        $informacion = $this->tentrada->where('id_tipoentrada', $id_tentrada)->first();
-        if($valid != null){
-            $data = ['titulo' => 'Editar Tipo de Entrada', 'datos' => $informacion, 'validation' =>$valid];
-        }else{
-            $data = ['titulo' => 'Editar Tipo de Entrada', 'datos' => $informacion];
+        $tentrada = new TentradaModel();
+        $data = $tentrada->where('id_tipoentrada', $id)->first();
+
+        if($data){
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{  
+            echo json_encode(array("status" => false));
         }
 
-        echo view('header');
-        echo view('tentrada/editar',$data);
-        echo view('footer');
     }
 
     public function actualizar()
     {
+        helper(['form', 'url']);
+        $tentrada = new TentradaModel();
 
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->tentrada->update($this->request->getPost('id'), [
-                'nombre_entrada' => $this->request->getPost('nombre')
-           
-            ]);
-            return redirect()->to(base_url() . 'tentrada');
+        $id = $this->request->getVar('txt_id');
+
+        $data = [
+            'nombre_entrada' => $this->request->getVar('txt_nombre'),
+        ];
+
+        $update = $tentrada->update($id, $data);
+        if($update != false){
+            $data = $tentrada->where('id_tipoentrada', $id)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
         }else{
-            return $this->editar($this->request->getPost('id'), $this->validator);
+            echo json_encode(array("status" => false, 'data' => $data));
+        }
+
+    }
+
+    public function eliminar($id=null)
+    {
+        $tentrada = new TentradaModel();
+        // $delete = $tentrada->where('id_entradamedida', $id)->delete($id);
+        // $this->producto->update($id,['activo'=>0]);
+        $delete = $tentrada->where('id_tipoentrada', $id)->first();
+        $delete = $tentrada->update($id, ['activo' => 0]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
         }
     }
 
-    public function eliminar($id)
-    {
-        $this->tentrada->update($id,['activo'=>0]);
-        return redirect()->to(base_url().'tentrada');
-    }
-
-    public function eliminados($activo=0)
+    public function eliminados($activo = 0)
     {
         $info = $this->tentrada->where('activo', $activo)->findAll();
-        $data = ['titulo' => 'Tipos de Entradas Eliminadas', 'datos' => $info];
+        $data = ['titulo' => 'Tipos de Entrada Eliminadoss', 'datos' => $info];
 
         echo view('header');
-        echo view('tentrada/eliminados',$data);
+        echo view('tentrada/eliminados', $data);
         echo view('footer');
     }
 
-    public function reingresar($id)
+    public function reingresar($id=null)
     {
-        $this->tentrada->update($id,['activo'=>1]);
-        return redirect()->to(base_url().'tentrada');
+        $tentrada = new TentradaModel();
+        $delete = $tentrada->where('id_tipoentrada', $id)->first();
+        $delete = $tentrada->update($id, ['activo' => 1]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
+        }
     }
 }

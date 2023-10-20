@@ -95,6 +95,9 @@
                         </div>
 
                         <div class="modal-footer">
+
+ 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="resetForm">Cancelar</button>
                             
                             <button type="submit" class="btn btn-success">Agregar</button>
                             
@@ -145,6 +148,8 @@
                         </div>
 
                         <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="resetFormEdit">Cancelar</button>
                             
                             <button type="submit" class="btn btn-success">Modificar</button>
                             
@@ -181,6 +186,8 @@
                         }
                     }
                 }); 
+                // miTabla.reset();
+
                 //AGREGAR
                 $('#miFormulario').validate({
                     rules:{
@@ -238,6 +245,10 @@
                             maxlength: "Debe contener maximo 50 caracteres"
                         }
                     },
+                    errorPlacement: function(error, element) {
+                    error.css("color", "red"); // Cambia el color a rojo
+                    error.insertAfter(element);
+                    },
                     submitHandler: function(form) {
                         var form_action = $("#miFormulario").attr("action");
                         $.ajax({
@@ -267,6 +278,20 @@
                         });
                     }
                 });
+
+            // RESET FORMULARIO AGREGAR
+
+            $('#resetForm').on('click', function() {
+                $('#miFormulario').validate().resetForm();
+                $('#miFormulario')[0].reset();
+            });
+
+            // RESET FORMULARIO EDITAR
+
+            $('#resetFormEdit').on('click', function() {
+                $('#miFormulario_edit').validate().resetForm();
+                $('#miFormulario_edit')[0].reset();
+            });
 
             // EDIT
 
@@ -346,6 +371,10 @@
                         maxlength: "Debe contener maximo 50 caracteres"
                     }
                 },
+                errorPlacement: function(error, element) {
+                    error.css("color", "red"); // Cambia el color a rojo
+                    error.insertAfter(element);
+                },
                 submitHandler: function(form){
                     var form_action = $("#miFormulario_edit").attr("action");
                     $.ajax({
@@ -383,4 +412,5 @@
             });
 
         });
+
         </script>

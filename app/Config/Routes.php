@@ -61,24 +61,24 @@ use CodeIgniter\Router\RouteCollection;
 // $routes->get('salida/reingresar/(:alphanum)', 'Salida::reingresar/$1');
 
 //  rutas para tipo entrada
-// $routes->get('tentrada', 'Tentrada::index');
+$routes->get('tentrada', 'Tentrada::index');
 // $routes->get('tentrada/nuevo', 'Tentrada::nuevo');
-// $routes->post('tentrada/insertar', 'Tentrada::insertar');
-// $routes->get('tentrada/editar/(:alphanum)', 'Tentrada::editar/$1');
-// $routes->post('tentrada/actualizar', 'Tentrada::actualizar');
-// $routes->get('tentrada/eliminar/(:alphanum)', 'Tentrada::eliminar/$1');
-// $routes->get('tentrada/eliminados', 'Tentrada::eliminados');
-// $routes->get('tentrada/reingresar/(:alphanum)', 'Tentrada::reingresar/$1');
+$routes->post('tentrada/insertar', 'Tentrada::insertar');
+$routes->get('tentrada/editar/(:alphanum)', 'Tentrada::editar/$1');
+$routes->post('tentrada/actualizar', 'Tentrada::actualizar');
+$routes->get('tentrada/eliminar/(:alphanum)', 'Tentrada::eliminar/$1');
+$routes->get('tentrada/eliminados', 'Tentrada::eliminados');
+$routes->get('tentrada/reingresar/(:alphanum)', 'Tentrada::reingresar/$1');
 
 //  rutas para tipo salida
-// $routes->get('tsalida', 'Tsalida::index');
+$routes->get('tsalida', 'Tsalida::index');
 // $routes->get('tsalida/nuevo', 'Tsalida::nuevo');
-// $routes->post('tsalida/insertar', 'Tsalida::insertar');
-// $routes->get('tsalida/editar/(:alphanum)', 'Tsalida::editar/$1');
-// $routes->post('tsalida/actualizar', 'Tsalida::actualizar');
-// $routes->get('tsalida/eliminar/(:alphanum)', 'Tsalida::eliminar/$1');
-// $routes->get('tsalida/eliminados', 'Tsalida::eliminados');
-// $routes->get('tsalida/reingresar/(:alphanum)', 'Tsalida::reingresar/$1');
+$routes->post('tsalida/insertar', 'Tsalida::insertar');
+$routes->get('tsalida/editar/(:alphanum)', 'Tsalida::editar/$1');
+$routes->post('tsalida/actualizar', 'Tsalida::actualizar');
+$routes->get('tsalida/eliminar/(:alphanum)', 'Tsalida::eliminar/$1');
+$routes->get('tsalida/eliminados', 'Tsalida::eliminados');
+$routes->get('tsalida/reingresar/(:alphanum)', 'Tsalida::reingresar/$1');
 
 
 // RUTAS PARA EL SEGUNDO SUB MENÚ
