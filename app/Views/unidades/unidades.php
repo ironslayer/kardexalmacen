@@ -20,13 +20,13 @@
             <br />
 
             <div class="table-responsive">
-                <table id="tabla_db" class="table table-bordered table-striped">
+                <table id="tabla_db" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th width="5%"></th>
-                            <th width="5%"></th>
+                            <th width="5%">Editar</th>
+                            <th width="5%">Borrar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,9 +48,7 @@
                         <?php } ?>
                     </tbody>
                 </table>
-
-            </div>
-            
+            </div>           
         </div>
     </main>
 
@@ -146,7 +144,7 @@
                         }
                     }
                 }); 
-
+                //AGREGAR
                 $('#miFormulario').validate({
                     rules:{
                         nombre:{
@@ -178,6 +176,7 @@
                                 $('#tabla_db tbody').append(unidad);
                                 $('#miFormulario')[0].reset();
                                 $('#modal_agregar').modal('hide');
+                                // miTabla.ajax.reload();
 
                             },
                             error: function(data) {

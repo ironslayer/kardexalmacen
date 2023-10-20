@@ -16,12 +16,12 @@
             <br/>
 
             <div class="table-responsive">
-                <table id="tabla_db" class="table table-bordered table-striped">
+                <table id="tabla_db" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th width="5%"></th>
+                            <th width="5%">Reponer</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,9 +76,15 @@
                     var unidad_id = $(this).attr('data-id');
                     $.get('<?php echo base_url() ?>unidades/reingresar/'+unidad_id, function (data){
                         $('#tabla_db tbody #'+unidad_id).remove();
+                        // miTabla.ajax.reload();
                     })
+                    // miTabla.ajax.reload();
+
                     // alert(unidad_id);
                 });
+                // reaload table    
+                // miTabla.ajax.reload();
+            
                
             } );
     </script>

@@ -14,40 +14,6 @@ class Proveedor extends BaseController
     public function __construct()
     {
         $this->proveedor = new ProveedorModel();
-        helper(['form']);
-
-        $this->reglas = [
-            'nombre' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ],
-            'contacto' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ],
-            'direccion' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ],
-            'ciudad' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ],
-            'telefono' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'El campo {field} es obligatorio.'
-                ]
-            ]
-        ];
     }
 
     public function index($activo=1)
@@ -60,87 +26,100 @@ class Proveedor extends BaseController
         echo view('footer');
     }
 
-    public function nuevo()
-    {
-        $data = ['titulo' => 'Agregar Proveedor'];
-
-        echo view('header');
-        echo view('proveedor/nuevo',$data);
-        echo view('footer');
-    }
-
     public function insertar()
     {
 
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->proveedor->save([
-                'nombre_proveedor' => $this->request->getPost('nombre'),
-                'contacto' => $this->request->getPost('contacto'),
-                'direccion' => $this->request->getPost('direccion'),
-                'ciudad' => $this->request->getPost('ciudad'),
-                'telefono' => $this->request->getPost('telefono')
-            ]);
-            return redirect()->to(base_url() . 'proveedor');
-        } else {
-            $data = ['titulo' => 'Agregar Proveedor', 'validation' => $this->validator];
+        helper(['form','url']);
+        $proveedor = new ProveedorModel();
+        $data = [
+            'nombre_proveedor' => $this->request->getVar('nombre'),
+            'contacto' => $this->request->getVar('contacto'),
+            'direccion' => $this->request->getVar('direccion'),
+            'ciudad' => $this->request->getVar('ciudad'),
+            'telefono' => $this->request->getVar('telefono'),
+        ];
+  
+        $save = $proveedor->insert_data($data);
 
-            echo view('header');
-            echo view('proveedor/nuevo', $data);
-            echo view('footer');
+        if($save != false){
+            $data = $proveedor->where('id_proveedor', $save)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{
+            echo json_encode(array("status" => false, 'data' => $data));
         }
     }
 
-    public function editar($id_proveedor, $valid=null)
+    public function editar($id_proveedor=null)
     {
-        $informacion = $this->proveedor->where('id_proveedor', $id_proveedor)->first();
-        if($valid != null){
-            $data = ['titulo' => 'Editar Proveedor', 'datos' => $informacion, 'validation' =>$valid];
-        }else{
-            $data = ['titulo' => 'Editar Proveedor', 'datos' => $informacion];
+        $proveedor = new ProveedorModel();
+        $data = $proveedor->where('id_proveedor', $id_proveedor)->first();
+
+        if($data){
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{  
+            echo json_encode(array("status" => false));
         }
 
-        echo view('header');
-        echo view('proveedor/editar',$data);
-        echo view('footer');
     }
 
     public function actualizar()
     {
+        helper(['form', 'url']);
+        $proveedor = new ProveedorModel();
 
-        if ($this->request->is('post') && $this->validate($this->reglas)) {
-            $this->proveedor->update($this->request->getPost('id'), [
-                'nombre_proveedor' => $this->request->getPost('nombre'),
-                'contacto' => $this->request->getPost('contacto'),
-                'direccion' => $this->request->getPost('direccion'),
-                'ciudad' => $this->request->getPost('ciudad'),
-                'telefono' => $this->request->getPost('telefono')
-           
-            ]);
-            return redirect()->to(base_url() . 'proveedor');
+        $id = $this->request->getVar('txt_id');
+
+        $data = [
+            'nombre_proveedor' => $this->request->getVar('txt_nombre'),
+            'contacto' => $this->request->getVar('txt_contacto'),
+            'direccion' => $this->request->getVar('txt_direccion'),
+            'ciudad' => $this->request->getVar('txt_ciudad'),
+            'telefono' => $this->request->getVar('txt_telefono'),
+        ];
+
+        $update = $proveedor->update($id, $data);
+        if($update != false){
+            $data = $proveedor->where('id_proveedor', $id)->first();
+            echo json_encode(array("status" => true, 'data' => $data));
         }else{
-            return $this->editar($this->request->getPost('id'), $this->validator);
+            echo json_encode(array("status" => false, 'data' => $data));
+        }
+
+    }
+
+    public function eliminar($id=null)
+    {
+        $proveedor = new ProveedorModel();
+        // $delete = $proveedor->where('id_proveedormedida', $id)->delete($id);
+        // $this->producto->update($id,['activo'=>0]);
+        $delete = $proveedor->where('id_proveedor', $id)->first();
+        $delete = $proveedor->update($id, ['activo' => 0]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
         }
     }
 
-    public function eliminar($id)
-    {
-        $this->proveedor->update($id,['activo'=>0]);
-        return redirect()->to(base_url().'proveedor');
-    }
-
-    public function eliminados($activo=0)
+    public function eliminados($activo = 0)
     {
         $info = $this->proveedor->where('activo', $activo)->findAll();
         $data = ['titulo' => 'Proveedores Eliminados', 'datos' => $info];
 
         echo view('header');
-        echo view('proveedor/eliminados',$data);
+        echo view('proveedor/eliminados', $data);
         echo view('footer');
     }
 
-    public function reingresar($id)
+    public function reingresar($id=null)
     {
-        $this->proveedor->update($id,['activo'=>1]);
-        return redirect()->to(base_url().'proveedor');
+        $proveedor = new ProveedorModel();
+        $delete = $proveedor->where('id_proveedor', $id)->first();
+        $delete = $proveedor->update($id, ['activo' => 1]);
+        if($delete){
+            echo json_encode(array("status" => true));
+        }else{
+            echo json_encode(array("status" => false));
+        }
     }
 }
