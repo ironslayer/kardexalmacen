@@ -33,16 +33,16 @@ use CodeIgniter\Router\RouteCollection;
 // RUTAS PARA EL PRIMER SUB MENÚ
 
 //  rutas para entrada
-// $routes->get('entrada', 'Entrada::index');
-// $routes->get('entrada/nuevo', 'Entrada::nuevo');
-// $routes->post('entrada/insertar', 'Entrada::insertar');
-// $routes->get('entrada/editar/(:alphanum)', 'Entrada::editar/$1');
-// $routes->post('entrada/actualizar', 'Entrada::actualizar');
-// $routes->get('entrada/eliminar/(:alphanum)', 'Entrada::eliminar/$1');
-// $routes->get('entrada/eliminados', 'Entrada::eliminados');
-// $routes->get('entrada/reingresar/(:alphanum)', 'Entrada::reingresar/$1');
+$routes->get('entrada', 'Entrada::index');
+$routes->get('entrada/nuevo', 'Entrada::nuevo');
+$routes->post('entrada/insertar', 'Entrada::insertar');
+$routes->get('entrada/editar/(:alphanum)', 'Entrada::editar/$1');
+$routes->post('entrada/actualizar', 'Entrada::actualizar');
+$routes->get('entrada/eliminar/(:alphanum)', 'Entrada::eliminar/$1');
+$routes->get('entrada/eliminados', 'Entrada::eliminados');
+$routes->get('entrada/reingresar/(:alphanum)', 'Entrada::reingresar/$1');
 
-// $routes->post('entrada/guardar', 'Entrada::guardar');
+$routes->post('entrada/guardar', 'Entrada::guardar');
 
 
 
@@ -110,16 +110,16 @@ $routes->get('producto/eliminados', 'Producto::eliminados');
 $routes->get('producto/reingresar/(:alphanum)', 'Producto::reingresar/$1');
 
 //  rutas para item
-// $routes->get('item', 'Item::index');
+$routes->get('item', 'Item::index');
 // $routes->get('item/nuevo', 'Item::nuevo');
-// $routes->post('item/insertar', 'Item::insertar');
-// $routes->get('item/editar/(:alphanum)', 'Item::editar/$1');
-// $routes->post('item/actualizar', 'Item::actualizar');
-// $routes->get('item/eliminar/(:alphanum)', 'Item::eliminar/$1');
-// $routes->get('item/eliminados', 'Item::eliminados');
-// $routes->get('item/reingresar/(:alphanum)', 'Item::reingresar/$1');
+$routes->post('item/insertar', 'Item::insertar');
+$routes->get('item/editar/(:alphanum)', 'Item::editar/$1');
+$routes->post('item/actualizar', 'Item::actualizar');
+$routes->get('item/eliminar/(:alphanum)', 'Item::eliminar/$1');
+$routes->get('item/eliminados', 'Item::eliminados');
+$routes->get('item/reingresar/(:alphanum)', 'Item::reingresar/$1');
 
-// $routes->get('item/buscaCantidadItem/(:alphanum)', 'Item::buscaCantidadItem/$1');
+$routes->get('item/buscaCantidadItem/(:alphanum)', 'Item::buscaCantidadItem/$1');
 
 
 

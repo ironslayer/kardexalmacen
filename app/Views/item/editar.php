@@ -38,11 +38,13 @@
                             <select name="id_unidadmedida" id="id_unidadmedida" class="form-select" required>
                                 <option value="">Seleccionar unidad</option>
                                 <?php foreach ($unidades as $unidad) { ?>
-                                    <option value="<?php echo $unidad['id_unidadmedida']; ?>" 
+                                    <option 
+                                    value="<?php echo $unidad['id_unidadmedida']; ?>" 
                                     <?php 
                                     if($unidad['id_unidadmedida']==$item['id_unidadmedida']){
                                         echo 'selected';
-                                    }  ?>><?php echo $unidad['nombre_unidad']; ?></option>
+                                    }  ?>><?php echo $unidad['nombre_unidad']; ?>
+                                    </option>
                                 <?php } ?>
                             </select>
 

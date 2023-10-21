@@ -8,7 +8,7 @@
                     <div class="text-center d-flex">
                         <!-- Button add modal -->
                         <button type="button" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#modal_agregar" id="botonAgregar">
-                            <i class="fa-solid fa-circle-plus"></i> Agregar
+                            <i class="fa-solid fa-plus"></i> Agregar
                         </button>
 
                         <a href="<?php echo base_url() ?>tsalida/eliminados" class="btn btn-warning"><i class="fa-solid fa-delete-left"></i> Eliminados</a>

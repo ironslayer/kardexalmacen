@@ -1,0 +1,9 @@
+.bordered_form {
+    border: 2px solid #000;
+    background-color: #f5f5dc;
+}
+
+.bordered_password {
+    border: 2px solid #000;
+    background-color: #D3FBFF;
+}

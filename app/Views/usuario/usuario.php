@@ -3,15 +3,23 @@
         <div class="container-fluid px-4">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
-            <div>
-                <p>
-                    <a href="<?php echo base_url() ?>usuario/nuevo" class="btn btn-info">Agregar</a>
-                    <a href="<?php echo base_url() ?>usuario/eliminados" class="btn btn-warning">Eliminados</a>
+            <div class="row">
+                <div class="col-4">
+                    <div class="text-center d-flex">
+                        <!-- Button  -->
+ 
+                        <a href="<?php echo base_url() ?>usuario/nuevo" class="btn btn-info me-2"><i class="fa-solid fa-plus"></i> Agregar</a>
+                        
+                        <a href="<?php echo base_url() ?>usuario/eliminados" class="btn btn-warning"><i class="fa-solid fa-delete-left"></i> Eliminados</a>
 
-                </p>
+                    </div>
+                </div>
             </div>
+
+            <br />
+
             <div class="table-responsive">
-                <table id="datatablesSimple" class="table table-bordered">
+                <table id="tabla_db" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -19,13 +27,10 @@
                             <th>Carnet</th>
                             <th>Cargo</th>
                             <th>Usuario</th>
-                            <th width="5%"></th>
-                            <th width="5%"></th>
-
+                            <th width="5%">Editar</th>
+                            <th width="5%">Borrar</th>
                         </tr>
-                    </thead>    
-
-
+                    </thead>
                     <tbody>
                         <?php foreach($datos as $dato){ ?>
                             
@@ -46,7 +51,6 @@
 
                         <?php } ?>
                     </tbody>
-
                 </table>
             </div>
         </div>
@@ -72,3 +76,32 @@
             </div>
         </div>
     </div>
+
+    <!-- codigo para tabla -->
+    <script>
+            $(document).ready(function() {
+                var miTabla = $('#tabla_db').DataTable({
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Unidades",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar: ",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente <i class='fas fa-angle-double-right'></i>",
+                            "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
+                        }
+                    }
+                }); 
+            });
+
+        </script>
