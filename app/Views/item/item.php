@@ -26,9 +26,9 @@
                             <th>ID</th>
                             <th>Descripción</th>
                             <th>Unidad</th>
-                            <th>Cantidad</th>
-                            <th>Costo Unitario</th>
-                            <th>Importe</th>
+                            <th>Cantidad (Bs.)</th>
+                            <th>Costo Unitario (Bs.)</th>
+                            <th>Importe (Bs.)</th>
                             <th width="5%">Editar</th>
                             <th width="5%">Borrar</th>
                         </tr>

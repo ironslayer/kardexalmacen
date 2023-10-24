@@ -20,17 +20,31 @@
     <link href="<?php echo base_url(); ?>css/style.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>css/styles.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>js/all.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/misestilos.css">
+
+ 
+
 </head>
 
-<body class="bg-primary">
+<body class="fondo_login centrar_todo">
     <?php print_r($user_session->nombre_usuario); ?>
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
+                
+                    
+                
                 <div class="container">
+                    
                     <div class="row justify-content-center">
+                        
                         <div class="col-lg-5">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <br/><br/><br/><br/>
+                                <div class="col-lg-5">
+                                    <img src="<?php echo base_url(); ?>assets/img/nombre_master_pizza.png" alt="nombre_master_pizza">
+                                </div>
+                            
+                            <div class="card shadow-lg border-0 rounded-lg ">
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">
                                         Kardex de Almacén
@@ -71,20 +85,7 @@
                 </div>
             </main>
         </div>
-        <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Kardex de Almacén <?php echo date('Y'); ?> Version 1.0</div>
-                        <!-- <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div> -->
-                    </div>
-                </div>
-            </footer>
-        </div>
+        
     </div>
     <script src="<?php echo base_url(); ?>js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url(); ?>js/scripts.js"></script>

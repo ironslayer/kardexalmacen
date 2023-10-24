@@ -7,3 +7,19 @@
     border: 2px solid #000;
     background-color: #D3FBFF;
 }
+.fondo_login {
+    background-image: url('http://localhost:8080/kardexalmacen/public/assets/img/fondo_master_pizza.jpg');
+    background-size: cover; /* Ajusta el tamaño de la imagen de fondo */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    background-attachment: fixed; /* Fija la imagen de fondo para que no se desplace con el contenido */
+    /* Otros estilos según tus preferencias */
+}
+
+
+.centrar_todo {
+    
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
