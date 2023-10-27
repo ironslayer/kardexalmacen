@@ -297,9 +297,11 @@ class Entrada extends BaseController
         if ($update != false) {
             $data = $entrada->where('id_entrada', $id)->first();
             
-            $data['id_unidadmedida'] = $this->unidadmedida->where('id_unidadmedida', $data['id_item'])->first();
+            
             
             $data['id_item'] = $this->item->where('id_item', $data['id_item'])->first();
+            //buscamos el nombre_unidadmedida del item
+            $data['id_unidadmedida'] = $this->unidadmedida->where('id_unidadmedida', $data['id_item']['id_unidadmedida'])->first();
             
             echo json_encode(array("status" => true, 'data' => $data));
         } else {

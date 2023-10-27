@@ -7,7 +7,7 @@
 
             <form action="<?php echo base_url(); ?>salida/insertar" method="post" autocomplete="off" id="miFormulario">
 
-                
+
                 <!-- primera fila -->
 
                 <div class="form-control-plaintext">
@@ -21,11 +21,12 @@
                                 <option value="">Seleccionar item del Almacén</option>
                                 <?php foreach ($items as $item) { ?>
 
-                                    <?php if($item['cantidad']>0){ ?>
+                                    <?php if ($item['cantidad'] > 0) { ?>
 
-                                    <option value="<?php echo $item['id_item']; ?>"><?php echo $item['descripcion']; ?></option>
+                                        <option value="<?php echo $item['id_item']; ?>"><?php echo $item['descripcion']; ?></option>
 
-                                <?php }} ?>
+                                <?php }
+                                } ?>
                             </select>
 
 
@@ -57,7 +58,7 @@
                         <div class="col-12 col-sm-3">
 
                             <label for="nota_entrega">Nota de entrega</label>
-                            <input type="text" class="form-control" id="nota_entrega" name="nota_entrega"  required placeholder="Ej. 987654321" />
+                            <input type="number" class="form-control" id="nota_entrega" name="nota_entrega" required placeholder="Ej. 987654321" />
 
                         </div>
 
@@ -178,7 +179,7 @@
                                 <td> <?php echo $salida['costo_unitario']; ?> </td>
                                 <td> <?php echo $salida['importe']; ?> </td>
                                 <td> <a data-id="<?php echo $salida['id_salida']; ?>" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>
-                                
+
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -196,21 +197,141 @@
 
 
         </div>
+
+        <!-- modal2 EDITAR -->
+        <div class="modal fade" id="modal_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Entrada</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+
+                    <form action="<?php echo site_url('salida/actualizar'); ?>" method="post" autocomplete="off" id="miFormulario_edit" name="miFormulario_edit">
+
+                        <div class="modal-body">
+
+                            <input type="hidden" name="txt_id" id="txt_id" />
+
+
+                            <!-- primera fila -->
+
+                            <div class="form-control-plaintext">
+                                <div class="row">
+
+                                    <div class="col-12 col-sm-5" id="opciones_items">
+
+                                        
+
+                                    </div>
+
+                                    <div class="col-12 col-sm-3">
+
+                                        <label for="cantidad_almacen">Cantidad actual en Almacén</label>
+                                        <input type="text" class="form-control" id="cantidad_almacen" name="cantidad_almacen" disabled />
+
+                                    </div>
+
+                                    <div class="col-12 col-sm-4">
+
+                                        <label for="txt_cantidad">Cantidad a salir</label>
+                                        <input type="text" class="form-control" id="txt_cantidad" name="txt_cantidad" placeholder="Cantidad <= a la cantidad actual" disabled />
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                            <!-- segunda fila -->
+                            <div class="form-control-plaintext">
+                                <div class="row">
+                                    <div class="col-12 col-sm-3">
+
+                                        <label for="txt_nota_entrega">Nota de entrega</label>
+                                        <input type="number" class="form-control" id="txt_nota_entrega" name="txt_nota_entrega" required placeholder="Ej. 987654321" />
+
+                                    </div>
+
+                                    <div class="col-12 col-sm-2">
+
+                                        <label for="txt_fecha">Fecha</label>
+                                        <input type="date" class="form-control" id="txt_fecha" name="txt_fecha" required />
+
+                                    </div>
+
+
+                                    <div class="col-12 col-sm-3" id="opciones_tiposalidas" >
+
+                                        
+
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+
+                                        <label for="txt_destino">Destino</label>
+                                        <input type="text" class="form-control" id="txt_destino" name="txt_destino" required placeholder="Ej. Venta a clientes" />
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- tercera fila -->
+                            <div class="form-control-plaintext">
+                                <div class="row">
+
+                                    <div class="col-12 col-sm-5">
+                                        <label for="txt_concepto">Concepto</label>
+                                        <input type="text" class="form-control" id="txt_concepto" name="txt_concepto" required placeholder=" Ej. Consumo de cajas." />
+                                    </div>
+
+                                    <div class="col-12 col-sm-3" id="opciones_usuario1" >
+
+                                       
+
+                                    </div>
+
+
+                                    <div class="col-12 col-sm-4" id="opciones_usuario2" >
+
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- pie -->
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="resetFormEdit">Cancelar</button>
+
+                                <button type="submit" class="btn btn-success">Modificar</button>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </main>
 
-<!-- Código para obtener solo la cantidad del item -->
+    <!-- Código para obtener solo la cantidad del item -->
 
     <script>
         function buscaCantidadItem() {
             // alert("hola");
             var parametros = {
                 "id_item": $('#id_item').val()
-                
+
             };
             if (parametros['id_item'] != "") {
                 $.ajax({
                     // data: parametros,
-                    url: '<?php echo base_url(); ?>item/buscaCantidadItem/'+parametros['id_item'],
+                    url: '<?php echo base_url(); ?>item/buscaCantidadItem/' + parametros['id_item'],
                     dataType: 'json',
 
                     // beforesend: function() {
@@ -218,19 +339,18 @@
                     // },
 
                     success: function(resultado) {
-                    $('#cantidad_almacen').val(resultado.datos.cantidad);
-                    $('#cantidad').val(resultado.datos.cantidad);
-                    $('#cantidad').attr('max', resultado.datos.cantidad);
-                    $('#cantidad').attr('min', 1);
-                    $('#cantidad').attr('title', 'El valor debe estar entre 1 y ' + resultado.datos.cantidad);
+                        $('#cantidad_almacen').val(resultado.datos.cantidad);
+                        $('#cantidad').val(resultado.datos.cantidad);
+                        $('#cantidad').attr('max', resultado.datos.cantidad);
+                        $('#cantidad').attr('min', 1);
+                        $('#cantidad').attr('title', 'El valor debe estar entre 1 y ' + resultado.datos.cantidad);
 
                     }
                 });
-            }else{
+            } else {
                 $('#cantidad_almacen').val("");
             }
         }
-
     </script>
 
     <!-- Mostrar y ocultar formulario -->
@@ -280,7 +400,7 @@
                     id_item: {
                         required: true,
                     },
-                    
+
                     nota_entrega: {
                         required: true,
                         minlength: 3,
@@ -292,7 +412,7 @@
                     id_tiposalida: {
                         required: true
                     },
-                    destino:{
+                    destino: {
                         required: true,
                         minlength: 5,
                         maxlength: 50
@@ -307,13 +427,13 @@
                     },
                     id_usuario_dos: {
                         required: true
-                    }   
+                    }
                 },
                 messages: {
                     id_item: {
                         required: "Este campo es obligatorio",
                     },
-                    
+
                     nota_entrega: {
                         required: "Este campo es obligatorio",
                         minlength: "Debe contener al menos 3 caracteres",
@@ -325,7 +445,7 @@
                     id_tiposalida: {
                         required: "Este campo es obligatorio"
                     },
-                    destino:{
+                    destino: {
                         required: "Este campo es obligatorio",
                         minlength: "Debe contener al menos 5 caracteres",
                         maxlength: "Debe contener maximo 50 caracteres"
@@ -341,7 +461,7 @@
                     id_usuario_dos: {
                         required: "Este campo es obligatorio"
                     }
-                    
+
                 },
                 errorPlacement: function(error, element) {
                     error.css("color", "red"); // Cambia el color a rojo
@@ -397,19 +517,24 @@
             // EDIT
 
             $('body').on('click', '.btnEdit', function() {
-                var proveedor_id = $(this).attr('data-id');
+                var salida_id = $(this).attr('data-id');
                 $.ajax({
-                    url: '<?php echo base_url(); ?>proveedor/editar/' + proveedor_id,
+                    url: '<?php echo base_url(); ?>salida/editar/' + salida_id,
                     type: 'get',
                     dataType: 'json',
                     success: function(respuesta) {
                         $('#modal_edit').modal('show');
-                        $('#miFormulario_edit #txt_id').val(respuesta.data.id_proveedor);
-                        $('#miFormulario_edit #txt_nombre').val(respuesta.data.nombre_proveedor);
-                        $('#miFormulario_edit #txt_contacto').val(respuesta.data.contacto);
-                        $('#miFormulario_edit #txt_direccion').val(respuesta.data.direccion);
-                        $('#miFormulario_edit #txt_ciudad').val(respuesta.data.ciudad);
-                        $('#miFormulario_edit #txt_telefono').val(respuesta.data.telefono);
+                        $('#miFormulario_edit #txt_id').val(respuesta.data.id_salida);
+                        $('#miFormulario_edit #opciones_items').html(respuesta.data.opcionesItem);
+                        $('#miFormulario_edit #txt_cantidad').val(respuesta.data.cantidad);
+                        $('#miFormulario_edit #txt_nota_entrega').val(respuesta.data.nota_entrega);
+                        $('#miFormulario_edit #txt_fecha').val(respuesta.data.fecha);
+                        $('#miFormulario_edit #opciones_tiposalidas').html(respuesta.data.opcionesTipoSalida);
+                        $('#miFormulario_edit #txt_destino').val(respuesta.data.destino);
+                        $('#miFormulario_edit #txt_concepto').val(respuesta.data.concepto);
+                        $('#miFormulario_edit #opciones_usuario1').html(respuesta.data.opcionesUsuario1);
+                        $('#miFormulario_edit #opciones_usuario2').html(respuesta.data.opcionesUsuario2);
+                        
                     },
                     error: function(data) {
                         alert('No se pudo editar');
@@ -420,57 +545,59 @@
 
             $("#miFormulario_edit").validate({
                 rules: {
-                    txt_nombre: {
+                    txt_nota_entrega: {
                         required: true,
-                        minlength: 3,
+                        min: 1
+                    },
+                    txt_fecha: {
+                        required: true
+                    },
+                    txt_tiposalida: {
+                        required: true
+                    },
+                    txt_destino: {
+                        required: true,
+                        minlength: 5,
                         maxlength: 50
                     },
-                    txt_contacto: {
+                    txt_concepto: {
                         required: true,
-                        minlength: 3,
+                        minlength: 8,
                         maxlength: 50
                     },
-                    txt_direccion: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
+                    txt_usuario1: {
+                        required: true
                     },
-                    txt_ciudad: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
-                    },
-                    txt_telefono: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
+                    txt_usuario2: {
+                        required: true
                     }
                 },
                 messages: {
-                    txt_nombre: {
+                    txt_nota_entrega: {
                         required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
+                        min: "Debe contener al menos 1 digito"
+                    },
+                    txt_fecha: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_tiposalida: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_destino: {
+                        required: "Este campo es obligatorio",
+                        minlength: "Debe contener al menos 5 caracteres",
                         maxlength: "Debe contener maximo 50 caracteres"
                     },
-                    txt_contacto: {
+                    txt_concepto: {
                         required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
+                        minlength: "Debe contener al menos 8 caracteres",
                         maxlength: "Debe contener maximo 50 caracteres"
                     },
-                    txt_direccion: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
+                    txt_usuario1: {
+                        required: "Este campo es obligatorio"
                     },
-                    txt_ciudad: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
-                    },
-                    txt_telefono: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
+                    txt_usuario2: {
+                        required: "Este campo es obligatorio"
                     }
                 },
                 errorPlacement: function(error, element) {
@@ -485,15 +612,17 @@
                         type: "POST",
                         dataType: "json",
                         success: function(respuesta) {
-                            var proveedor = '<td>' + respuesta.data.id_proveedor + '</td>';
-                            proveedor += '<td>' + respuesta.data.nombre_proveedor + '</td>';
-                            proveedor += '<td>' + respuesta.data.contacto + '</td>';
-                            proveedor += '<td>' + respuesta.data.direccion + '</td>';
-                            proveedor += '<td>' + respuesta.data.ciudad + '</td>';
-                            proveedor += '<td>' + respuesta.data.telefono + '</td>';
-                            proveedor += '<td> <a data-id="' + respuesta.data.id_proveedor + '" class="btn btn-warning btnEdit"><i class="fa-solid fa-pencil"></i></a></td>';
-                            proveedor += '<td> <a data-id="' + respuesta.data.id_proveedor + '" class="btn btn-danger btnDelete"><i class="fa-solid fa-trash"></i></a></td>';
-                            $('#tabla_db tbody #' + respuesta.data.id_proveedor).html(proveedor);
+                            var salida = '<td>' + respuesta.data.id_salida + '</td>';
+                            salida += '<td>' + respuesta.data.nro_movimiento + '</td>';
+                            salida += '<td>' + respuesta.data.fecha + '</td>';
+                            salida += '<td>' + respuesta.data.id_item.descripcion + '</td>';
+                            salida += '<td>' + respuesta.data.id_unidadmedida.nombre_unidad + '</td>';
+                            salida += '<td>' + respuesta.data.cantidad + '</td>';
+                            salida += '<td>' + respuesta.data.costo_unitario + '</td>';
+                            salida += '<td>' + respuesta.data.importe + '</td>';
+                            salida += '<td> <a data-id="' + respuesta.data.id_salida + '" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>';
+                            
+                            $('#tabla_db tbody #' + respuesta.data.id_salida).html(salida);
                             $('#miFormulario_edit')[0].reset();
                             $('#modal_edit').modal('hide');
                         },

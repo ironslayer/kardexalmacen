@@ -158,4 +158,112 @@ class Salida extends BaseController
             echo json_encode(array("status" => false, 'data' => $data));
         }
     }
+
+    public function editar($id=null)
+    {
+        // buscamos datos de la entrada
+        $salida = new SalidaModel();
+        $data = $salida->where('id_salida', $id)->first();
+
+        
+
+        // //codigo para crear opciones de tipo de salida
+        $tiposSalida = $this->tsalida->where('activo', 1)->findAll();
+        $opcionesTipoSalida = '<label for="txt_id_tiposalida">Tipo de Salida</label>';
+        $opcionesTipoSalida .= '<select class="form-select" id="txt_id_tiposalida" name="txt_id_tiposalida" required >';
+        $opcionesTipoSalida .= '<option value="">Seleccionar Tipo de Salida</option>';
+        foreach ($tiposSalida as $row) {
+            if ($row['id_tiposalida'] == $data['id_tiposalida']) {
+                $opcionesTipoSalida .= '<option value="' . $row['id_tiposalida'] . '" selected>' . $row['nombre_salida'] . '</option>';
+            } else {
+                $opcionesTipoSalida .= '<option value="' . $row['id_tiposalida'] . '">' . $row['nombre_salida'] . '</option>';
+            }
+        }
+        $opcionesTipoSalida .= '</select>';
+        $data['opcionesTipoSalida'] = $opcionesTipoSalida;
+
+        // //codigo para crear opciones de item
+        $items = $this->item->where('activo', 1)->findAll();
+        $opcionesItem = '<label for="txt_id_item">Item</label>';
+        $opcionesItem .= '<select class="form-select" id="txt_id_item" name="txt_id_item" disabled>';
+        $opcionesItem .= '<option value="">Seleccionar Item</option>';
+        foreach ($items as $row) {
+            if ($row['id_item'] == $data['id_item']) {
+                $opcionesItem .= '<option value="' . $row['id_item'] . '" selected>' . $row['descripcion'] . '</option>';
+            } else {
+                $opcionesItem .= '<option value="' . $row['id_item'] . '">' . $row['descripcion'] . '</option>';
+            }
+        }
+        $opcionesItem .= '</select>';
+        $data['opcionesItem'] = $opcionesItem;
+
+        // //codigo para crear opciones de usuario1
+        $usuarios = $this->usuario->where('activo', 1)->findAll();
+        $opcionesUsuario1 = '<label for="txt_id_usuario">Autorizado por</label>';
+        $opcionesUsuario1 .= '<select class="form-select" id="txt_id_usuario" name="txt_id_usuario" required >';
+        $opcionesUsuario1 .= '<option value="">Seleccione</option>';
+        foreach ($usuarios as $row) {
+            if ($row['id_usuario'] == $data['id_usuario1']) {
+                $opcionesUsuario1 .= '<option value="' . $row['id_usuario'] . '" selected>' . $row['nombre_usuario'] . '</option>';
+            } else {
+                $opcionesUsuario1 .= '<option value="' . $row['id_usuario'] . '">' . $row['nombre_usuario'] . '</option>';
+            }
+        }
+        $opcionesUsuario1 .= '</select>';
+        $data['opcionesUsuario1'] = $opcionesUsuario1;
+
+        // //codigo para crear opciones de usuario2
+        $usuarios = $this->usuario->where('activo', 1)->findAll();
+        $opcionesUsuario2 = '<label for="txt_id_usuario_dos">Entregado a</label>';
+        $opcionesUsuario2 .= '<select class="form-select" id="txt_id_usuario_dos" name="txt_id_usuario_dos" required >';
+        $opcionesUsuario2 .= '<option value="">Seleccione</option>';
+        foreach ($usuarios as $row) {
+            if ($row['id_usuario'] == $data['id_usuario2']) {
+                $opcionesUsuario2 .= '<option value="' . $row['id_usuario'] . '" selected>' . $row['nombre_usuario'] . '</option>';
+            } else {
+                $opcionesUsuario2 .= '<option value="' . $row['id_usuario'] . '">' . $row['nombre_usuario'] . '</option>';
+            }
+        }
+        $opcionesUsuario2 .= '</select>';
+        $data['opcionesUsuario2'] = $opcionesUsuario2;
+
+        if($data){
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{
+            echo json_encode(array("status" => false));
+        }
+
+    }
+
+    public function actualizar()
+    {
+        helper(['form', 'url']);
+        $salida = new SalidaModel();
+
+        $id = $this->request->getVar('txt_id');
+
+        $data = [
+            'nota_entrega' => $this->request->getVar('txt_nota_entrega'),
+            'fecha' => $this->request->getVar('txt_fecha'),
+            'destino' => $this->request->getVar('txt_destino'),
+            'concepto' => $this->request->getVar('txt_concepto'),
+            'id_tiposalida' => $this->request->getVar('txt_id_tiposalida'),
+            'id_usuario1' => $this->request->getVar('txt_id_usuario'),
+            'id_usuario2' => $this->request->getVar('txt_id_usuario_dos'),
+        ];
+
+        $update = $salida->update($id, $data);
+        if ($update != false) {
+            $data = $salida->where('id_salida', $id)->first();
+            
+            $data['id_item'] = $this->item->where('id_item', $data['id_item'])->first();
+            //buscamos el nombre_unidadmedida del item
+            $data['id_unidadmedida'] = $this->unidadmedida->where('id_unidadmedida', $data['id_item']['id_unidadmedida'])->first();
+            
+            echo json_encode(array("status" => true, 'data' => $data));
+        } else {
+            echo json_encode(array("status" => false, 'data' => $data));
+        }
+        
+    }
 }
