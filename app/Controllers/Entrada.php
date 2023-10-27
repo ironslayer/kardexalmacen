@@ -104,8 +104,9 @@ class Entrada extends BaseController
 
         $importe = $costo_unitario * $cantidad;
 
-        // $fecha = date('Y-m-d', strtotime(str_replace('-', '/', $fecha)));
-
+        //se obtiene datos del item
+        $datosItem = $this->item->where('id_item', $id_item)->first();
+        $total_movimiento = $datosItem['total_movimiento'] + 1;
         
 
         $data = [
@@ -124,6 +125,7 @@ class Entrada extends BaseController
             'id_usuario1' => $id_usuario1,
             'id_usuario2' => $id_usuario2,
             'id_item' => $id_item,
+            'nro_movimiento' => $total_movimiento,
         ];
 
         $datosItem = $this->item->where('id_item', $id_item)->first();
@@ -135,7 +137,8 @@ class Entrada extends BaseController
         $data2 = [
             'cantidad' => $cantidadItem,
             'costo_unitario' => $costo_unitarioItem,
-            'importe' => $importeItem,      
+            'importe' => $importeItem,
+            'total_movimiento' => $total_movimiento,      
         ];
 
         //se actualiza el item

@@ -64,12 +64,39 @@ class Item extends BaseController
     {
         $item = new ItemModel();
         $data = $item->where('id_item', $id)->first();
-        
+
+        //codigo para crear opciones de unidades de medida
+        $unidades = $this->unidades->where('activo', 1)->findAll();
+        $productos = $this->producto->where('activo', 1)->findAll();
+
+        $opcionesUnidades = '<label for="txt_id_unidadmedida">Unidad de Medida</label>';
+        $opcionesUnidades .= '<select class="form-control" id="txt_id_unidadmedida" name="txt_id_unidadmedida" required>';
+        foreach ($unidades as $row) {
+            if ($row['id_unidadmedida'] == $data['id_unidadmedida']) {
+                $opcionesUnidades .= '<option value="' . $row['id_unidadmedida'] . '" selected>' . $row['nombre_unidad'] . '</option>';
+            } else {
+                $opcionesUnidades .= '<option value="' . $row['id_unidadmedida'] . '">' . $row['nombre_unidad'] . '</option>';
+            }
+        }
+        $opcionesUnidades .= '</select>';
+        $data['opcionesUnidades'] = $opcionesUnidades;
+
+        //codigo para crear opciones de productos
+
+        $opcionesProductos = '<label for="txt_id_producto">Producto</label>';
+        $opcionesProductos .= '<select class="form-control" id="txt_id_producto" name="txt_id_producto" required>';
+        foreach ($productos as $row) {
+            if ($row['id_producto'] == $data['id_producto']) {
+                $opcionesProductos .= '<option value="' . $row['id_producto'] . '" selected>' . $row['nombre_producto'] . '</option>';
+            } else {
+                $opcionesProductos .= '<option value="' . $row['id_producto'] . '">' . $row['nombre_producto'] . '</option>';
+            }
+        }
+        $opcionesProductos .= '</select>';
+        $data['opcionesProductos'] = $opcionesProductos;
+
         if($data){
-            // $data['id_unidadmedida'] = $this->unidades->findAll();
-            // $data['id_producto'] = $this->producto->findAll();
-            // $data['id_unidadmedida']=$this->unidades->where('id_unidadmedida', $data['id_unidadmedida'])->first();
-            // $data['id_producto']=$this->producto->where('id_producto', $data['id_producto'])->first();
+            
             echo json_encode(array("status" => true, 'data' => $data));
         }else{  
             echo json_encode(array("status" => false));

@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ItemModel extends Model
+class SalidaModel extends Model
 {
-    protected $table      = 'item';
-    protected $primaryKey = 'id_item';
+    protected $table      = 'salida';
+    protected $primaryKey = 'id_salida';
 
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['descripcion', 'id_producto', 'id_unidadmedida', 'cantidad', 'costo_unitario', 'importe', 'total_movimiento', 'activo'];
+    protected $allowedFields = ['destino', 'nota_entrega', 'fecha', 'concepto', 'cantidad', 'costo_unitario', 'importe', 'id_tiposalida', 'id_usuario1', 'id_usuario2', 'activo', 'id_item', 'nro_movimiento', 'e_s'];
 
     // Dates
     protected $useTimestamps = true;
@@ -28,7 +28,7 @@ class ItemModel extends Model
         parent::__construct();
         // $this->load->database();
         $db = \Config\Database::connect();
-        $builder = $db->table('item');
+        $builder = $db->table('salida');
     }
 
     public function insert_data($data){
@@ -38,6 +38,7 @@ class ItemModel extends Model
             return false;
         }
     }
+    
 }
 
 ?>

@@ -14,7 +14,7 @@ class EntradaModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['c_iva', 'nota_recepcion', 'fecha', 'fuente', 'concepto', 'cantidad', 'total_precio', 'precio_unitario', 'costo_unitario', 'importe', 'id_tipoentrada', 'id_proveedor', 'id_usuario1', 'id_usuario2', 'activo', 'id_item'];
+    protected $allowedFields = ['c_iva', 'nota_recepcion', 'fecha', 'fuente', 'concepto', 'cantidad', 'total_precio', 'precio_unitario', 'costo_unitario', 'importe', 'id_tipoentrada', 'id_proveedor', 'id_usuario1', 'id_usuario2', 'activo', 'id_item', 'nro_movimiento', 'e_s'];
 
     // Dates
     protected $useTimestamps = true;

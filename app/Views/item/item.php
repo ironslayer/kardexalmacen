@@ -142,27 +142,11 @@
                             <label for="txt_descripcion">Descripción</label>
                             <input type="text" class="form-control" id="txt_descripcion" name="txt_descripcion" autofocus required placeholder="Ej. CHAMPIÑONES EN LATA (400 GRAMOS)"/>
                         </div>
-                        <div class="moda-content">
-                        <label for="txt_id_unidadmedida">Unidad de Medida</label>
-                            <select name="txt_id_unidadmedida" id="txt_id_unidadmedida" class="form-select" required>
-                                <option value="">Seleccionar Unidad</option>
-                                    <?php foreach ($datos2 as $unidad) { ?>
-                                        <?php if($unidad['activo']==1){?>
-                                        <option value="<?php echo $unidad['id_unidadmedida']; ?>" >
-                                        <?php echo $unidad['nombre_unidad']; ?>
-                                        </option>
-                                    <?php }} ?>
-                            </select>
+                        <div class="moda-content" id="opciones_unidades">
+                    
                         </div>
-                        <div class="moda-content">
-                        <label for="txt_id_producto">Producto/Categoria</label>
-                            <select name="txt_id_producto" id="txt_id_producto" class="form-select" required>
-                                <option value="">Seleccionar producto</option>
-                                <?php foreach ($datos3 as $producto) { ?>
-                                    <?php if($producto['activo']==1){?>
-                                    <option value="<?php echo $producto['id_producto']; ?>"><?php echo $producto['nombre_producto']; ?></option>
-                                <?php }} ?>
-                            </select>
+                        <div class="moda-content" id="opciones_productos">
+                        
                         </div>
 
                         <div class="modal-footer">
@@ -285,6 +269,8 @@
                         $('#miFormulario_edit #txt_descripcion').val(respuesta.data.descripcion);
                         // $('#miFormulario_edit #txt_id_unidadmedida').val(respuesta.data.id_unidadmedida.nombre_unidad);
                         // $('#miFormulario_edit #txt_id_producto').val(respuesta.data.id_producto.nombre_producto);
+                        $('#miFormulario_edit #opciones_unidades').html(respuesta.data.opcionesUnidades);
+                        $('#miFormulario_edit #opciones_productos').html(respuesta.data.opcionesProductos);
 
                     },error: function(data) {
                         alert('No se pudo editar');

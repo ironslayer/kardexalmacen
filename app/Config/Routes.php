@@ -51,14 +51,14 @@ $routes->post('entrada/guardar', 'Entrada::guardar');
 
 
 //  rutas para salida
-// $routes->get('salida', 'Salida::index');
-// $routes->get('salida/nuevo', 'Salida::nuevo');
-// $routes->post('salida/insertar', 'Salida::insertar');
-// $routes->get('salida/editar/(:alphanum)', 'Salida::editar/$1');
-// $routes->post('salida/actualizar', 'Salida::actualizar');
-// $routes->get('salida/eliminar/(:alphanum)', 'Salida::eliminar/$1');
-// $routes->get('salida/eliminados', 'Salida::eliminados');
-// $routes->get('salida/reingresar/(:alphanum)', 'Salida::reingresar/$1');
+$routes->get('salida', 'Salida::index');
+$routes->get('salida/nuevo', 'Salida::nuevo');
+$routes->post('salida/insertar', 'Salida::insertar');
+$routes->get('salida/editar/(:alphanum)', 'Salida::editar/$1');
+$routes->post('salida/actualizar', 'Salida::actualizar');
+$routes->get('salida/eliminar/(:alphanum)', 'Salida::eliminar/$1');
+$routes->get('salida/eliminados', 'Salida::eliminados');
+$routes->get('salida/reingresar/(:alphanum)', 'Salida::reingresar/$1');
 
 //  rutas para tipo entrada
 $routes->get('tentrada', 'Tentrada::index');

@@ -3,6 +3,8 @@
         <div class="container-fluid px-4">
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
+            <button type="button" class="btn btn-primary" id="toggleFormButton"><i class="fas fa-align-justify"></i> Ocultar Formulario</button>
+
             <form action="<?php echo base_url(); ?>entrada/insertar" method="post" autocomplete="off" id="miFormulario" action="<?php echo base_url(); ?>entrada/insertar">
 
                 <!-- primera fila -->
@@ -145,7 +147,9 @@
                 <table id="tabla_db" class="table table-bordered table-striped table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>Código</th>
+                            <th width="2%">ID</th>
+                            <th width="2%">Nro. Mov.</th>
+                            <th>Fecha</th>
                             <th>Descripción</th>
                             <th>Unidad</th>
                             <th>Cantidad</th>
@@ -154,7 +158,6 @@
                             <th>Costo U. (Bs.)</th>
                             <th>Sub Total (Bs.)</th>
                             <th width="2%"></th>
-                            <th width="2%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -162,6 +165,8 @@
                             
                             <tr id="<?php echo $entrada['id_entrada']; ?>">
                                 <td> <?php echo $entrada['id_entrada']; ?> </td>
+                                <td> <?php echo $entrada['nro_movimiento']; ?> </td>
+                                <td> <?php echo $entrada['fecha']; ?> </td>
                                 
                             
                                 <?php 
@@ -188,8 +193,8 @@
                                 <td> <?php echo $entrada['precio_unitario']; ?> </td>
                                 <td> <?php echo $entrada['costo_unitario']; ?> </td>
                                 <td> <?php echo $entrada['importe']; ?> </td>
-                                <td> <a data-id="<?php echo $entrada['id_entrada']; ?>" class="btn btn-warning btnEdit"><i class="fa-solid fa-pencil"></i></a></td>
-                                <td> <a data-id="<?php echo $entrada['id_entrada']; ?>" class="btn btn-danger btnDelete"><i class="fa-solid fa-trash"></i></a></td>
+                                <td> <a data-id="<?php echo $entrada['id_entrada']; ?>" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>
+                                
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -244,6 +249,20 @@
             }
         }
 
+    </script>
+
+    <!-- Mostrar y ocultar formulario -->
+    <script>
+        $(document).ready(function() {
+            $("#toggleFormButton").click(function() {
+                $("#miFormulario").toggle(); // Alternar la visibilidad del formulario
+                if ($("#miFormulario").is(":visible")) {
+                    $(this).html('<i class="fas fa-align-justify"></i> Ocultar Formulario');
+                } else {
+                    $(this).html('<i class="fas fa-align-justify"></i> Mostrar Formulario');
+                }
+            });
+        });
     </script>
 
 <!-- codigo para formulario y tabla -->
@@ -374,6 +393,8 @@
                             success: function(respuesta) {
                                 var entrada = '<tr id="'+respuesta.data.id_entrada+'">';
                                 entrada += '<td>'+respuesta.data.id_entrada+'</td>';
+                                entrada += '<td>'+respuesta.data.nro_movimiento+'</td>';
+                                entrada += '<td>'+respuesta.data.fecha+'</td>';
                                 entrada += '<td>'+respuesta.data.id_item.descripcion+'</td>';
                                 entrada += '<td>'+respuesta.data.id_unidadmedida.nombre_unidad+'</td>';
                                 entrada += '<td>'+respuesta.data.cantidad+'</td>';
@@ -382,13 +403,15 @@
                                 entrada += '<td>'+respuesta.data.costo_unitario+'</td>';
                                 entrada += '<td>'+respuesta.data.importe+'</td>';
 
-                                entrada += '<td> <a data-id="'+respuesta.data.id_entrada+'" class="btn btn-warning btnEdit"><i class="fa-solid fa-pencil"></i></a></td>';
-                                entrada += '<td> <a data-id="'+respuesta.data.id_entrada+'" class="btn btn-danger btnDelete"><i class="fa-solid fa-trash"></i></a></td>';
+                                entrada += '<td> <a data-id="'+respuesta.data.id_entrada+'" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>';
+                                
                                 $('#tabla_db tbody').append(entrada);
                                 $('#miFormulario')[0].reset();
                                 $('#total_iva').val(respuesta.data.importeTotalIva);
                                 $('#total_factura').val(respuesta.data.sumaTotales);
                                 $('#total_importe').val(respuesta.data.sumaImportes);
+                                location.reload();
+
                                 // $('#modal_agregar').modal('hide');
 
                             },
