@@ -174,6 +174,139 @@ class Entrada extends BaseController
         
     }
 
+    public function editar($id=null)
+    {
+        // buscamos datos de la entrada
+        $entrada = new EntradaModel();
+        $data = $entrada->where('id_entrada', $id)->first();
+
+        //creamos el codigo para el c_iva si esta activado o no el checkbox
+        $valor_iva=$data['c_iva'];
+        $opcion_iva = '';
+        if($valor_iva == 1){
+            $opcion_iva = '<label for="txt_c_iva">C/IVA</label>';
+            $opcion_iva .= '<input type="checkbox" class="" id="txt_c_iva" name="txt_c_iva" style="margin-top: 9px" disabled checked />';
+        }else{
+            $opcion_iva = '<label for="txt_c_iva">C/IVA</label>';
+            $opcion_iva .= '<input type="checkbox" class="" id="txt_c_iva" name="txt_c_iva" style="margin-top: 9px" disabled />';
+        }
+        $data['opcion_iva'] = $opcion_iva;
+
+        // //codigo para crear opciones de tipo de entrada
+        $tipo_entradas = $this->tentrada->where('activo', 1)->findAll();
+        $opcionesTipoEntrada = '<label for="txt_id_tipoentrada">Tipo de Entrada</label>';
+        $opcionesTipoEntrada .= '<select class="form-select" id="txt_id_tipoentrada" name="txt_id_tipoentrada" required >';
+        $opcionesTipoEntrada .= '<option value="">Seleccionar Tipo de Entrada</option>';
+        foreach ($tipo_entradas as $row) {
+            if ($row['id_tipoentrada'] == $data['id_tipoentrada']) {
+                $opcionesTipoEntrada .= '<option value="' . $row['id_tipoentrada'] . '" selected>' . $row['nombre_entrada'] . '</option>';
+            } else {
+                $opcionesTipoEntrada .= '<option value="' . $row['id_tipoentrada'] . '">' . $row['nombre_entrada'] . '</option>';
+            }
+        }
+        $opcionesTipoEntrada .= '</select>';
+        $data['opcionesTipoEntrada'] = $opcionesTipoEntrada;
+
+        // //codigo para crear opciones de proveedor
+        $proveedores = $this->proveedor->where('activo', 1)->findAll();
+        $opcionesProveedor = '<label for="txt_id_proveedor">Proveedor</label>';
+        $opcionesProveedor .= '<select class="form-select" id="txt_id_proveedor" name="txt_id_proveedor" required >';
+        $opcionesProveedor .= '<option value="">Seleccionar Proveedor</option>';
+        foreach ($proveedores as $row) {
+            if ($row['id_proveedor'] == $data['id_proveedor']) {
+                $opcionesProveedor .= '<option value="' . $row['id_proveedor'] . '" selected>' . $row['nombre_proveedor'] . '</option>';
+            } else {
+                $opcionesProveedor .= '<option value="' . $row['id_proveedor'] . '">' . $row['nombre_proveedor'] . '</option>';
+            }
+        }
+        $opcionesProveedor .= '</select>';
+        $data['opcionesProveedor'] = $opcionesProveedor;
+
+        // //codigo para crear opciones de item
+        $items = $this->item->where('activo', 1)->findAll();
+        $opcionesItem = '<label for="txt_id_item">Item</label>';
+        $opcionesItem .= '<select class="form-select" id="txt_id_item" name="txt_id_item" disabled>';
+        $opcionesItem .= '<option value="">Seleccionar Item</option>';
+        foreach ($items as $row) {
+            if ($row['id_item'] == $data['id_item']) {
+                $opcionesItem .= '<option value="' . $row['id_item'] . '" selected>' . $row['descripcion'] . '</option>';
+            } else {
+                $opcionesItem .= '<option value="' . $row['id_item'] . '">' . $row['descripcion'] . '</option>';
+            }
+        }
+        $opcionesItem .= '</select>';
+        $data['opcionesItem'] = $opcionesItem;
+
+        // //codigo para crear opciones de usuario1
+        $usuarios = $this->usuario->where('activo', 1)->findAll();
+        $opcionesUsuario1 = '<label for="txt_id_usuario">Autorizado por</label>';
+        $opcionesUsuario1 .= '<select class="form-select" id="txt_id_usuario" name="txt_id_usuario" required >';
+        $opcionesUsuario1 .= '<option value="">Seleccione</option>';
+        foreach ($usuarios as $row) {
+            if ($row['id_usuario'] == $data['id_usuario1']) {
+                $opcionesUsuario1 .= '<option value="' . $row['id_usuario'] . '" selected>' . $row['nombre_usuario'] . '</option>';
+            } else {
+                $opcionesUsuario1 .= '<option value="' . $row['id_usuario'] . '">' . $row['nombre_usuario'] . '</option>';
+            }
+        }
+        $opcionesUsuario1 .= '</select>';
+        $data['opcionesUsuario1'] = $opcionesUsuario1;
+
+        // //codigo para crear opciones de usuario2
+        $usuarios = $this->usuario->where('activo', 1)->findAll();
+        $opcionesUsuario2 = '<label for="txt_id_usuario_dos">Entregado a</label>';
+        $opcionesUsuario2 .= '<select class="form-select" id="txt_id_usuario_dos" name="txt_id_usuario_dos" required >';
+        $opcionesUsuario2 .= '<option value="">Seleccione</option>';
+        foreach ($usuarios as $row) {
+            if ($row['id_usuario'] == $data['id_usuario2']) {
+                $opcionesUsuario2 .= '<option value="' . $row['id_usuario'] . '" selected>' . $row['nombre_usuario'] . '</option>';
+            } else {
+                $opcionesUsuario2 .= '<option value="' . $row['id_usuario'] . '">' . $row['nombre_usuario'] . '</option>';
+            }
+        }
+        $opcionesUsuario2 .= '</select>';
+        $data['opcionesUsuario2'] = $opcionesUsuario2;
+
+        if($data){
+            echo json_encode(array("status" => true, 'data' => $data));
+        }else{
+            echo json_encode(array("status" => false));
+        }
+
+    }
+
+    public function actualizar()
+    {
+        helper(['form', 'url']);
+        $entrada = new EntradaModel();
+
+        $id = $this->request->getVar('txt_id');
+
+        $data = [
+            'nota_recepcion' => $this->request->getVar('txt_nota_recepcion'),
+            'fecha' => $this->request->getVar('txt_fecha'),
+            'fuente' => $this->request->getVar('txt_fuente'),
+            'concepto' => $this->request->getVar('txt_concepto'),
+            'id_tipoentrada' => $this->request->getVar('txt_id_tipoentrada'),
+            'id_proveedor' => $this->request->getVar('txt_id_proveedor'),
+            'id_usuario1' => $this->request->getVar('txt_id_usuario'),
+            'id_usuario2' => $this->request->getVar('txt_id_usuario_dos'),
+        ];
+
+        $update = $entrada->update($id, $data);
+        if ($update != false) {
+            $data = $entrada->where('id_entrada', $id)->first();
+            
+            $data['id_unidadmedida'] = $this->unidadmedida->where('id_unidadmedida', $data['id_item'])->first();
+            
+            $data['id_item'] = $this->item->where('id_item', $data['id_item'])->first();
+            
+            echo json_encode(array("status" => true, 'data' => $data));
+        } else {
+            echo json_encode(array("status" => false, 'data' => $data));
+        }
+        
+    }
 
 
 }

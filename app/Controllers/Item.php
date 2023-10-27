@@ -71,6 +71,7 @@ class Item extends BaseController
 
         $opcionesUnidades = '<label for="txt_id_unidadmedida">Unidad de Medida</label>';
         $opcionesUnidades .= '<select class="form-control" id="txt_id_unidadmedida" name="txt_id_unidadmedida" required>';
+        $opcionesUnidades .= '<option value="">Seleccionar Unidad de Medida</option>';
         foreach ($unidades as $row) {
             if ($row['id_unidadmedida'] == $data['id_unidadmedida']) {
                 $opcionesUnidades .= '<option value="' . $row['id_unidadmedida'] . '" selected>' . $row['nombre_unidad'] . '</option>';
@@ -85,6 +86,7 @@ class Item extends BaseController
 
         $opcionesProductos = '<label for="txt_id_producto">Producto</label>';
         $opcionesProductos .= '<select class="form-control" id="txt_id_producto" name="txt_id_producto" required>';
+        $opcionesProductos .= '<option value="">Seleccionar Producto</option>';
         foreach ($productos as $row) {
             if ($row['id_producto'] == $data['id_producto']) {
                 $opcionesProductos .= '<option value="' . $row['id_producto'] . '" selected>' . $row['nombre_producto'] . '</option>';

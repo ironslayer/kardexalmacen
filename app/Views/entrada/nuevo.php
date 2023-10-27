@@ -13,7 +13,7 @@
                         <div class="col-12 col-sm-2">
 
                             <label for="nota_recepcion">Nota de recepción</label>
-                            <input type="text" class="form-control" id="nota_recepcion" name="nota_recepcion" autofocus required placeholder="Ejem. 987654321" />
+                            <input type="number" class="form-control" id="nota_recepcion" name="nota_recepcion" autofocus required placeholder="Ejem. 987654321" />
 
                         </div>
                         <div class="col-12 col-sm-1" style="display: flex; flex-direction: column; align-items: center; ">
@@ -96,7 +96,7 @@
                         <div class="col-12 col-sm-2">
 
                             <label for="total_precio">Costo Total (Bs.)</label>
-                            <input type="text" step="0.01" class="form-control" id="total_precio" name="total_precio" required placeholder="Ejem. 500.50" />
+                            <input type="number" step="0.01" class="form-control" id="total_precio" name="total_precio" required placeholder="Ejem. 500.50" />
 
                         </div>
 
@@ -219,6 +219,142 @@
 
 
         </div>
+
+    <!-- modal2 EDITAR -->
+    <div class="modal fade" id="modal_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Entrada</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+
+
+                <form action="<?php echo site_url('entrada/actualizar'); ?>" method="post" autocomplete="off" id="miFormulario_edit" name="miFormulario_edit">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="txt_id" id="txt_id" />
+                        <!-- primera fila -->
+                        <div class="form-control-plaintext moda-content">
+                            <div class="row">
+                                <div class="col-12 col-sm-2 ">
+
+                                    <label for="txt_nota_recepcion">Nota de recepción</label>
+                                    <input type="number" class="form-control" id="txt_nota_recepcion" name="txt_nota_recepcion" autofocus required placeholder="Ejem. 987654321" />
+
+                                </div>
+
+                                <!-- check del iva -->
+                                <div class="col-12 col-sm-1" style="display: flex; flex-direction: column; align-items: center; " id="marcado_iva">
+
+                                    
+
+                                </div>
+
+                                <div class="col-12 col-sm-2">
+
+                                    <label for="txt_fecha">Fecha</label>
+                                    <input type="date" class="form-control" id="txt_fecha" name="txt_fecha" required />
+
+                                </div>
+                                <div class="col-12 col-sm-3">
+
+                                    <label for="txt_fuente">Fuente</label>
+                                    <input type="text" class="form-control" id="txt_fuente" name="txt_fuente" required value="" placeholder="Ej. Recursos Propios" />
+
+                                </div>
+                                <!-- tipo entrada -->
+                                <div class="col-12 col-sm-2" id="opciones_tipoentradas">
+
+                                    
+
+                                </div>
+                                <!-- proveedor -->
+                                <div class="col-12 col-sm-2" id="opciones_proveedores">
+
+                                    
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- segunda fila -->
+                        <div class="form-control-plaintext moda-content">
+                            <div class="row">
+
+                                <!-- item -->
+                                <div class="col-12 col-sm-5" id="opciones_item">
+
+                                    
+
+
+                                </div>
+
+                                <div class="col-12 col-sm-3">
+
+                                    <label for="txt_cantidad_almacen">Cantidad actual en Almacén</label>
+                                    <input type="text" class="form-control" id="txt_cantidad_almacen" name="txt_cantidad_almacen" disabled />
+
+                                </div>
+
+                                <div class="col-12 col-sm-2">
+
+                                    <label for="txt_cantidad">Cantidad a ingresar</label>
+                                    <input type="number" class="form-control" id="txt_cantidad" name="txt_cantidad"  disabled />
+
+                                </div>
+
+                                <div class="col-12 col-sm-2">
+
+                                    <label for="txt_total_precio">Costo Total (Bs.)</label>
+                                    <input type="text" step="0.01" class="form-control" id="txt_total_precio" name="txt_total_precio"   disabled />
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- tercera fila -->
+
+                        <div class="form-control-plaintext moda-content">
+                            <div class="row">
+
+                                <div class="col-12 col-sm-5">
+                                    <label for="txt_concepto">Concepto</label>
+                                    <input type="text" class="form-control" id="txt_concepto" name="txt_concepto" required placeholder=" Ejem. Compra de Salsas de tomate en promoción." />
+                                </div>
+
+                                <div class="col-12 col-sm-3" id="opciones_usuario1">
+
+                                   
+
+                                </div>
+                                <div class="col-12 col-sm-3" id="opciones_usuario2">
+
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- pie -->
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="resetFormEdit">Cancelar</button>
+
+                            <button type="submit" class="btn btn-success">Modificar</button>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
     </main>
 
 <!-- Código para obtener solo la cantidad del item -->
@@ -296,8 +432,7 @@
                     rules:{
                         nota_recepcion:{
                             required: true,
-                            minlength: 3,
-                            maxlength: 50
+                            min: 1
                         },
                         fecha:{
                             required: true
@@ -322,7 +457,7 @@
                         },
                         total_precio:{
                             required: true,
-                            min: 0.00
+                            min: 0.10
                         },
                         concepto:{
                             required: true,
@@ -339,8 +474,7 @@
                     messages:{
                         nota_recepcion:{
                             required: "Este campo es obligatorio",
-                            minlength: "Debe contener al menos 3 caracteres",
-                            maxlength: "Debe contener maximo 50 caracteres"
+                            minlength: "Debe contener al menos 1 dígito"
                         },
                         fecha:{
                             required: "Este campo es obligatorio"
@@ -365,7 +499,7 @@
                         },
                         total_precio:{
                             required: "Este campo es obligatorio",
-                            min: "Debe contener al menos 0.00 caracteres"
+                            min: "La cantidad mínima es 0.10"
                         },
                         concepto:{
                             required: "Este campo es obligatorio",
@@ -439,20 +573,30 @@
             // EDIT
 
             $('body').on('click', '.btnEdit', function() {
-                var proveedor_id = $(this).attr('data-id');
+                var entrada_id = $(this).attr('data-id');
                 $.ajax({
-                    url: '<?php echo base_url(); ?>proveedor/editar/' + proveedor_id,
+                    url: '<?php echo base_url(); ?>entrada/editar/' + entrada_id,
                     type: 'get',
                     dataType: 'json',
                     success: function(respuesta) {
                         $('#modal_edit').modal('show');
-                        $('#miFormulario_edit #txt_id').val(respuesta.data.id_proveedor);
-                        $('#miFormulario_edit #txt_nombre').val(respuesta.data.nombre_proveedor);
-                        $('#miFormulario_edit #txt_contacto').val(respuesta.data.contacto);
-                        $('#miFormulario_edit #txt_direccion').val(respuesta.data.direccion);
-                        $('#miFormulario_edit #txt_ciudad').val(respuesta.data.ciudad);
-                        $('#miFormulario_edit #txt_telefono').val(respuesta.data.telefono);
-                    },error: function(data) {
+                        $('#miFormulario_edit #txt_id').val(respuesta.data.id_entrada);
+                        $('#miFormulario_edit #txt_nota_recepcion').val(respuesta.data.nota_recepcion);
+                        $('#miFormulario_edit #marcado_iva').html(respuesta.data.opcion_iva);
+                        $('#miFormulario_edit #txt_fecha').val(respuesta.data.fecha);
+                        $('#miFormulario_edit #txt_fuente').val(respuesta.data.fuente);
+                        $('#miFormulario_edit #opciones_tipoentradas').html(respuesta.data.opcionesTipoEntrada);
+                        $('#miFormulario_edit #opciones_proveedores').html(respuesta.data.opcionesProveedor);
+                        $('#miFormulario_edit #opciones_item').html(respuesta.data.opcionesItem);
+                        $('#miFormulario_edit #txt_cantidad').val(respuesta.data.cantidad);
+                        $('#miFormulario_edit #txt_total_precio').val(respuesta.data.total_precio);
+                        $('#miFormulario_edit #txt_concepto').val(respuesta.data.concepto);
+                        $('#miFormulario_edit #opciones_usuario1').html(respuesta.data.opcionesUsuario1);
+                        $('#miFormulario_edit #opciones_usuario2').html(respuesta.data.opcionesUsuario2);
+
+                        
+                    },
+                    error: function(data) {
                         alert('No se pudo editar');
                     }
                 });
@@ -460,60 +604,68 @@
 
 
             $("#miFormulario_edit").validate({
-                rules:  {
-                    txt_nombre: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
+                rules:{
+                        txt_nota_recepcion:{
+                            required: true,
+                            min: 1
+                        },
+                        txt_fecha:{
+                            required: true
+                        },
+                        txt_fuente:{
+                            required: true,
+                            minlength: 5,
+                            maxlength: 50
+                        },
+                        txt_id_tipoentrada:{
+                            required: true
+                        },
+                        txt_id_proveedor:{
+                            required: true
+                        },
+                        txt_concepto:{
+                            required: true,
+                            minlength: 8,
+                            maxlength: 50
+                        },
+                        txt_id_usuario:{
+                            required: true
+                        },
+                        txt_id_usuario_dos:{
+                            required: true
+                        }
                     },
-                    txt_contacto: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
+                    messages:{
+                        txt_nota_recepcion:{
+                            required: "Este campo es obligatorio",
+                            minlength: "Debe contener al menos 1 dígito",
+                        },
+                        txt_fecha:{
+                            required: "Este campo es obligatorio"
+                        },
+                        txt_fuente:{
+                            required: "Este campo es obligatorio",
+                            minlength: "Debe contener al menos 5 caracteres",
+                            maxlength: "Debe contener maximo 50 caracteres"
+                        },
+                        txt_id_tipoentrada:{
+                            required: "Este campo es obligatorio"
+                        },
+                        txt_id_proveedor:{
+                            required: "Este campo es obligatorio"
+                        },
+                        txt_concepto:{
+                            required: "Este campo es obligatorio",
+                            minlength: "Debe contener al menos 8 caracteres",
+                            maxlength: "Debe contener maximo 50 caracteres"
+                        },
+                        txt_id_usuario:{
+                            required: "Este campo es obligatorio"
+                        }, 
+                        txt_id_usuario_dos:{
+                            required: "Este campo es obligatorio"
+                        }
                     },
-                    txt_direccion: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
-                    },
-                    txt_ciudad: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
-                    },
-                    txt_telefono: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
-                    }
-                },
-                messages: {
-                    txt_nombre: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
-                    },
-                    txt_contacto: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
-                    },
-                    txt_direccion: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
-                    },
-                    txt_ciudad: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
-                    },
-                    txt_telefono: {
-                        required: "Este campo es obligatorio",
-                        minlength: "Debe contener al menos 3 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
-                    }
-                },
                 errorPlacement: function(error, element) {
                     error.css("color", "red"); // Cambia el color a rojo
                     error.insertAfter(element);
@@ -526,15 +678,19 @@
                         type: "POST",
                         dataType: "json",
                         success: function(respuesta){
-                            var proveedor = '<td>'+respuesta.data.id_proveedor+'</td>';
-                            proveedor += '<td>'+respuesta.data.nombre_proveedor+'</td>';
-                            proveedor += '<td>'+respuesta.data.contacto+'</td>';
-                            proveedor += '<td>'+respuesta.data.direccion+'</td>';
-                            proveedor += '<td>'+respuesta.data.ciudad+'</td>';
-                            proveedor += '<td>'+respuesta.data.telefono+'</td>';
-                            proveedor += '<td> <a data-id="'+respuesta.data.id_proveedor+'" class="btn btn-warning btnEdit"><i class="fa-solid fa-pencil"></i></a></td>';
-                            proveedor += '<td> <a data-id="'+respuesta.data.id_proveedor+'" class="btn btn-danger btnDelete"><i class="fa-solid fa-trash"></i></a></td>';
-                            $('#tabla_db tbody #'+respuesta.data.id_proveedor).html(proveedor);
+                            var entrada = '<td>'+respuesta.data.id_entrada+'</td>';
+                            entrada += '<td>'+respuesta.data.nro_movimiento+'</td>';
+                            entrada += '<td>'+respuesta.data.fecha+'</td>';
+                            entrada += '<td>'+respuesta.data.id_item.descripcion+'</td>';
+                            entrada += '<td>'+respuesta.data.id_unidadmedida.nombre_unidad+'</td>';
+                            entrada += '<td>'+respuesta.data.cantidad+'</td>';
+                            entrada += '<td>'+respuesta.data.total_precio+'</td>';
+                            entrada += '<td>'+respuesta.data.precio_unitario+'</td>';
+                            entrada += '<td>'+respuesta.data.costo_unitario+'</td>';
+                            entrada += '<td>'+respuesta.data.importe+'</td>';
+                            entrada += '<td> <a data-id="'+respuesta.data.id_entrada+'" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>';
+                            
+                            $('#tabla_db tbody #'+respuesta.data.id_entrada).html(entrada);
                             $('#miFormulario_edit')[0].reset();
                             $('#modal_edit').modal('hide');
                         },
