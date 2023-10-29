@@ -5,7 +5,10 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\SalidaModel;
 use App\Models\TsalidaModel;
+use App\Models\EntradaModel;
+use App\Models\TentradaModel;
 use App\Models\ProveedorModel;
+use App\Models\ProductoModel;
 use App\Models\UsuarioModel;
 use App\Models\ItemModel;
 use App\Models\UnidadesModel;
@@ -13,12 +16,15 @@ use App\Models\UnidadesModel;
 
 
 
-class Salida extends BaseController
+class EntradaSalida extends BaseController
 
 {
     protected $salida;
     protected $tsalida;
+    protected $tentrada;
+    protected $entrada;
     protected $proveedor;
+    protected $producto;
     protected $usuario;
     protected $item;
     protected $unidadmedida;
@@ -30,141 +36,99 @@ class Salida extends BaseController
     {
         $this->salida = new SalidaModel();
         $this->tsalida = new TsalidaModel();
+        $this->tentrada = new TentradaModel();
+        $this->entrada = new EntradaModel();
         $this->proveedor = new ProveedorModel();
+        $this->producto = new ProductoModel();
         $this->usuario = new UsuarioModel();
         $this->item = new ItemModel();
         $this->unidadmedida = new UnidadesModel();
     }
 
-    public function nuevo()
+    public function index()
     {
-        $info1 = $this->tsalida->where('activo', 1)->findAll();
-        $info2 = $this->proveedor->where('activo', 1)->findAll();
-        $info3 = $this->usuario->where('activo', 1)->findAll();
-        $info4 = $this->item->where('activo', 1)->findAll();
-        $info5 = $this->salida->where('activo', 1)->findAll();
-        $info6 = $this->unidadmedida->findAll();
-
-        //suma de todos los total_precio e importes de salida
-        // $sumaTotales = 0;
-        $sumaImportes = 0;
-        foreach ($info5 as $key) {
-            // $sumaTotales = $sumaTotales + $key['total_precio'];
-            $sumaImportes = $sumaImportes + $key['importe'];
-        }
-
-        // $importeTotalIva = $sumaTotales - $sumaImportes;
-
-        // $sumaTotales = number_format($sumaTotales, 2, '.', '');
-        $sumaImportes = number_format($sumaImportes, 3, '.', '');
-        // $importeTotalIva = number_format($importeTotalIva, 3, '.', '');
-
+        //cargamos todos los iems que tengan el total movimientos > 0 y que esten activos
+        $info = $this->item->where('total_movimiento >', 0)->where('activo', 1)->findAll();
 
         $data = [
-            'titulo' => 'Salidas',
-            'tipo_salidas' => $info1,
-            'proveedores' => $info2,
-            'usuarios' => $info3,
-            'items' => $info4,
-            'salidas' => $info5,
-            // 'sumaTotales' => $sumaTotales,
-            'sumaImportes' => $sumaImportes,
-            // 'importeTotalIva' => $importeTotalIva,
-            'unidadmedidas' => $info6
+            'titulo' => 'Entradas y Salidas por Item',
+            'items' => $info,
         ];
 
         echo view('header');
-        echo view('salida/nuevo', $data);
+        echo view('entrada_salida/entrada_salida', $data);
         echo view('footer');
     }
 
-    public function insertar()
+    public function buscaEntradasSalidasItem($id_item)
     {
+        // Cargar la base de datos para hacer consultas
+        $db = \Config\Database::connect();
 
-        helper(['form', 'url']);
-        $salida = new SalidaModel();
+        // Crear la consulta
+        $query = $db->query('SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
+        FROM entrada
+        WHERE id_item = ' . $id_item . '
+        UNION ALL
+        SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
+        FROM salida
+        WHERE id_item = ' . $id_item . '
+        ORDER BY nro_movimiento ASC;');
 
-        $id_item = $this->request->getVar('id_item');
-        $cantidad = $this->request->getVar('cantidad');
-        $nota_entrega = $this->request->getVar('nota_entrega');
-        $fecha = $this->request->getVar('fecha');
-        $id_tiposalida = $this->request->getVar('id_tiposalida');
-        $destino = $this->request->getVar('destino');
-        $concepto = $this->request->getVar('concepto');
-        $id_usuario1 = $this->request->getVar('id_usuario');
-        $id_usuario2 = $this->request->getVar('id_usuario_dos');
+        // Obtener los resultados
+        $results = $query->getResultArray();
 
+        // Validar que la consulta haya traído resultados
+        if (count($results) != 0) {
+            // Con los resultados y estilos de fondo, armamos una tabla
+            $tabla = '<table class="table table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    <th width="2%">Nro. Movimiento</th>
+                    <th>Fecha</th>
+                    <th>Item</th>
+                    <th>Entrada/Salida</th>
+                    <th>Cantidad</th>
+                    <th>Costo U.</th>
+                    <th>Importe</th>
+                </tr>
+            </thead>
+            <tbody>';
+            foreach ($results as $row) {
+                $estiloFondo = '';
+                if ($row['e_s'] === 'E') {
+                    $estiloFondo = 'background-color: #CCFFCA;'; // Verde claro para entradas
+                } elseif ($row['e_s'] === 'S') {
+                    $estiloFondo = 'background-color: #F9DFD8;'; // Rojo claro para salidas
+                }
+                $tabla .= '<tr style="' . $estiloFondo . '">';
+                $tabla .= '<td>' . $row['nro_movimiento'] . '</td>';
+                $tabla .= '<td>' . $row['fecha'] . '</td>';
+                $tabla .= '<td>' . $row['id_item'] . '</td>';
+                $tabla .= '<td>' . $row['e_s'] . '</td>';
+                $tabla .= '<td>' . $row['cantidad'] . '</td>';
+                $tabla .= '<td>' . $row['costo_unitario'] . '</td>';
+                $tabla .= '<td>' . $row['importe'] . '</td>';
+                $tabla .= '</tr>';
+            }
 
-
-        //se obtiene datos del item
-
-        $datosItem = $this->item->where('id_item', $id_item)->first();
-
-        $cantidadItem = $datosItem['cantidad'] - $cantidad;
-        $costo_unitarioItem = $datosItem['costo_unitario']; //sacamos el costo unitario del item
-        $importe = $costo_unitarioItem * $cantidad;
-        $importeItem = $datosItem['importe'] - $importe;
-
-        $total_movimiento = $datosItem['total_movimiento'] + 1;
-
-
-
-        $data = [
-            'id_item' => $id_item,
-            'cantidad' => $cantidad,
-            'nota_entrega' => $nota_entrega,
-            'fecha' => $fecha,
-            'id_tiposalida' => $id_tiposalida,
-            'destino' => $destino,
-            'concepto' => $concepto,
-            'id_usuario1' => $id_usuario1,
-            'id_usuario2' => $id_usuario2,
-            'importe' => $importe,
-            'nro_movimiento' => $total_movimiento,
-            'costo_unitario' => $costo_unitarioItem,
-        ];
-
-
-
-        $data2 = [
-            'cantidad' => $cantidadItem,
-            'importe' => $importeItem,
-            'total_movimiento' => $total_movimiento,
-        ];
-
-        //se actualiza el item
-        $this->item->update($id_item, $data2);
-
-        //se inserta la salida
-        $save = $salida->insert_data($data);
-
-        //se obtiene la suma de todos los importes de salidas
-        $info5 = $this->salida->where('activo', 1)->findAll();
-        $sumaImportes = 0;
-        foreach ($info5 as $key) {
-            $sumaImportes = $sumaImportes + $key['importe'];
-        }
-        
-
-        if ($save != false) {
-            $data = $salida->where('id_salida', $save)->first();
-            $data['id_unidadmedida'] = $this->unidadmedida->where('id_unidadmedida', $data['id_item'])->first();
-            $data['id_item'] = $this->item->where('id_item', $data['id_item'])->first();
-            //se agrega al data la suma de todos los importes de salida
-            $data['sumaImportes'] = number_format($sumaImportes, 3, '.', '');
+            $tabla .= '</tbody></table>';
+            // Devolvemos la tabla
+            $data['tabla'] = $tabla;
             echo json_encode(array("status" => true, 'data' => $data));
         } else {
-            echo json_encode(array("status" => false, 'data' => $data));
+            echo json_encode(array("status" => false));
         }
     }
 
-    public function editar($id=null)
+
+    public function editar($id = null)
     {
         // buscamos datos de la entrada
         $salida = new SalidaModel();
         $data = $salida->where('id_salida', $id)->first();
 
-        
+
 
         // //codigo para crear opciones de tipo de salida
         $tiposSalida = $this->tsalida->where('activo', 1)->findAll();
@@ -226,12 +190,11 @@ class Salida extends BaseController
         $opcionesUsuario2 .= '</select>';
         $data['opcionesUsuario2'] = $opcionesUsuario2;
 
-        if($data){
+        if ($data) {
             echo json_encode(array("status" => true, 'data' => $data));
-        }else{
+        } else {
             echo json_encode(array("status" => false));
         }
-
     }
 
     public function actualizar()
@@ -254,15 +217,14 @@ class Salida extends BaseController
         $update = $salida->update($id, $data);
         if ($update != false) {
             $data = $salida->where('id_salida', $id)->first();
-            
+
             $data['id_item'] = $this->item->where('id_item', $data['id_item'])->first();
             //buscamos el nombre_unidadmedida del item
             $data['id_unidadmedida'] = $this->unidadmedida->where('id_unidadmedida', $data['id_item']['id_unidadmedida'])->first();
-            
+
             echo json_encode(array("status" => true, 'data' => $data));
         } else {
             echo json_encode(array("status" => false, 'data' => $data));
         }
-        
     }
 }

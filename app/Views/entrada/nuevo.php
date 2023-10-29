@@ -5,6 +5,9 @@
 
             <button type="button" class="btn btn-primary" id="toggleFormButton"><i class="fas fa-align-justify"></i> Ocultar Formulario</button>
 
+            <!-- enlace para ir entrada_salida -->
+            <a href="<?php echo base_url(); ?>entrada_salida" class="btn btn-warning"><i class="fas fa-eraser"></i> Editar</a>
+
             <form action="<?php echo base_url(); ?>entrada/insertar" method="post" autocomplete="off" id="miFormulario" action="<?php echo base_url(); ?>entrada/insertar">
 
                 <!-- primera fila -->

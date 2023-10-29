@@ -23,3 +23,11 @@
     min-height: 100vh;
 }
 
+#e_entrada {
+    background-color: #C8E6C9; /* Cambia este valor al color de fondo deseado */
+}
+
+/* Clase CSS para filas de salida (rojo claro) */
+#s_salida {
+    background-color: #F7C6CE; /* Cambia este valor al color de fondo deseado */
+}

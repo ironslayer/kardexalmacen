@@ -44,10 +44,13 @@ $routes->get('entrada/reingresar/(:alphanum)', 'Entrada::reingresar/$1');
 
 $routes->post('entrada/guardar', 'Entrada::guardar');
 
+//--------------------------------------------------------------
+//  rutas para entrada_salida
 
+$routes->get('entrada_salida', 'EntradaSalida::index');
+$routes->get('entrada_salida/buscaEntradasSalidasItem/(:alphanum)', 'EntradaSalida::buscaEntradasSalidasItem/$1');
 
-
-
+//--------------------------------------------------------------
 
 
 //  rutas para salida

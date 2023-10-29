@@ -4,6 +4,8 @@
             <h4 class="mt-4"><?php echo $titulo; ?></h4>
 
             <button type="button" class="btn btn-primary" id="toggleFormButton"><i class="fas fa-align-justify"></i> Ocultar Formulario</button>
+            <!-- enlace para ir entrada_salida -->
+            <a href="<?php echo base_url(); ?>entrada_salida" class="btn btn-warning"><i class="fas fa-eraser"></i> Editar</a>
 
             <form action="<?php echo base_url(); ?>salida/insertar" method="post" autocomplete="off" id="miFormulario">
 
@@ -133,7 +135,7 @@
             </form>
 
             <div class="table-responsive">
-                <table id="tabla_db" class="table table-bordered table-striped table-hover">
+                <table id="tabla_db" class="table table-bordered table-striped table-hover ">
                     <thead class="table-dark">
                         <tr>
                             <th width="2%">ID</th>
@@ -349,6 +351,7 @@
                 });
             } else {
                 $('#cantidad_almacen').val("");
+                $('#cantidad').val("");
             }
         }
     </script>

@@ -148,7 +148,8 @@
                         "next": "Siguiente <i class='fas fa-angle-double-right'></i>",
                         "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
                     }
-                }
+                },
+                    lengthMenu: [5, 10, 20, 50],
             });
             //AGREGAR
             $('#miFormulario').validate({
