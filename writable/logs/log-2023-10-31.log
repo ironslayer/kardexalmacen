@@ -245,3 +245,25 @@ INFO - 2023-10-31 18:46:43 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2023-10-31 18:46:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-10-31 18:47:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2023-10-31 18:47:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:38:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:41:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-10-31 22:42:00 --> Division by zero
+in APPPATH\Controllers\EntradaSalida.php on line 347.
+ 1 APPPATH\Controllers\EntradaSalida.php(347): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Division by zero', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Controllers\\EntradaSalida.php', 347, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\EntradaSalida->actualizar_entrada()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EntradaSalida))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 22:42:11 --> Division by zero
+in APPPATH\Controllers\EntradaSalida.php on line 347.
+ 1 APPPATH\Controllers\EntradaSalida.php(347): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Division by zero', 'C:\\xampp\\htdocs\\kardexalmacen\\app\\Controllers\\EntradaSalida.php', 347, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\EntradaSalida->actualizar_entrada()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EntradaSalida))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2023-10-31 22:44:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:45:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:45:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:45:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-10-31 22:46:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

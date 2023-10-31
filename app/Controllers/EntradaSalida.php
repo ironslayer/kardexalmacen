@@ -344,7 +344,11 @@ class EntradaSalida extends BaseController
         $ultimoImporte = $datosItem['importe'];
         $penultimoImporte = $ultimoImporte - $dataUltimaEntrada['importe'];
         //obtenemos el penultimo costo unitario del item
-        $penultimoCostoUnitario = $penultimoImporte / $penultimaCantidad;
+        if($penultimaCantidad == 0){
+            $penultimoCostoUnitario = 0;
+        }else{
+            $penultimoCostoUnitario = $penultimoImporte / $penultimaCantidad;
+        }
         //creamos objeto item para actualizar en la tabla item
         $dataItem = [
             'cantidad' => $penultimaCantidad,
