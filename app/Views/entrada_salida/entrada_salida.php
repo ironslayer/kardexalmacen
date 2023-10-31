@@ -704,7 +704,7 @@
                 }
             });
 
-            // DELETE
+            // DELETE ALGO
 
             // $('body').on('click', '.btnDelete', function() {
             //     var proveedor_id = $(this).attr('data-id');
