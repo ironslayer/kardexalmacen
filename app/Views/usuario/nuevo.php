@@ -79,7 +79,7 @@
                 </div>
                 <div class="text-center">
                     <div class="form-control-plaintext">
-                    <a href="<?php echo base_url() ?>usuario" class="btn btn-warning"><i class="fa-solid fa-arrow-rotate-left"></i> Regresar</a>
+                        <a href="<?php echo base_url() ?>usuario" class="btn btn-warning"><i class="fa-solid fa-arrow-rotate-left"></i> Regresar</a>
 
                         <button type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i> Agregar</button>
                     </div>
