@@ -792,11 +792,42 @@
             // DELETE 
 
             // $('body').on('click', '.btnDelete', function() {
-            //     var proveedor_id = $(this).attr('data-id');
-            //     $.get('proveedor/eliminar/' + proveedor_id, function(data) {
-            //         $('#tabla_db tbody #' + proveedor_id).remove();
+            //     var item_id = $(this).attr('data-id');
+            //     $.get('entrada_salida/eliminar/' + item_id, function(data) {
+            //         //eliminamos la ultima fila de la tabla
+            //         $('#miTablaItem table tbody tr:last').remove();
             //     })
             // });
+
+            //DELETE
+            $('body').on('click', '.btnDelete', function() {
+                var item_id = $(this).attr('data-id');
+                $.ajax({
+                    url: '<?php echo base_url(); ?>entrada_salida/eliminar/' + item_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(respuesta) {
+                        if (respuesta.status) {
+                            if(respuesta.data.total_movimiento > 0){
+                                //eliminamos la ultima fila de la tabla
+                                $('#miTablaItem table tbody tr:last').remove();
+                            }else{
+                                $('#miTablaItem').html("");
+                                //ocultamos e_entrada, s_salida y botones
+                                $('#e_entrada').hide();
+                                $('#s_salida').hide();
+                                $('#botones').html("");
+                            }
+                        } else {
+                            alert("Revisar");
+                        }
+                    },
+                    error: function(data) {
+                        // console.log('Error:', data);
+                    }
+                });
+            });
+
 
         });
     </script>

@@ -68,11 +68,11 @@ class EntradaSalida extends BaseController
         // Crear la consulta
         $query = $db->query('SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
         FROM entrada
-        WHERE id_item = ' . $id_item . '
+        WHERE id_item = ' . $id_item . ' and activo = 1
         UNION ALL
         SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
         FROM salida
-        WHERE id_item = ' . $id_item . '
+        WHERE id_item = ' . $id_item . ' and activo = 1
         ORDER BY nro_movimiento ASC;');
 
         // Obtener los resultados
@@ -139,7 +139,9 @@ class EntradaSalida extends BaseController
         $ultimoMovimiento = $this->entrada->where('id_item', $id)->where('nro_movimiento', $nroUltimoMovimiento)->first();
         //pregunta si el ultimo movimiento es una entrada o una salida
         if ($ultimoMovimiento) {
-            $data = $this->entrada->where('id_item', $id)->where('nro_movimiento', $nroUltimoMovimiento)->first();
+            //obtenemos datos de la ultima entrada por partes
+            $dataUltimaEntrada = $this->entrada->where('id_item', $id)->where('activo', 1)->findAll();
+            $data = end($dataUltimaEntrada);
 
             //obtenemos la penultima cantidad del item
             $ultimaCantidad = $datosItem['cantidad'];
@@ -236,7 +238,9 @@ class EntradaSalida extends BaseController
 
             echo json_encode(array("status" => true, 'data' => $data));
         } else {//----------------------------------------------------------------------
-            $data = $this->salida->where('id_item', $id)->where('nro_movimiento', $nroUltimoMovimiento)->first();
+            //obtenemos datos de la ultima salida por partes
+            $dataUltimaSalida = $this->salida->where('id_item', $id)->where('activo', 1)->findAll();
+            $data = end($dataUltimaSalida);
 
             //obtenemos la penultima cantidad del item
             $ultimaCantidad = $datosItem['cantidad'];
@@ -329,13 +333,13 @@ class EntradaSalida extends BaseController
         $id_usuario2 = $this->request->getVar('txt_id_usuario_dos_uno');
 
         //obtenemos el id_item de la entrada
-        $id_item = $this->entrada->where('id_entrada', $id)->first();
+        $id_item = $this->entrada->where('id_entrada', $id)->where('activo', 1)->first();
         $id_item = $id_item['id_item'];
         //obtenemos el ultimo movimiento del item
         $datosItem = $this->item->where('id_item', $id_item)->first();
         // $nroUltimoMovimiento = $datosItem['total_movimiento'];
         //obtenemos datos de la ultima entrada por partes
-        $dataUltimaEntrada = $this->entrada->where('id_item', $id_item)->findAll();
+        $dataUltimaEntrada = $this->entrada->where('id_item', $id_item)->where('activo', 1)->findAll();
         $dataUltimaEntrada = end($dataUltimaEntrada);
         //obtenemos la penultima cantidad del item
         $ultimaCantidad = $datosItem['cantidad'];
@@ -405,7 +409,7 @@ class EntradaSalida extends BaseController
         //actualizamos el item y validamos si se actualizo
         if ($this->item->update($id_item, $dataItem)) {
             //obtenemos los datos de la entrada actualizada
-            $data = $this->entrada->where('id_entrada', $id)->first();
+            $data = $this->entrada->where('id_entrada', $id)->where('activo', 1)->first();
             echo json_encode(array("status" => true, 'data' => $data));
         } else {
             echo json_encode(array("status" => false));
@@ -436,9 +440,9 @@ class EntradaSalida extends BaseController
         $id_item = $this->salida->where('id_salida', $id)->first();
         $id_item = $id_item['id_item'];
         //obtenemos el ultimo movimiento del item
-        $datosItem = $this->item->where('id_item', $id_item)->first();
+        $datosItem = $this->item->where('id_item', $id_item)->where('activo', 1)->first();
         //obtenemos datos de la ultima salida por partes
-        $dataUltimaSalida = $this->salida->where('id_item', $id_item)->findAll();
+        $dataUltimaSalida = $this->salida->where('id_item', $id_item)->where('activo', 1)->findAll();
         $dataUltimaSalida = end($dataUltimaSalida);
         //obtenemos la penultima cantidad del item
         $ultimaCantidad = $datosItem['cantidad'];
@@ -479,7 +483,12 @@ class EntradaSalida extends BaseController
         //calculamos los nuevos datos del item
         $nuevaCantidad = $penultimaCantidad - $cantidad;
         $nuevoImporte = $penultimoImporte - $importe;
-        $nuevoCostoUnitario = $nuevoImporte / $nuevaCantidad;
+        //preguntamos si nueva cantidad es 0 para que el costo unitario sea 0
+        if($nuevaCantidad == 0){
+            $nuevoCostoUnitario = $penultimoCostoUnitario;
+        }else{
+            $nuevoCostoUnitario = $nuevoImporte / $nuevaCantidad;
+        }
         //creamos objeto item para actualizar en la tabla item
         $dataItem = [
             'cantidad' => $nuevaCantidad,
@@ -489,7 +498,7 @@ class EntradaSalida extends BaseController
         //actualizamos el item y validamos si se actualizo
         if ($this->item->update($id_item, $dataItem)) {
             //obtenemos los datos de la salida actualizada
-            $data = $this->salida->where('id_salida', $id)->first();
+            $data = $this->salida->where('id_salida', $id)->where('activo', 1)->first();
             echo json_encode(array("status" => true, 'data' => $data));
             // return $this->response->setJSON(array("status" => true, 'data' => $data));
         } else {
@@ -497,5 +506,95 @@ class EntradaSalida extends BaseController
         }
     }
 
+    public function eliminar($id = null){
+        //obtenemos el ultimo movimiento del item
+        $datosItem = $this->item->where('id_item', $id)->first();
+        $nroUltimoMovimiento = $datosItem['total_movimiento'];
+
+        //buscamos el ultimo movimiento del item
+        $ultimoMovimiento = $this->entrada->where('id_item', $id)->where('activo', 1)->where('nro_movimiento', $nroUltimoMovimiento)->first();
+        //pregunta si el ultimo movimiento es una entrada o una salida
+        if ($ultimoMovimiento) {
+            $dataUltimaEntrada = $this->entrada->where('id_item', $id)->where('nro_movimiento', $nroUltimoMovimiento)->where('activo', 1)->first();
+
+            //obtenemos la penultima cantidad del item
+            $ultimaCantidad = $datosItem['cantidad'];
+            $penultimaCantidad = $ultimaCantidad - $dataUltimaEntrada['cantidad'];
+            //obtenemos el penultimo importe del item
+            $ultimoImporte = $datosItem['importe'];
+            $penultimoImporte = $ultimoImporte - $dataUltimaEntrada['importe'];
+            //obtenemos el penultimo costo unitario del item
+            if($penultimaCantidad == 0){
+                $penultimoCostoUnitario = 0;
+            }else{
+                $penultimoCostoUnitario = $penultimoImporte / $penultimaCantidad;
+            }
+            //restamos 1 al total_movimiento del item
+            $penultimoNroMovimiento = $nroUltimoMovimiento - 1;
+
+            //creamos objeto item para actualizar en la tabla item
+            $dataItem = [
+                'cantidad' => $penultimaCantidad,
+                'importe' => $penultimoImporte,
+                'costo_unitario' => $penultimoCostoUnitario,
+                'total_movimiento' => $penultimoNroMovimiento,
+            ];
+            //actualizamos el item
+            $this->item->update($id, $dataItem);
+
+            //eliminamos la entrada cambiando su activo a 0
+            $dataEntrada = [
+                'activo' => 0,
+            ];
+            //verificamos si se elimino la entrada
+            if ($this->entrada->update($dataUltimaEntrada['id_entrada'], $dataEntrada)) {
+                //obtenemos datos del item y lo guardamos en una data
+                $data = $this->item->where('id_item', $id)->first();
+                echo json_encode(array("status" => true, 'data' => $data));
+            } else {
+                echo json_encode(array("status" => false));
+            }    
+
+        }else{//------------------------------------------------------------------------
+            $dataUltimaSalida = $this->salida->where('id_item', $id)->where('nro_movimiento', $nroUltimoMovimiento)->where('activo', 1)->first();
+
+            //obtenemos la penultima cantidad del item
+            $ultimaCantidad = $datosItem['cantidad'];
+            $penultimaCantidad = $ultimaCantidad + $dataUltimaSalida['cantidad'];
+            //obtenemos el penultimo importe del item
+            $ultimoImporte = $datosItem['importe'];
+            $penultimoImporte = $ultimoImporte + $dataUltimaSalida['importe'];
+            //obtenemos el penultimo costo unitario del item
+            $penultimoCostoUnitario = $penultimoImporte / $penultimaCantidad;
+            //restamos 1 al total_movimiento del item
+            $penultimoNroMovimiento = $nroUltimoMovimiento - 1;
+
+            //creamos objeto item para actualizar en la tabla item
+            $dataItem = [
+                'cantidad' => $penultimaCantidad,
+                'importe' => $penultimoImporte,
+                'costo_unitario' => $penultimoCostoUnitario,
+                'total_movimiento' => $penultimoNroMovimiento,
+            ];
+            //actualizamos el item
+            $this->item->update($id, $dataItem);
+
+            //eliminamos la salida cambiando su activo a 0
+            $dataSalida = [
+                'activo' => 0,
+            ];
+            //verificamos si se elimino la salida
+            if ($this->salida->update($dataUltimaSalida['id_salida'], $dataSalida)) {
+                //obtenemos datos del item y lo guardamos en una data
+                $data = $this->item->where('id_item', $id)->first();
+
+                echo json_encode(array("status" => true, 'data' => $data));
+            } else {
+                echo json_encode(array("status" => false));
+            }
+
+        }
+    }
     
 }
+

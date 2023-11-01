@@ -52,6 +52,7 @@ $routes->get('entrada_salida/buscaEntradasSalidasItem/(:alphanum)', 'EntradaSali
 $routes->get('entrada_salida/editar/(:alphanum)','EntradaSalida::editar/$1');
 $routes->post('entrada_salida/actualizar_entrada', 'EntradaSalida::actualizar_entrada');
 $routes->post('entrada_salida/actualizar_salida', 'EntradaSalida::actualizar_salida');
+$routes->get('entrada_salida/eliminar/(:alphanum)', 'EntradaSalida::eliminar/$1');
 
 
 //--------------------------------------------------------------
