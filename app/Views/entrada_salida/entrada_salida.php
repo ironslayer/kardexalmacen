@@ -228,7 +228,7 @@
                                         <div class="col-12 col-sm-4">
 
                                             <label for="txt_cantidad_dos">Cantidad a salir</label>
-                                            <input type="text" class="form-control" id="txt_cantidad_dos" name="txt_cantidad_dos" placeholder="Cantidad <= a la cantidad actual"  />
+                                            <input type="text" class="form-control" id="txt_cantidad_dos" name="txt_cantidad_dos" placeholder="Cantidad <= a la cantidad actual" />
 
                                         </div>
 
@@ -375,51 +375,24 @@
     <!-- codigo para formulario y tabla -->
     <script>
         $(document).ready(function() {
-            var miTabla = $('#tabla_db').DataTable({
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total salidas)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Unidades",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar: ",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": "Siguiente <i class='fas fa-angle-double-right'></i>",
-                        "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
-                    }
-                }
-            });
+            
 
-
-
-            // RESET FORMULARIO AGREGAR
-
-            $('#resetForm').on('click', function() {
-                $('#miFormulario').validate().resetForm();
-                $('#miFormulario')[0].reset();
-            });
 
             // RESET FORMULARIO EDITAR
 
             $('#resetFormEdit').on('click', function() {
                 $('#miFormulario_edit').validate().resetForm();
                 $('#miFormulario_edit')[0].reset();
+                $('#miFormulario_edit_dos').validate().resetForm();
+                $('#miFormulario_edit_dos')[0].reset();
             });
 
             // EDIT
 
             $('body').on('click', '.btnEdit', function() {
-                var salida_id = $(this).attr('data-id');
+                var item_id = $(this).attr('data-id');
                 $.ajax({
-                    url: '<?php echo base_url(); ?>entrada_salida/editar/' + salida_id,
+                    url: '<?php echo base_url(); ?>entrada_salida/editar/' + item_id,
                     type: 'get',
                     dataType: 'json',
                     success: function(respuesta) {
@@ -445,7 +418,7 @@
                             $('#miFormulario_edit_dos #opciones_items_dos').html(respuesta.data.opcionesItem);
                             $('#miFormulario_edit_dos #cantidad_almacen_dos').val(respuesta.data.penultimaCantidad);
                             $('#miFormulario_edit_dos #txt_cantidad_dos').val(respuesta.data.cantidad);
-                            
+
                             $('#miFormulario_edit_dos #txt_nota_entrega_dos').val(respuesta.data.nota_entrega);
                             $('#miFormulario_edit_dos #txt_fecha_dos').val(respuesta.data.fecha);
                             $('#miFormulario_edit_dos #opciones_tiposalidas_dos').html(respuesta.data.opcionesTipoSalida);
@@ -459,7 +432,7 @@
                             $('#miFormulario_edit_dos #txt_cantidad_dos').attr('title', 'El valor debe estar entre 1 y ' + respuesta.data.penultimaCantidad);
                         }
 
-                        
+
 
                     },
                     error: function(data) {
@@ -468,114 +441,116 @@
                 });
             });
 
+
+
             //validacion de formulario EDITAR uno
 
             $("#miFormulario_edit_uno").validate({
-                rules:{
-                        txt_nota_recepcion_uno:{
-                            required: true,
-                            min: 1
-                        },
-                        txt_fecha_uno:{
-                            required: true
-                        },
-                        txt_fuente_uno:{
-                            required: true,
-                            minlength: 5,
-                            maxlength: 50
-                        },
-                        txt_id_tipoentrada_uno:{
-                            required: true
-                        },
-                        txt_id_proveedor_uno:{
-                            required: true
-                        },
-                        txt_id_item_uno:{
-                            required: true
-                        },
-                        txt_cantidad_uno:{
-                            required: true,
-                            min: 1
-                        },
-                        txt_total_precio_uno:{
-                            required: true,
-                            min: 0.10
-                        },
-                        txt_concepto_uno:{
-                            required: true,
-                            minlength: 8,
-                            maxlength: 50
-                        },
-                        txt_id_usuario_uno:{
-                            required: true
-                        },
-                        txt_id_usuario_dos_uno:{
-                            required: true
-                        }
+                rules: {
+                    txt_nota_recepcion_uno: {
+                        required: true,
+                        min: 1
                     },
-                    messages:{
-                        txt_nota_recepcion_uno:{
-                            required: "Este campo es obligatorio",
-                            min: "Debe contener al menos 1 dígito diferente de 0",
-                        },
-                        txt_fecha_uno:{
-                            required: "Este campo es obligatorio"
-                        },
-                        txt_fuente_uno:{
-                            required: "Este campo es obligatorio",
-                            minlength: "Debe contener al menos 5 caracteres",
-                            maxlength: "Debe contener maximo 50 caracteres"
-                        },
-                        txt_id_tipoentrada_uno:{
-                            required: "Este campo es obligatorio"
-                        },
-                        txt_id_proveedor_uno:{
-                            required: "Este campo es obligatorio"
-                        },
-                        txt_id_item_uno:{
-                            required: "Este campo es obligatorio"
-                        },
-                        txt_cantidad_uno:{
-                            required: "Este campo es obligatorio",
-                            min: "La cantidad mínima es 1"
-                        },
-                        txt_total_precio_uno:{
-                            required: "Este campo es obligatorio",
-                            min: "Debe contener al menos 0.10"
-                        },
-                        txt_concepto_uno:{
-                            required: "Este campo es obligatorio",
-                            minlength: "Debe contener al menos 8 caracteres",
-                            maxlength: "Debe contener maximo 50 caracteres"
-                        },
-                        txt_id_usuario_uno:{
-                            required: "Este campo es obligatorio"
-                        }, 
-                        txt_id_usuario_dos_uno:{
-                            required: "Este campo es obligatorio"
-                        }
+                    txt_fecha_uno: {
+                        required: true
                     },
+                    txt_fuente_uno: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 50
+                    },
+                    txt_id_tipoentrada_uno: {
+                        required: true
+                    },
+                    txt_id_proveedor_uno: {
+                        required: true
+                    },
+                    txt_id_item_uno: {
+                        required: true
+                    },
+                    txt_cantidad_uno: {
+                        required: true,
+                        min: 1
+                    },
+                    txt_total_precio_uno: {
+                        required: true,
+                        min: 0.10
+                    },
+                    txt_concepto_uno: {
+                        required: true,
+                        minlength: 8,
+                        maxlength: 50
+                    },
+                    txt_id_usuario_uno: {
+                        required: true
+                    },
+                    txt_id_usuario_dos_uno: {
+                        required: true
+                    }
+                },
+                messages: {
+                    txt_nota_recepcion_uno: {
+                        required: "Este campo es obligatorio",
+                        min: "Debe contener al menos 1 dígito diferente de 0",
+                    },
+                    txt_fecha_uno: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_fuente_uno: {
+                        required: "Este campo es obligatorio",
+                        minlength: "Debe contener al menos 5 caracteres",
+                        maxlength: "Debe contener maximo 50 caracteres"
+                    },
+                    txt_id_tipoentrada_uno: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_id_proveedor_uno: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_id_item_uno: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_cantidad_uno: {
+                        required: "Este campo es obligatorio",
+                        min: "La cantidad mínima es 1"
+                    },
+                    txt_total_precio_uno: {
+                        required: "Este campo es obligatorio",
+                        min: "Debe contener al menos 0.10"
+                    },
+                    txt_concepto_uno: {
+                        required: "Este campo es obligatorio",
+                        minlength: "Debe contener al menos 8 caracteres",
+                        maxlength: "Debe contener maximo 50 caracteres"
+                    },
+                    txt_id_usuario_uno: {
+                        required: "Este campo es obligatorio"
+                    },
+                    txt_id_usuario_dos_uno: {
+                        required: "Este campo es obligatorio"
+                    }
+                },
                 errorPlacement: function(error, element) {
                     error.css("color", "red"); // Cambia el color a rojo
                     error.insertAfter(element);
                 },
-                submitHandler: function(form){
+                submitHandler: function(form) {
                     var form_action = $("#miFormulario_edit_uno").attr("action");
                     $.ajax({
                         data: $('#miFormulario_edit_uno').serialize(),
                         url: form_action,
                         type: "POST",
                         dataType: "json",
-                        success: function(respuesta){
+                        success: function(respuesta) {
                             //validamos si el status en true
-                            if(respuesta.status){
-                                var entrada = '<td>'+respuesta.data.nro_movimiento+'</td>';
-                                entrada += '<td>'+respuesta.data.fecha+'</td>';
-                                entrada += '<td>'+respuesta.data.id_item+'</td>';
-                                entrada += '<td>'+respuesta.data.e_s+'</td>';
-                                entrada += '<td>'+respuesta.data.cantidad+'</td>';
-                                entrada += '<td>'+respuesta.data.costo_unitario+'</td>';
-                                entrada += '<td>'+respuesta.data.importe+'</td>';
+                            if (respuesta.status) {
+                                var entrada = '<td>' + respuesta.data.nro_movimiento + '</td>';
+                                entrada += '<td>' + respuesta.data.fecha + '</td>';
+                                entrada += '<td>' + respuesta.data.id_item + '</td>';
+                                entrada += '<td>' + respuesta.data.e_s + '</td>';
+                                entrada += '<td>' + respuesta.data.cantidad + '</td>';
+                                entrada += '<td>' + respuesta.data.costo_unitario + '</td>';
+                                entrada += '<td>' + respuesta.data.importe + '</td>';
 
                                 //actualizamos la última fila de la tabla
                                 $('#miTablaItem table tbody tr:last').html(entrada);
@@ -583,19 +558,18 @@
                                 $('#miFormulario_edit_uno')[0].reset();
                                 //ocultamos el modal
                                 $('#modal_edit_uno').modal('hide');
-                            }else{
+                            } else {
                                 alert("Algo falló!!");
                             }
                         },
-                        error: function(data){
+                        error: function(data) {
                             // console.log('Error:', data);
                         }
                     });
                 }
             });
 
-
-            //validacion de formulario EDITAR dos
+            //validacion de formulario EDITAR dos---------------------------
 
             $("#miFormulario_edit_dos").validate({
                 rules: {
@@ -611,7 +585,7 @@
                         required: true
                     },
                     txt_id_tiposalida_dos: {
-                        required_dos: true
+                        required: true
                     },
                     txt_destino_dos: {
                         required: true,
@@ -673,7 +647,6 @@
                         url: form_action,
                         type: "POST",
                         dataType: "json",
-                        //recibimos la respuesta y verificamos cualquier cosa
                         success: function(respuesta) {
                             //validamos si el status en true
                             if (respuesta.status) {
@@ -693,18 +666,130 @@
                                 //ocultamos el modal
                                 $('#modal_edit_dos').modal('hide');
                             } else {
-                                alert("Algo falló!!");
+                                alert("Revisar");
                             }
                         },
                         error: function(data) {
                             // console.log('Error:', data);
                         }
-                        
                     });
                 }
             });
+            // ---------------------------------------------------------------
 
-            // DELETE ALGO
+                // prueba 2
+
+            //     $("#miFormulario_edit_dos").validate({
+            //     rules: {
+            //         txt_cantidad_dos: {
+            //             required: true,
+            //             min: 1
+            //         },
+            //         txt_nota_entrega_dos: {
+            //             required: true,
+            //             min: 1
+            //         },
+            //         txt_fecha_dos: {
+            //             required: true
+            //         },
+            //         txt_id_tiposalida_dos: {
+            //             required: true
+            //         },
+            //         txt_destino_dos: {
+            //             required: true,
+            //             minlength: 5,
+            //             maxlength: 50
+            //         },
+            //         txt_concepto_dos: {
+            //             required: true,
+            //             minlength: 8,
+            //             maxlength: 50
+            //         },
+            //         txt_id_usuario_dos: {
+            //             required: true
+            //         },
+            //         txt_id_usuario_dos_dos: {
+            //             required: true
+            //         }
+            //     },
+            //     messages: {
+            //         txt_cantidad_dos: {
+            //             required: "Este campo es obligatorio",
+            //             min: "La cantidad mínima es 1"
+            //         },
+            //         txt_nota_entrega_dos: {
+            //             required: "Este campo es obligatorio",
+            //             min: "Debe contener al menos 1 digito"
+            //         },
+            //         txt_fecha_dos: {
+            //             required: "Este campo es obligatorio"
+            //         },
+            //         txt_id_tiposalida_dos: {
+            //             required: "Este campo es obligatorio"
+            //         },
+            //         txt_destino_dos: {
+            //             required: "Este campo es obligatorio",
+            //             minlength: "Debe contener al menos 5 caracteres",
+            //             maxlength: "Debe contener maximo 50 caracteres"
+            //         },
+            //         txt_concepto_dos: {
+            //             required: "Este campo es obligatorio",
+            //             minlength: "Debe contener al menos 8 caracteres",
+            //             maxlength: "Debe contener maximo 50 caracteres"
+            //         },
+            //         txt_id_usuario1_dos: {
+            //             required: "Este campo es obligatorio"
+            //         },
+            //         txt_id_usuario2_dos: {
+            //             required: "Este campo es obligatorio"
+            //         }
+            //     },
+            //     errorPlacement: function(error, element) {
+            //         error.css("color", "red"); // Cambia el color a rojo
+            //         error.insertAfter(element);
+            //     },
+            //     submitHandler: function(form) {
+            //         var form_action = $("#miFormulario_edit_dos").attr("action");
+            //         $.ajax({
+            //             data: $('#miFormulario_edit_dos').serialize(),
+            //             url: form_action,
+            //             type: "POST",
+            //             dataType: "json",
+            //             success: function(respuesta) {
+            //                 //validamos si el status en true
+            //                 if(respuesta.status){
+            //                     var salida = '<td>' + respuesta.data.nro_movimiento + '</td>';
+            //                     salida += '<td>' + respuesta.data.fecha + '</td>';
+            //                     salida += '<td>' + respuesta.data.id_item + '</td>';
+            //                     salida += '<td>' + respuesta.data.e_s + '</td>';
+            //                     salida += '<td>' + respuesta.data.cantidad + '</td>';
+            //                     salida += '<td>' + respuesta.data.costo_unitario + '</td>';
+            //                     salida += '<td>' + respuesta.data.importe + '</td>';
+            //                     //actualizamos la última fila de la tabla
+            //                     $('#miTablaItem table tbody tr:last').html(salida);
+            //                     //resetamos el formulario
+            //                     $('#miFormulario_edit_dos')[0].reset();
+            //                     //ocultamos el modal
+            //                     $('#modal_edit_dos').modal('hide');
+            //                 }else{
+            //                     alert("Revisar");
+            //                 }
+                            
+
+
+            //             },
+            //             error: function(data) {
+            //                 console.log('Error:', data);
+            //             }
+            //         });
+            //     }
+            // });
+
+
+
+
+
+            // DELETE 
 
             // $('body').on('click', '.btnDelete', function() {
             //     var proveedor_id = $(this).attr('data-id');

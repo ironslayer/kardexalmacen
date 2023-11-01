@@ -437,7 +437,7 @@ class EntradaSalida extends BaseController
         $id_item = $id_item['id_item'];
         //obtenemos el ultimo movimiento del item
         $datosItem = $this->item->where('id_item', $id_item)->first();
-        //obtenemos datos de la ultima entrada por partes
+        //obtenemos datos de la ultima salida por partes
         $dataUltimaSalida = $this->salida->where('id_item', $id_item)->findAll();
         $dataUltimaSalida = end($dataUltimaSalida);
         //obtenemos la penultima cantidad del item
