@@ -26,7 +26,7 @@
                             <th>ID</th>
                             <th>Descripción</th>
                             <th>Unidad</th>
-                            <th>Cantidad (Bs.)</th>
+                            <th>Cantidad en Almacén</th>
                             <th>Costo Unitario (Bs.)</th>
                             <th>Importe (Bs.)</th>
                             <th width="5%">Editar</th>
@@ -186,7 +186,8 @@
                             "next": "Siguiente <i class='fas fa-angle-double-right'></i>",
                             "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
                         }
-                    }
+                    },
+                        lengthMenu: [100, 200, 500],
                 }); 
                 // miTabla.reset();
 
@@ -196,7 +197,7 @@
                         descripcion:{
                             required: true,
                             minlength: 8,
-                            maxlength: 50
+                            maxlength: 200
                         }
                         
                     },
@@ -204,7 +205,7 @@
                         descripcion:{
                             required: "Este campo es obligatorio",
                             minlength: "Debe contener al menos 8 caracteres",
-                            maxlength: "Debe contener maximo 50 caracteres"
+                            maxlength: "Debe contener maximo 200 caracteres"
                         }
                     },
                     errorPlacement: function(error, element) {

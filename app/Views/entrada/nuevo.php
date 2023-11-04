@@ -8,7 +8,7 @@
             <!-- enlace para ir entrada_salida -->
             <a href="<?php echo base_url(); ?>entrada_salida" class="btn btn-warning"><i class="fas fa-eraser"></i> Editar</a>
 
-            <form action="<?php echo base_url(); ?>entrada/insertar" method="post" autocomplete="off" id="miFormulario" action="<?php echo base_url(); ?>entrada/insertar">
+            <form action="<?php echo base_url(); ?>entrada/insertar" method="post" autocomplete="" id="miFormulario" action="<?php echo base_url(); ?>entrada/insertar">
 
                 <!-- primera fila -->
                 <div class="form-control-plaintext">
@@ -29,13 +29,13 @@
                         <div class="col-12 col-sm-2">
 
                             <label for="fecha">Fecha</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha" required />
+                            <input type="date" class="form-control" id="fecha" name="fecha" required value="<?= $fecha  ?>"/>
 
                         </div>
                         <div class="col-12 col-sm-3">
 
                             <label for="fuente">Fuente</label>
-                            <input type="text" class="form-control" id="fuente" name="fuente" required value="" placeholder="Ej. Recursos Propios" />
+                            <input type="text" class="form-control" id="fuente" name="fuente" required value="Recursos Propios" placeholder="Ej. Recursos Propios" />
 
                         </div>
                         <div class="col-12 col-sm-2">
@@ -234,7 +234,7 @@
                 
 
 
-                <form action="<?php echo site_url('entrada/actualizar'); ?>" method="post" autocomplete="off" id="miFormulario_edit" name="miFormulario_edit">
+                <form action="<?php echo site_url('entrada/actualizar'); ?>" method="post" autocomplete="on" id="miFormulario_edit" name="miFormulario_edit">
 
                     <div class="modal-body">
 
@@ -427,7 +427,8 @@
                             "next": "Siguiente <i class='fas fa-angle-double-right'></i>",
                             "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
                         }
-                    }
+                    },
+                        lengthMenu: [100, 200, 500],
                 }); 
 
                 //AGREGAR
@@ -465,7 +466,7 @@
                         concepto:{
                             required: true,
                             minlength: 8,
-                            maxlength: 50
+                            maxlength: 250
                         },
                         id_usuario:{
                             required: true
@@ -485,7 +486,7 @@
                         fuente:{
                             required: "Este campo es obligatorio",
                             minlength: "Debe contener al menos 5 caracteres",
-                            maxlength: "Debe contener maximo 50 caracteres"
+                            maxlength: "Debe contener maximo 250 caracteres"
                         },
                         id_tipoentrada:{
                             required: "Este campo es obligatorio"

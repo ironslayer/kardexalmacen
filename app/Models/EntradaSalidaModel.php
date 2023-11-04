@@ -21,18 +21,6 @@ class EntradaSalidaModel extends Model
         }
     }
 
-    // public function obtenerDatos($id_item) {
-    //     $this->db->select('nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe');
-    //     $this->db->from('entrada');
-    //     $this->db->where('id_item', $id_item);
-    //     $this->db->union_all();
-    //     $this->db->select('nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe');
-    //     $this->db->from('salida');
-    //     $this->db->where('id_item', $id_item);
-    //     $this->db->order_by('nro_movimiento', 'ASC');
-    //     $query = $this->db->get();
-    //     return $query->result(); // Retorna los resultados como un arreglo de objetos
-    // }
     
 }
 

@@ -7,7 +7,7 @@
             <!-- enlace para ir entrada_salida -->
             <a href="<?php echo base_url(); ?>entrada_salida" class="btn btn-warning"><i class="fas fa-eraser"></i> Editar</a>
 
-            <form action="<?php echo base_url(); ?>salida/insertar" method="post" autocomplete="off" id="miFormulario">
+            <form action="<?php echo base_url(); ?>salida/insertar" method="post" autocomplete="" id="miFormulario">
 
 
                 <!-- primera fila -->
@@ -67,7 +67,7 @@
                         <div class="col-12 col-sm-2">
 
                             <label for="fecha">Fecha</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha" required />
+                            <input type="date" class="form-control" id="fecha" name="fecha" required value="<?= $fecha  ?>"/>
 
                         </div>
 
@@ -394,7 +394,8 @@
                         "next": "Siguiente <i class='fas fa-angle-double-right'></i>",
                         "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
                     }
-                }
+                },
+                    lengthMenu: [100, 200, 500],
             });
 
             //AGREGAR
@@ -423,7 +424,7 @@
                     concepto: {
                         required: true,
                         minlength: 8,
-                        maxlength: 50
+                        maxlength: 250
                     },
                     id_usuario: {
                         required: true
@@ -456,7 +457,7 @@
                     concepto: {
                         required: "Este campo es obligatorio",
                         minlength: "Debe contener al menos 8 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
+                        maxlength: "Debe contener maximo 250 caracteres"
                     },
                     id_usuario: {
                         required: "Este campo es obligatorio"

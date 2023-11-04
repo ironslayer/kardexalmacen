@@ -123,8 +123,11 @@
                         </a>
                         <div class="collapse" id="subReportes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?php echo base_url(); ?>producto">Reporte1</a>
-                                <a class="nav-link" href="<?php echo base_url(); ?>unidades">Reporte2</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaKardexFisicoValorado">Reporte de Kardex Físico Valorado</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaResumenKardex">Reporte de Resumen de Kardex</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteGeneral">Reporte General</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteEntradaSalida">Reportes de Entradas y Salidas</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteAdministracion">Reportes de Administración</a>
                             </nav>
                         </div>
 

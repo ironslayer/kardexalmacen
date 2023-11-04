@@ -354,7 +354,7 @@
                                     "previous": "<i class='fas fa-angle-double-left'></i> Anterior"
                                 }
                             },
-                            lengthMenu: [100, 15, 20, 50],
+                            lengthMenu: [100, 200, 500],
                         });
 
                     }

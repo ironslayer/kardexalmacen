@@ -60,8 +60,10 @@ class Entrada extends BaseController
         $sumaImportes = number_format($sumaImportes, 3, '.', '');
         $importeTotalIva = number_format($importeTotalIva, 3, '.', '');
 
+        //obtenemos la fecha de hoy
+        $fecha = date('Y-m-d');
 
-        $data = ['titulo' => 'Entradas', 'tipo_entradas'=>$info1, 'proveedores'=>$info2, 'usuarios'=>$info3, 'items'=>$info4, 'entradas'=>$info5, 'sumaTotales'=>$sumaTotales, 'sumaImportes'=>$sumaImportes, 'importeTotalIva'=>$importeTotalIva, 'unidadmedidas'=>$info6];
+        $data = ['titulo' => 'Entradas', 'tipo_entradas'=>$info1, 'proveedores'=>$info2, 'usuarios'=>$info3, 'items'=>$info4, 'entradas'=>$info5, 'sumaTotales'=>$sumaTotales, 'sumaImportes'=>$sumaImportes, 'importeTotalIva'=>$importeTotalIva, 'unidadmedidas'=>$info6, 'fecha'=>$fecha];
 
         echo view('header');
         echo view('entrada/nuevo',$data);

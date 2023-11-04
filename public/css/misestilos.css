@@ -34,3 +34,30 @@
     text-decoration: none; 
     background-color: #F7C6CE;  
 }
+/* reportes */
+.borde_reporte {
+    border: 2px solid #000;
+    background-color: #FFE4CF;
+}
+.radio_contenedor {
+    background-color: #FDFFCF; /* Color de fondo del contenedor */
+    padding: 10px; /* Espacio interno del contenedor */
+    border: 1px solid #ccc; /* Borde de las opciones de radio */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.radio_caja {
+   
+    padding: 10px; /* Espacio interno de las opciones de radio */
+    /* text-align: center; Centra el contenido horizontalmente */
+    margin: 5px 0; /* Espacio entre las opciones de radio */
+}
+
+
+
+
+
+

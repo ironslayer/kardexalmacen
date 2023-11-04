@@ -59,6 +59,8 @@ class Salida extends BaseController
         $sumaImportes = number_format($sumaImportes, 3, '.', '');
         // $importeTotalIva = number_format($importeTotalIva, 3, '.', '');
 
+        //obtenemos la fecha de hoy
+        $fecha = date('Y-m-d');
 
         $data = [
             'titulo' => 'Salidas',
@@ -70,7 +72,8 @@ class Salida extends BaseController
             // 'sumaTotales' => $sumaTotales,
             'sumaImportes' => $sumaImportes,
             // 'importeTotalIva' => $importeTotalIva,
-            'unidadmedidas' => $info6
+            'unidadmedidas' => $info6,
+            'fecha' => $fecha,
         ];
 
         echo view('header');
