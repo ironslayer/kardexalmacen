@@ -69,6 +69,7 @@ class Autoload extends AutoloadConfig
     public $classmap = [
         'FPDF' => APPPATH . 'ThirdParty/fpdf/fpdf.php',
         'TCPDF' => ROOTPATH . 'vendor/tecnickcom/tcpdf/tcpdf.php',
+        // 'PhpExcel' => FCPATH . 'vendor/autoload.php',
     ];
 
     /**

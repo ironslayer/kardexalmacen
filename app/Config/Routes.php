@@ -156,7 +156,7 @@ $routes->get('proveedor/reingresar/(:alphanum)', 'Proveedor::reingresar/$1');
 
 // RUTAS PARA EL CUARTO SUB MENÚ
 
-//rutas para reportes
+//rutas para reportes en PDF
 $routes->get('reportes/vistaKardexFisicoValorado', 'Reportes::vistaKardexFisicoValorado');
 $routes->get('reportes/generaPdfKardexFisicoValorado/(:any)/(:any)/(:any)', 'Reportes::generaPdfKardexFisicoValorado/$1/$2/$3');
 
@@ -176,7 +176,8 @@ $routes->get('reportes/generaPdfEntradasSalidas/(:any)/(:any)/(:any)', 'Reportes
 $routes->get('reportes/vistaReporteVarios', 'Reportes::vistaReporteVarios');
 $routes->get('reportes/generaPdfReporteVarios/(:any)/(:any)/(:any)', 'Reportes::generaPdfReporteVarios/$1/$2/$3');
 
-
+//rutas para reportes en Excel
+$routes->get('reportes/generaExcelEntradasSalidas/(:any)/(:any)/(:any)', 'ReporteExcel::generaExcelEntradasSalidas/$1/$2/$3');
 
 
 // RUTAS PARA EL QUINTO SUB MENÚ

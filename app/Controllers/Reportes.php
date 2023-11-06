@@ -46,7 +46,7 @@ class Reportes extends BaseController
         $this->unidadmedida = new UnidadesModel();
     }
     //--------------------------------------------------------------------
-    //--------------------reporte de kardex disico valorado--------------------
+    //--------------------reporte de kardex fisico valorado--------------------
     public function vistaKardexFisicoValorado()
     {
         //obtenemos los datos de todos los items activos ycon total movimiento > 0
@@ -244,8 +244,8 @@ class Reportes extends BaseController
                 $pdf->SetFont('Arial', '', 7);
 
                 $cellWidth = 27; // Ancho de celda envuelta
-                $cellHeight = 3; // Altura de una línea normal de celda
-                //salto de linea
+                $cellHeight = 4; // Altura de una línea normal de celda
+
                 // Comprobar si el texto se desborda
                 if ($pdf->GetStringWidth($entrada['concepto']) < $cellWidth) {
                     // Si no, no hacer nada
@@ -291,7 +291,9 @@ class Reportes extends BaseController
                 $xPos = $pdf->GetX();
                 $yPos = $pdf->GetY();
                 // $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($entrada['concepto']), 1, 'L');
-                $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($entrada['concepto']), 1, 'C');
+                
+                $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($entrada['concepto']), 0, 'C');
+               
 
 
                 // devuelve la posición para la siguiente celda al lado de la multicelda
@@ -318,14 +320,18 @@ class Reportes extends BaseController
                 $pdf->Cell(20, ($line * $cellHeight), "", 1, 0, 'C');
                 $pdf->Cell(20, ($line * $cellHeight), "", 1, 0, 'C');
                 $pdf->Cell(20, ($line * $cellHeight), number_format($saldoCantidad, 2), 1, 0, 'R');
-                $pdf->Cell(20, ($line * $cellHeight), number_format($saldoValor, 3), 1, 1, 'R');
+                $pdf->Cell(20, ($line * $cellHeight), number_format($saldoValor, 3), 1,1, 'R');
+                //añadimos un linea  de 196mm de ancho por 0.1mm de alto
+                $pdf->Line(10, $pdf->GetY(), 206, $pdf->GetY());
+              
+                
             } else {
 
                 //buscamos la salida con activo = 1 con $result['nro_movimiento'] y $result['id_item']
                 $salida = $this->salida->where('nro_movimiento', $result['nro_movimiento'])->where('id_item', $result['id_item'])->where('activo', 1)->first();
 
                 $cellWidth2 = 27; // Ancho de celda envuelta
-                $cellHeight2 = 3; // Altura de una línea normal de celda
+                $cellHeight2 = 5; // Altura de una línea normal de celda
 
                 // Comprobar si el texto se desborda
                 if ($pdf->GetStringWidth($salida['concepto']) < $cellWidth2) {
@@ -337,7 +343,7 @@ class Reportes extends BaseController
                     // luego contar cuántas líneas son necesarias para que el texto quepa en la celda
 
                     $textLength = strlen($salida['concepto']);    // Longitud total del texto
-                    $errMargin = 9;        // Margen de error del ancho de la celda, por si acaso
+                    $errMargin = 5;        // Margen de error del ancho de la celda, por si acaso
                     $startChar = 0;        // Posición de inicio de caracteres para cada línea
                     $maxChar = 0;            // máximo de caracteres en una línea, para aumentar más tarde
                     $textArray = array();    // para mantener las cadenas de cada línea
@@ -1123,12 +1129,7 @@ class Reportes extends BaseController
         //preguntamos si el tipo de reporte es entrada o salida
         if ($tipo == 'entrada') {
             //obtenemos  todos los datos de las entradas con activo = 1
-            $this->entrada->where('activo', 1)->findAll();
-            //convertimos fecha inicio y fecha fin al timestamp
-            // $fecha_inicioTimestamp = strtotime($fecha_inicio . ' 00:00:00');
-            // $fecha_finTimestamp = strtotime($fecha_fin . ' 23:59:59');
-            // ahora filtramos todas las entradas que tengan la fecha_alta entre los rangos de fecha_inicio y fecha_fin
-            $entradas = $this->entrada->where('fecha_alta >=', $fecha_inicio)->where('fecha_alta <=', $fecha_fin)->findAll();
+            $entradas = $this->entrada->where('activo', 1)->where('fecha >=', $fecha_inicio)->where('fecha <=', $fecha_fin)->findAll();
             //remplazamos '-' por '/' en las fechas
             $fecha_inicio = str_replace('-', '/', $fecha_inicio);
             $fecha_fin = str_replace('-', '/', $fecha_fin);
@@ -1270,23 +1271,13 @@ class Reportes extends BaseController
             $pdf->Cell(30, 8, number_format($total__iva, 2), 1, 0, 'C');
             $pdf->Cell(30, 8, number_format($total_importes, 2), 1, 0, 'C');
 
-
-
-
-
-
             $this->response->setHeader('Content-Type', 'application/pdf');
             //ahora devolvemos el pdf para que lo reciba el ajax
             $pdf->Output("reporteEntradas.pdf", "I");
         } else {
 
             //obtenemos  todos los datos de las entradas con activo = 1
-            $this->salida->where('activo', 1)->findAll();
-            //convertimos fecha inicio y fecha fin al timestamp
-            // $fecha_inicioTimestamp = strtotime($fecha_inicio . ' 00:00:00');
-            // $fecha_finTimestamp = strtotime($fecha_fin . ' 23:59:59');
-            // ahora filtramos todas las entradas que tengan la fecha_alta entre los rangos de fecha_inicio y fecha_fin
-            $salidas = $this->salida->where('fecha_alta >=', $fecha_inicio)->where('fecha_alta <=', $fecha_fin)->findAll();
+            $salidas = $this->salida->where('activo', 1)->where('fecha >=', $fecha_inicio)->where('fecha <=', $fecha_fin)->findAll();
             //remplazamos '-' por '/' en las fechas
             $fecha_inicio = str_replace('-', '/', $fecha_inicio);
             $fecha_fin = str_replace('-', '/', $fecha_fin);
@@ -1445,7 +1436,7 @@ class Reportes extends BaseController
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(195, 5, "Del " . $fecha_inicioMod . " al " . $fecha_finMod, 0, 1, 'C');
 
-            $pdf->SetFont('Arial', 'B', 9);
+            $pdf->SetFont('Arial', 'B', 8);
 
             $cellWidth = 20; // Ancho de celda envuelta
             $cellHeight = 5; // Altura de una línea normal de celda
@@ -1492,7 +1483,7 @@ class Reportes extends BaseController
             $pdf->Cell(22, ($line * $cellHeight), "Fecha Ingreso", 1, 0, 'C');
             $xPos = $pdf->GetX();
             $yPos = $pdf->GetY();
-            $pdf->MultiCell($cellWidth, $cellHeight, "Factura o Recibo", 1);
+            $pdf->MultiCell($cellWidth, $cellHeight, "Factura o Recibo", 1, 'C');
             $pdf->SetXY($xPos + $cellWidth, $yPos);
             $pdf->Cell(74, ($line * $cellHeight), "Proveedor", 1, 0, 'C');
             $pdf->Cell(20, ($line * $cellHeight), "Importe (Bs.)", 1, 0, 'C');
@@ -2000,7 +1991,7 @@ class Reportes extends BaseController
                         $pdf->Cell(20, ($line * $cellHeight), $salida['id_salida'], 1, 0, 'R');
                         $pdf->Cell(20, ($line * $cellHeight), str_replace('-', '/', $salida['fecha']), 1, 0, 'C');
                         $xPos = $pdf->GetX();
-                        $yPos = $pdf->GetY();  
+                        $yPos = $pdf->GetY();
                         $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($item['descripcion']), 1, 'L');
                         $pdf->SetXY($xPos + $cellWidth, $yPos);
                         //buscamos el nombre unidad con el id_unidad de la salida
