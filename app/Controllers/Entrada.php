@@ -92,7 +92,7 @@ class Entrada extends BaseController
 
         //validamos el c_iva
 
-        if($c_iva == ''){
+        if($c_iva == '0'){
             $c_iva = 0;
         }else{
             $c_iva = 1;

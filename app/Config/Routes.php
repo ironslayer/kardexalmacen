@@ -161,10 +161,11 @@ $routes->get('reportes/vistaKardexFisicoValorado', 'Reportes::vistaKardexFisicoV
 $routes->get('reportes/generaPdfKardexFisicoValorado/(:any)/(:any)/(:any)', 'Reportes::generaPdfKardexFisicoValorado/$1/$2/$3');
 
 $routes->get('reportes/vistaResumenKardex', 'Reportes::vistaResumenKardex');
-
+$routes->get('reportes/generaPdfResumenKardex/(:any)/(:any)', 'Reportes::generaPdfResumenKardex/$1/$2');
 
 
 $routes->get('reportes/vistaReporteGeneral', 'Reportes::vistaReporteGeneral');
+$routes->get('reportes/generaPdfGeneral/(:any)/(:any)/(:any)', 'Reportes::generaPdfGeneral/$1/$2/$3');
 
 
 $routes->get('reportes/vistaReporteEntradaSalida', 'Reportes::vistaReporteEntradaSalida');
@@ -172,7 +173,8 @@ $routes->get('reportes/generaPdfEntradasSalidas/(:any)/(:any)/(:any)', 'Reportes
 
 
 
-$routes->get('reportes/vistaReporteAdministracion', 'Reportes::vistaReporteAdministracion');
+$routes->get('reportes/vistaReporteVarios', 'Reportes::vistaReporteVarios');
+$routes->get('reportes/generaPdfReporteVarios/(:any)/(:any)/(:any)', 'Reportes::generaPdfReporteVarios/$1/$2/$3');
 
 
 

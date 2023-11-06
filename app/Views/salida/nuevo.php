@@ -7,7 +7,7 @@
             <!-- enlace para ir entrada_salida -->
             <a href="<?php echo base_url(); ?>entrada_salida" class="btn btn-warning"><i class="fas fa-eraser"></i> Editar</a>
 
-            <form action="<?php echo base_url(); ?>salida/insertar" method="post" autocomplete="" id="miFormulario">
+            <form autocomplete="" id="miFormulario">
 
 
                 <!-- primera fila -->
@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="form-control-plaintext">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Agregar salida</button>
+                    <button type="submit" class="btn btn-success" id="agregarSalidaButton"><i class="fas fa-plus"></i> Agregar salida</button>
                 </div>
             </form>
 
@@ -370,6 +370,65 @@
         });
     </script>
 
+<script>
+        document.getElementById('agregarSalidaButton').addEventListener('click', function() {
+            // Validar el formulario utilizando Bootstrap
+            if ($('#miFormulario')[0].checkValidity()) {
+                // Obtener los datos del formulario en formato JSON
+                var formData = {
+                    id_item: $('#id_item').val(),
+                    cantidad: $('#cantidad').val(),
+                    nota_entrega: $('#nota_entrega').val(),
+                    fecha: $('#fecha').val(),
+                    id_tiposalida: $('#id_tiposalida').val(),
+                    destino: $('#destino').val(),
+                    concepto: $('#concepto').val(),
+                    id_usuario: $('#id_usuario').val(),
+                    id_usuario_dos: $('#id_usuario_dos').val()
+
+                    // Agregar el resto de campos aquí
+                };
+
+                // Enviar los datos mediante AJAX
+                $.ajax({
+                    url: '<?php echo base_url(); ?>salida/insertar',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(respuesta) {
+                        if (respuesta.status) {
+                            // var entrada = '<tr id="' + respuesta.data.id_entrada + '">';
+                            // entrada += '<td>' + respuesta.data.id_entrada + '</td>';
+                            // entrada += '<td>' + respuesta.data.nro_movimiento + '</td>';
+                            // entrada += '<td>' + respuesta.data.fecha + '</td>';
+                            // entrada += '<td>' + respuesta.data.id_item.descripcion + '</td>';
+                            // entrada += '<td>' + respuesta.data.id_unidadmedida.nombre_unidad + '</td>';
+                            // entrada += '<td>' + respuesta.data.cantidad + '</td>';
+                            // entrada += '<td>' + respuesta.data.total_precio + '</td>';
+                            // entrada += '<td>' + respuesta.data.precio_unitario + '</td>';
+                            // entrada += '<td>' + respuesta.data.costo_unitario + '</td>';
+                            // entrada += '<td>' + respuesta.data.importe + '</td>';
+
+                            // entrada += '<td> <a data-id="' + respuesta.data.id_entrada + '" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>';
+
+                            // $('#tabla_db tbody').append(entrada);
+                            // $('#miFormulario')[0].reset();
+                            // $('#total_iva').val(respuesta.data.importeTotalIva);
+                            // $('#total_factura').val(respuesta.data.sumaTotales);
+                            // $('#total_importe').val(respuesta.data.sumaImportes);
+                            location.reload();
+                        } 
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Manejar errores aquí
+                    }
+                });
+            } else {
+                // El formulario no es válido, mostrar errores de validación
+                $('#miFormulario')[0].reportValidity();
+            }
+        });
+    </script>
 
     <!-- codigo para formulario y tabla -->
     <script>
@@ -470,38 +529,39 @@
                 errorPlacement: function(error, element) {
                     error.css("color", "red"); // Cambia el color a rojo
                     error.insertAfter(element);
-                },
-                submitHandler: function(form) {
-                    var form_action = $("#miFormulario").attr("action");
-                    $.ajax({
-                        type: "POST",
-                        url: form_action,
-                        data: $("#miFormulario").serialize(),
-                        dataType: "json",
-                        success: function(respuesta) {
-                            var salida = '<tr id="' + respuesta.data.id_salida + '">';
-                            salida += '<td>' + respuesta.data.id_salida + '</td>';
-                            salida += '<td>' + respuesta.data.nro_movimiento + '</td>';
-                            salida += '<td>' + respuesta.data.fecha + '</td>';
-                            salida += '<td>' + respuesta.data.descripcion + '</td>';
-                            salida += '<td>' + respuesta.data.id_unidadmedida.nombre_unidad + '</td>';
-                            salida += '<td>' + respuesta.data.cantidad + '</td>';
-                            salida += '<td>' + respuesta.data.costo_unitario + '</td>';
-                            salida += '<td>' + respuesta.data.importe + '</td>';
-                            salida += '<td> <a data-id="' + respuesta.data.id_salida + '" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>';
-                            $('#tabla_db tbody').append(salida);
-                            $('#miFormulario')[0].reset();
-                            $('#total_importe').val(respuesta.data.sumaImportes);
-                            location.reload();
-
-                            // $('#modal_agregar').modal('hide');
-
-                        },
-                        error: function(data) {
-                            console.log('Error:', data);
-                        }
-                    });
                 }
+                // ,
+                // submitHandler: function(form) {
+                //     var form_action = $("#miFormulario").attr("action");
+                //     $.ajax({
+                //         type: "POST",
+                //         url: form_action,
+                //         data: $("#miFormulario").serialize(),
+                //         dataType: "json",
+                //         success: function(respuesta) {
+                //             var salida = '<tr id="' + respuesta.data.id_salida + '">';
+                //             salida += '<td>' + respuesta.data.id_salida + '</td>';
+                //             salida += '<td>' + respuesta.data.nro_movimiento + '</td>';
+                //             salida += '<td>' + respuesta.data.fecha + '</td>';
+                //             salida += '<td>' + respuesta.data.descripcion + '</td>';
+                //             salida += '<td>' + respuesta.data.id_unidadmedida.nombre_unidad + '</td>';
+                //             salida += '<td>' + respuesta.data.cantidad + '</td>';
+                //             salida += '<td>' + respuesta.data.costo_unitario + '</td>';
+                //             salida += '<td>' + respuesta.data.importe + '</td>';
+                //             salida += '<td> <a data-id="' + respuesta.data.id_salida + '" class="btn btn-info btnEdit"><i class="far fa-file-alt"></i></a></td>';
+                //             $('#tabla_db tbody').append(salida);
+                //             $('#miFormulario')[0].reset();
+                //             $('#total_importe').val(respuesta.data.sumaImportes);
+                //             location.reload();
+
+                //             // $('#modal_agregar').modal('hide');
+
+                //         },
+                //         error: function(data) {
+                //             console.log('Error:', data);
+                //         }
+                //     });
+                // }
             });
 
             // RESET FORMULARIO AGREGAR

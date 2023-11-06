@@ -38,6 +38,10 @@ class EntradaModel extends Model
             return false;
         }
     }
+
+    
+    
+  
     
 }
 

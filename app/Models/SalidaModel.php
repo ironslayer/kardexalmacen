@@ -38,6 +38,7 @@ class SalidaModel extends Model
             return false;
         }
     }
+
     
 }
 

@@ -127,7 +127,7 @@
                                 <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaResumenKardex">Reporte de Resumen de Kardex</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteGeneral">Reporte General</a>
                                 <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteEntradaSalida">Reportes de Entradas y Salidas</a>
-                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteAdministracion">Reportes de Administración</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>reportes/vistaReporteVarios">Reportes Varios</a>
                             </nav>
                         </div>
 

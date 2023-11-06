@@ -197,7 +197,7 @@
                         descripcion:{
                             required: true,
                             minlength: 8,
-                            maxlength: 200
+                            maxlength: 250
                         }
                         
                     },
@@ -205,7 +205,7 @@
                         descripcion:{
                             required: "Este campo es obligatorio",
                             minlength: "Debe contener al menos 8 caracteres",
-                            maxlength: "Debe contener maximo 200 caracteres"
+                            maxlength: "Debe contener maximo 250 caracteres"
                         }
                     },
                     errorPlacement: function(error, element) {
@@ -285,14 +285,14 @@
                     txt_descripcion: {
                         required: true,
                         minlength: 8,
-                        maxlength: 50
+                        maxlength: 250
                     }
                 },
                 messages: {
                     txt_descripcion: {
                         required: "Este campo es obligatorio",
                         minlength: "Debe contener al menos 8 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
+                        maxlength: "Debe contener maximo 250 caracteres"
                     }
                 },
                 errorPlacement: function(error, element) {
