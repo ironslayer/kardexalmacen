@@ -41,7 +41,7 @@
                     </div>
                     <div class="text-center">
                         <div class="form-control-plaintext">
-                            <a href="<?php echo base_url() ?>reportes/generarExcel" class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar Datos</a>
+                            <a href="#" id="generaExcelLink" class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar Datos</a>
 
 
                             <a id="generaPdfLink" href="#" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Aceptar</a>
@@ -86,3 +86,31 @@
         });
     </script>
 
+<!-- script para generar excel -->
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén el enlace
+            var generaExcelLink = document.getElementById('generaExcelLink');
+
+            // Agrega un evento clic al enlace
+            generaExcelLink.addEventListener('click', function(event) {
+                // Evita que el enlace funcione de inmediato
+                event.preventDefault();
+
+                // Obtén los valores de los campos del formulario
+                var fechaInicio = encodeURIComponent(document.getElementById('fecha_inicio').value);
+                var fechaFin = encodeURIComponent(document.getElementById('fecha_fin').value);
+                var id_item = encodeURIComponent(document.getElementById('id_item').value);
+                //validar que se seleccione un item
+                if (id_item == "") {
+                    alert("Debe seleccionar un item");
+                    return false;
+                }
+                // Construye la URL con los valores
+                var url = "<?php echo base_url() ?>reportes/generaExcelKardexFisicoValorado/" + fechaInicio + "/" + fechaFin + "/" + id_item;
+
+                // Redirige al controlador con los valores como parámetros en la URL
+                window.open(url, '_blank');
+            });
+        });
+    </script>

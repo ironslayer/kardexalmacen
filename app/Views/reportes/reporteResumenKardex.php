@@ -26,7 +26,7 @@
                     </div>
                     <div class="text-center">
                         <div class="form-control-plaintext">
-                            <a href="<?php echo base_url() ?>reportes/generarExcel" class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar Datos</a>
+                            <a href="#" id="generaExcelLink" class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar Datos</a>
 
 
                             <a id="generaPdfLink" href="#" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Aceptar</a>
@@ -59,6 +59,29 @@
                 
                 // Construye la URL con los valores
                 var url = "<?php echo base_url() ?>reportes/generaPdfResumenKardex/" + fechaInicio + "/" + fechaFin;
+
+                // Redirige al controlador con los valores como parámetros en la URL
+                window.open(url, '_blank');
+            });
+        });
+    </script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén el enlace
+            var generaPdfLink = document.getElementById('generaExcelLink');
+
+            // Agrega un evento clic al enlace
+            generaPdfLink.addEventListener('click', function(event) {
+                // Evita que el enlace funcione de inmediato
+                event.preventDefault();
+
+                // Obtén los valores de los campos del formulario
+                var fechaInicio = encodeURIComponent(document.getElementById('fecha_inicio').value);
+                var fechaFin = encodeURIComponent(document.getElementById('fecha_fin').value);
+                
+                // Construye la URL con los valores
+                var url = "<?php echo base_url() ?>reportes/generaExcelResumenKardex/" + fechaInicio + "/" + fechaFin;
 
                 // Redirige al controlador con los valores como parámetros en la URL
                 window.open(url, '_blank');

@@ -77,36 +77,54 @@ class Reportes extends BaseController
         $item = $this->item->where('id_item', $id_item)->first();
         //obtenemos la unidad de medida del item
         $unidad = $this->unidadmedida->where('id_unidadmedida', $item['id_unidadmedida'])->first();
-        //obtenemos todos los datos de la tabla entrada con el id_item y activo = 1
-        $this->entrada->where('id_item', $id_item)->where('activo', 1)->findAll();
-        //filtra las entradas por fecha inicio y fecha fin
-        $entradas = $this->entrada->where('fecha_alta >=', $fecha_inicio)->where('fecha_alta <=', $fecha_fin)->findAll();
+        // //obtenemos todos los datos de la tabla entrada con el id_item y activo = 1
+        // $this->entrada->where('id_item', $id_item)->where('activo', 1)->findAll();
+        // //filtra las entradas por fecha inicio y fecha fin
+        // $entradas = $this->entrada->where('fecha_alta >=', $fecha_inicio)->where('fecha_alta <=', $fecha_fin)->findAll();
 
-        //obtenemos todos los datos de la tabla salida con el id_item y activo = 1
-        $this->salida->where('id_item', $id_item)->where('activo', 1)->findAll();
-        //filtra las salidas por fecha inicio y fecha fin
-        $salidas = $this->salida->where('fecha_alta >=', $fecha_inicio)->where('fecha_alta <=', $fecha_fin)->findAll();
+        // //obtenemos todos los datos de la tabla salida con el id_item y activo = 1
+        // $this->salida->where('id_item', $id_item)->where('activo', 1)->findAll();
+        // //filtra las salidas por fecha inicio y fecha fin
+        // $salidas = $this->salida->where('fecha_alta >=', $fecha_inicio)->where('fecha_alta <=', $fecha_fin)->findAll();
 
-        //remplazamos '-' por '/' en las fechas
-        $fecha_inicio = str_replace('-', '/', $fecha_inicio);
-        $fecha_fin = str_replace('-', '/', $fecha_fin);
 
+
+        
+        //convertimos en string las fechas
+        // $fecha_inicio = "'" . $fecha_inicio . "'";
+        // $fecha_fin = "'" . $fecha_fin . "'";
 
         // Cargar la base de datos para hacer consultas
         $db = \Config\Database::connect();
 
+        //convertimos en string las fechas y guardamos en variables
+        $fecha_inicioMod = "'" . $fecha_inicio . "'";
+        $fecha_finMod = "'" . $fecha_fin . "'";
+
         // Crear la consulta
-        $query = $db->query('SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
+        // $query = $db->query('SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
+        // FROM entrada
+        // WHERE id_item = ' . $id_item . ' and activo = 1
+        // UNION ALL
+        // SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
+        // FROM salida
+        // WHERE id_item = ' . $id_item . ' and activo = 1
+        // ORDER BY nro_movimiento ASC;');
+        $query = $db->query("SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe, fecha_alta
         FROM entrada
-        WHERE id_item = ' . $id_item . ' and activo = 1
+        WHERE id_item = '.$id_item.' AND activo = 1 AND fecha_alta BETWEEN $fecha_inicioMod AND $fecha_finMod
         UNION ALL
-        SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe
+        SELECT nro_movimiento, fecha, id_item, e_s, cantidad, costo_unitario, importe, fecha_alta
         FROM salida
-        WHERE id_item = ' . $id_item . ' and activo = 1
-        ORDER BY nro_movimiento ASC;');
+        WHERE id_item = '.$id_item.' AND activo = 1 AND fecha_alta BETWEEN $fecha_inicioMod AND $fecha_finMod
+        ORDER BY nro_movimiento ASC;");
 
         // Obtener los resultados
         $results = $query->getResultArray();
+
+        //remplazamos '-' por '/' en las fechas
+        $fecha_inicio = str_replace('-', '/', $fecha_inicio);
+        $fecha_fin = str_replace('-', '/', $fecha_fin);
         //--------------------------------------------------------------------
         // realizamos el pdf
 
@@ -291,9 +309,9 @@ class Reportes extends BaseController
                 $xPos = $pdf->GetX();
                 $yPos = $pdf->GetY();
                 // $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($entrada['concepto']), 1, 'L');
-                
+
                 $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($entrada['concepto']), 0, 'C');
-               
+
 
 
                 // devuelve la posición para la siguiente celda al lado de la multicelda
@@ -320,11 +338,9 @@ class Reportes extends BaseController
                 $pdf->Cell(20, ($line * $cellHeight), "", 1, 0, 'C');
                 $pdf->Cell(20, ($line * $cellHeight), "", 1, 0, 'C');
                 $pdf->Cell(20, ($line * $cellHeight), number_format($saldoCantidad, 2), 1, 0, 'R');
-                $pdf->Cell(20, ($line * $cellHeight), number_format($saldoValor, 3), 1,1, 'R');
+                $pdf->Cell(20, ($line * $cellHeight), number_format($saldoValor, 3), 1, 1, 'R');
                 //añadimos un linea  de 196mm de ancho por 0.1mm de alto
                 $pdf->Line(10, $pdf->GetY(), 206, $pdf->GetY());
-              
-                
             } else {
 
                 //buscamos la salida con activo = 1 con $result['nro_movimiento'] y $result['id_item']
@@ -574,7 +590,7 @@ class Reportes extends BaseController
             // $pdf->Cell(16, 8, $item['id_item'], 1, 0, 'C');
             $xPos = $pdf->GetX();
             $yPos = $pdf->GetY();
-            $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($item['descripcion']), 1);
+            $pdf->MultiCell($cellWidth, $cellHeight, utf8_decode($item['descripcion']), 1, 'L');
             $pdf->SetXY($xPos + $cellWidth, $yPos);
             //buscamos el nombre_unidad con el id_unidadmedida del item
             $unidad = $this->unidadmedida->where('id_unidadmedida', $item['id_unidadmedida'])->first();
@@ -728,12 +744,12 @@ class Reportes extends BaseController
 
 
 
-            $pdf->SetTitle("Reporte General de Categoria");
+            $pdf->SetTitle("Reporte de Movimiento por Categoria");
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(15, 5, "MASTER PIZZA", 0, 1, 'L');
             $pdf->Cell(15, 5, "LA PAZ - BOLIVIA", 0, 1, 'L');
             $pdf->SetFont('Arial', '', 12);
-            $pdf->Cell(195, 5, utf8_decode("RESUMEN DEL KARDEX FÍSICO VALORADO"), 0, 1, 'C');
+            $pdf->Cell(195, 5, utf8_decode("REPORTE DE MOVIMIENTOS POR CATEGORÍA"), 0, 1, 'C');
             $pdf->SetFont('Arial', '', 10);
             $pdf->Cell(196, 5, "MOVIMIENTO DE " . $fecha_inicioMod . " AL " . $fecha_finMod, 0, 1, 'C');
             $pdf->Cell(196, 5, "(Expresado en Bolivianos)", 0, 1, 'C');
@@ -847,7 +863,7 @@ class Reportes extends BaseController
             $this->response->setHeader('Content-Type', 'application/pdf');
             //ahora devolvemos el pdf para que lo reciba el ajax
             $pdf->Output("reporteGeneralCategoria.pdf", "I");
-        } else { //==================si es por categoria==================
+        } else { //==================si es por item==================
 
             //reemplazamos '-' por '/' en las fechas
             $fecha_inicioMod = str_replace('-', '/', $fecha_inicio);
@@ -912,7 +928,7 @@ class Reportes extends BaseController
             $pdf->Cell(20, 8, "Cantidad", 1, 0, 'C');
             $pdf->Cell(20, 8, "Valor", 1, 1, 'C');
 
-            $pdf->Cell(196, 8, utf8_decode("ALMACÉN CENTRAL"), 0, 1, 'L');
+            // $pdf->Cell(196, 8, utf8_decode("ALMACÉN CENTRAL"), 0, 1, 'L');
             //obtenemos todos los datos de la tabla producto con activo = 1
             $productos = $this->producto->where('activo', 1)->findAll();
 

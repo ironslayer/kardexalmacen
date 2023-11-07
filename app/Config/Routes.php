@@ -177,7 +177,16 @@ $routes->get('reportes/vistaReporteVarios', 'Reportes::vistaReporteVarios');
 $routes->get('reportes/generaPdfReporteVarios/(:any)/(:any)/(:any)', 'Reportes::generaPdfReporteVarios/$1/$2/$3');
 
 //rutas para reportes en Excel
+
+$routes->get('reportes/generaExcelKardexFisicoValorado/(:any)/(:any)/(:any)', 'ReporteExcel::generaExcelKardexFisicoValorado/$1/$2/$3');
+
+$routes->get('reportes/generaExcelResumenKardex/(:any)/(:any)', 'ReporteExcel::generaExcelResumenKardex/$1/$2');
+
+$routes->get('reportes/generaExcelGeneral/(:any)/(:any)/(:any)', 'ReporteExcel::generaExcelGeneral/$1/$2/$3');
+
 $routes->get('reportes/generaExcelEntradasSalidas/(:any)/(:any)/(:any)', 'ReporteExcel::generaExcelEntradasSalidas/$1/$2/$3');
+
+$routes->get('reportes/generaExcelReporteVarios/(:any)/(:any)/(:any)', 'ReporteExcel::generaExcelReporteVarios/$1/$2/$3');
 
 
 // RUTAS PARA EL QUINTO SUB MENÚ
