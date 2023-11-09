@@ -212,7 +212,7 @@ class Usuario extends BaseController
         if ($this->request->is('post') && $this->validate($this->reglaslogin)) {
             $usuario = $this->request->getPost('usuario');
             $password = $this->request->getPost('password');
-            $datosUsuario = $this->usuario->where('usuario', $usuario)->first();
+            $datosUsuario = $this->usuario->where('usuario', $usuario)->where('activo', 1)->first();
             
             if($datosUsuario != null){
                 if(password_verify($password.'', $datosUsuario['password'])){
@@ -226,7 +226,7 @@ class Usuario extends BaseController
                     ];
                     $session = session();
                     $session->set($datosSesion);
-                    return redirect()->to(base_url().'contenido');
+                    return redirect()->to(base_url().'graficos');
                 }else{
                     $data['error'] = "Las contraseñas no coinciden.";
                     echo view('login', $data);

@@ -38,6 +38,11 @@ class ProductoModel extends Model
             return false;
         }
     }
+
+    public function totalProductos(){
+        return $this->where('activo', 1)->countAllResults(); //num_rows 
+
+    }
 }
 
 ?>

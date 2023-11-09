@@ -20,6 +20,11 @@
     <script src="<?php echo base_url(); ?>js/jquery.dataTables.min.js"></script>
     <link href="<?php echo base_url(); ?>css/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>js/jquery.validate.js"></script>
+
+    <script src="<?php echo base_url(); ?>js/highcharts.js"></script>
+    <script src="<?php echo base_url(); ?>js/exporting.js"></script>
+
+
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/misestilos.css">
 
     
@@ -34,7 +39,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="<?php echo base_url(); ?>contenido">Kardex de Almacén</a>
+        <a class="navbar-brand ps-3" href="<?php echo base_url(); ?>graficos">Kardex de Almacén</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->

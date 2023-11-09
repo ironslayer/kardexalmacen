@@ -479,7 +479,7 @@
                     txt_concepto_uno: {
                         required: true,
                         minlength: 8,
-                        maxlength: 50
+                        maxlength: 250
                     },
                     txt_id_usuario_uno: {
                         required: true
@@ -521,7 +521,7 @@
                     txt_concepto_uno: {
                         required: "Este campo es obligatorio",
                         minlength: "Debe contener al menos 8 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
+                        maxlength: "Debe contener maximo 250 caracteres"
                     },
                     txt_id_usuario_uno: {
                         required: "Este campo es obligatorio"
@@ -595,7 +595,7 @@
                     txt_concepto_dos: {
                         required: true,
                         minlength: 8,
-                        maxlength: 50
+                        maxlength: 250
                     },
                     txt_id_usuario_dos: {
                         required: true
@@ -627,7 +627,7 @@
                     txt_concepto_dos: {
                         required: "Este campo es obligatorio",
                         minlength: "Debe contener al menos 8 caracteres",
-                        maxlength: "Debe contener maximo 50 caracteres"
+                        maxlength: "Debe contener maximo 250 caracteres"
                     },
                     txt_id_usuario_dos: {
                         required: "Este campo es obligatorio"

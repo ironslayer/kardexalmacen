@@ -38,6 +38,11 @@ class ItemModel extends Model
             return false;
         }
     }
+
+    public function totalItems(){
+        return $this->where('activo', 1)->countAllResults(); //num_rows 
+
+    }
 }
 
 ?>

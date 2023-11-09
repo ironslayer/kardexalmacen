@@ -39,7 +39,10 @@ class EntradaModel extends Model
         }
     }
 
-    
+    public function totalEntradas(){
+        return $this->where('activo', 1)->countAllResults(); //num_rows 
+
+    }
     
   
     

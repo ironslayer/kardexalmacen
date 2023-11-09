@@ -39,6 +39,11 @@ class SalidaModel extends Model
         }
     }
 
+    public function totalSalidas(){
+        return $this->where('activo', 1)->countAllResults(); //num_rows 
+
+    }
+
     
 }
 

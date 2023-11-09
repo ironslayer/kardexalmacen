@@ -20,7 +20,7 @@ use CodeIgniter\Router\RouteCollection;
 
  $routes->post('usuario/valida', 'Usuario::valida');
 
- $routes->get('contenido', 'Home::index');
+ $routes->get('graficos', 'Inicio::index');
 
 
  // RUTAS DEL MENÚ PARTE SUPERIOR DERECHA

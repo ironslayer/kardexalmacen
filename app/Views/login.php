@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-    $user_session = session();
+$user_session = session();
 
 
 ?>
@@ -15,14 +15,13 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Kardex de Almacen</title>
-    <!-- <link rel="icon" href="https://pos.codigosdeprogramacion.com/images/favicon.png" sizes="32x32"> -->
     <link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>css/style.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>css/styles.css" rel="stylesheet" />
     <script src="<?php echo base_url(); ?>js/all.js"></script>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/misestilos.css">
 
- 
+
 
 </head>
 
@@ -31,19 +30,28 @@
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
-                
-                    
-                
+
+
+
                 <div class="container">
-                    
+
                     <div class="row justify-content-center">
-                        
+
                         <div class="col-lg-5">
-                            <br/><br/><br/><br/>
-                                <div class="col-lg-5">
-                                    <img src="<?php echo base_url(); ?>assets/img/nombre_master_pizza.png" alt="nombre_master_pizza">
+                            <br /><br /><br /><br />
+                            <div class="row">
+                                <div class="col-0">
+                                    <!-- Contenedor vacío en la columna izquierda -->
                                 </div>
-                            
+                                <div class="col-12">
+                                    <!-- Colocamos la imagen del nombre de la empresa con un tamaño personalizado -->
+                                    <img src="<?php echo base_url(); ?>assets/img/nombre_master_pizza.png" alt="nombre_master_pizza" class="img-fluid" style="max-width: 100%; height: auto;">
+                                </div>
+                                <div class="col-0">
+                                    <!-- Contenedor vacío en la columna derecha -->
+                                </div>
+                            </div>
+
                             <div class="card shadow-lg border-0 rounded-lg ">
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4">
@@ -85,7 +93,7 @@
                 </div>
             </main>
         </div>
-        
+
     </div>
     <script src="<?php echo base_url(); ?>js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url(); ?>js/scripts.js"></script>
